@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Optimizely.Graph.Source.Sdk.ExpressionHelper;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Optimizely.Graph.Source.Sdk.Expression;
 
 namespace Optimizely.Graph.Source.Sdk.Model
 {
@@ -22,14 +17,67 @@ namespace Optimizely.Graph.Source.Sdk.Model
             }
 
             var fieldName = ExpressionExtensions.GetFieldPath(fieldSelector);
-            contentTypeFieldConfiguration.Fields.Add(fieldName, indexingType);
+            var fieldType = ExpressionExtensions.GetReturnType(fieldSelector);
+            var mappedTypeName = GetTypeName(fieldType);
+
+            contentTypeFieldConfiguration.Fields.Add(new FieldInfo {
+                Name = fieldName,
+                IndexingType = indexingType,
+                MappedType = mappedTypeName 
+            });
 
             return this;
         }
 
-        public IDictionary<string, IndexingType> GetFields()
+        public IEnumerable<FieldInfo> GetFields()
         {
             return _contentTypeFieldsConfigurations[typeof(T).Name].Fields;
+        }
+
+        private string GetTypeName(Type fieldType)
+        {
+            if (typeof(bool).IsAssignableFrom(fieldType))
+            {
+                return "Boolean";
+            }
+            else if (typeof(IEnumerable<bool>).IsAssignableFrom(fieldType))
+            {
+                return "[Boolean]";
+            }
+            else if (typeof(DateTime).IsAssignableFrom(fieldType))
+            {
+                return "DateTime";
+            }
+            else if (typeof(IEnumerable<DateTime>).IsAssignableFrom(fieldType))
+            {
+                return "[DateTime]";
+            }
+            else if (typeof(int).IsAssignableFrom(fieldType))
+            {
+                return "Int";
+            }
+            else if (typeof(IEnumerable<int>).IsAssignableFrom(fieldType))
+            {
+                return "[Int]";
+            }
+            else if (typeof(double).IsAssignableFrom(fieldType))
+            {
+                return "Float";
+            }
+            else if (typeof(IEnumerable<double>).IsAssignableFrom(fieldType))
+            {
+                return "[Float]";
+            }
+            else if (typeof(string).IsAssignableFrom(fieldType))
+            {
+                return "String";
+            }
+            else if (typeof(IEnumerable<string>).IsAssignableFrom(fieldType))
+            {
+                return "[String]";
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

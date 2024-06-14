@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.Expression
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
 {
     /// <summary>
     /// A class used to search for <see cref="Expression"/> instances. 

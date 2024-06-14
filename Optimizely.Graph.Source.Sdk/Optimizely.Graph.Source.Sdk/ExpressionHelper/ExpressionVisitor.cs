@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.Expression
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
 {
     public abstract class ExpressionVisitor
     {
@@ -100,7 +100,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual ElementInit VisitElementInitializer(ElementInit initializer)
         {
-            ReadOnlyCollection<Expression> arguments = this.VisitExpressionList(initializer.Arguments);
+            ReadOnlyCollection<Expression> arguments = VisitExpressionList(initializer.Arguments);
             if (arguments != initializer.Arguments)
             {
                 return Expression.ElementInit(initializer.AddMethod, arguments);
@@ -110,7 +110,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitUnary(UnaryExpression u)
         {
-            Expression operand = this.Visit(u.Operand);
+            Expression operand = Visit(u.Operand);
             if (operand != u.Operand)
             {
                 return Expression.MakeUnary(u.NodeType, operand, u.Type, u.Method);
@@ -120,9 +120,9 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitBinary(BinaryExpression b)
         {
-            Expression left = this.Visit(b.Left);
-            Expression right = this.Visit(b.Right);
-            Expression conversion = this.Visit(b.Conversion);
+            Expression left = Visit(b.Left);
+            Expression right = Visit(b.Right);
+            Expression conversion = Visit(b.Conversion);
             if (left != b.Left || right != b.Right || conversion != b.Conversion)
             {
                 if (b.NodeType == ExpressionType.Coalesce && b.Conversion != null)
@@ -135,7 +135,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitTypeIs(TypeBinaryExpression b)
         {
-            Expression expr = this.Visit(b.Expression);
+            Expression expr = Visit(b.Expression);
             if (expr != b.Expression)
             {
                 return Expression.TypeIs(expr, b.TypeOperand);
@@ -150,9 +150,9 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitConditional(ConditionalExpression c)
         {
-            Expression test = this.Visit(c.Test);
-            Expression ifTrue = this.Visit(c.IfTrue);
-            Expression ifFalse = this.Visit(c.IfFalse);
+            Expression test = Visit(c.Test);
+            Expression ifTrue = Visit(c.IfTrue);
+            Expression ifFalse = Visit(c.IfFalse);
             if (test != c.Test || ifTrue != c.IfTrue || ifFalse != c.IfFalse)
             {
                 return Expression.Condition(test, ifTrue, ifFalse);
@@ -167,7 +167,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitMemberAccess(MemberExpression m)
         {
-            Expression exp = this.Visit(m.Expression);
+            Expression exp = Visit(m.Expression);
             if (exp != m.Expression)
             {
                 return Expression.MakeMemberAccess(exp, m.Member);
@@ -177,8 +177,8 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitMethodCall(MethodCallExpression m)
         {
-            Expression obj = this.Visit(m.Object);
-            IEnumerable<Expression> args = this.VisitExpressionList(m.Arguments);
+            Expression obj = Visit(m.Object);
+            IEnumerable<Expression> args = VisitExpressionList(m.Arguments);
             if (obj != m.Object || args != m.Arguments)
             {
                 return Expression.Call(obj, m.Method, args);
@@ -215,7 +215,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual MemberAssignment VisitMemberAssignment(MemberAssignment assignment)
         {
-            Expression e = this.Visit(assignment.Expression);
+            Expression e = Visit(assignment.Expression);
             if (e != assignment.Expression)
             {
                 //if (e is ConstantExpression)
@@ -317,7 +317,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitLambda(LambdaExpression lambda)
         {
-            Expression body = this.Visit(lambda.Body);
+            Expression body = Visit(lambda.Body);
             if (body != lambda.Body)
             {
                 return Expression.Lambda(lambda.Type, body, lambda.Parameters);
@@ -327,7 +327,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual NewExpression VisitNew(NewExpression nex)
         {
-            IEnumerable<Expression> args = this.VisitExpressionList(nex.Arguments);
+            IEnumerable<Expression> args = VisitExpressionList(nex.Arguments);
             if (args != nex.Arguments)
             {
                 if (nex.Members != null)
@@ -362,7 +362,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitNewArray(NewArrayExpression na)
         {
-            IEnumerable<Expression> exprs = this.VisitExpressionList(na.Expressions);
+            IEnumerable<Expression> exprs = VisitExpressionList(na.Expressions);
             if (exprs != na.Expressions)
             {
                 if (na.NodeType == ExpressionType.NewArrayInit)
@@ -379,8 +379,8 @@ namespace Optimizely.Graph.Source.Sdk.Expression
 
         protected virtual Expression VisitInvocation(InvocationExpression iv)
         {
-            IEnumerable<Expression> args = this.VisitExpressionList(iv.Arguments);
-            Expression expr = this.Visit(iv.Expression);
+            IEnumerable<Expression> args = VisitExpressionList(iv.Arguments);
+            Expression expr = Visit(iv.Expression);
             if (args != iv.Arguments || expr != iv.Expression)
             {
                 return Expression.Invoke(expr, args);

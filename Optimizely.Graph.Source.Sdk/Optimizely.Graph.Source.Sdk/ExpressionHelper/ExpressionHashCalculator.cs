@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.Expression
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
 {
     public class ExpressionHashCalculator
     {

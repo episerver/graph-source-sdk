@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.Expression
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
 {
     public class FieldPathVisitor : ExpressionVisitor
     {
@@ -40,7 +40,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
             {
                 PrependMemberName(node.Member.Name);
             }
-            Expression exp = this.Visit(node.Expression);
+            Expression exp = Visit(node.Expression);
             if (exp != node.Expression)
             {
                 var methodCall = node.Expression as MethodCallExpression;
@@ -62,7 +62,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
             }
 
             var returnValue = node;
-            Expression obj = this.Visit(node.Object);
+            Expression obj = Visit(node.Object);
 
             if (handlingGenericDictionaryItemGetter)
             {
@@ -70,7 +70,7 @@ namespace Optimizely.Graph.Source.Sdk.Expression
                 //while visiting the key for the dictionary as we've already taken care of that.
                 inGenericDictionaryKeyExpression = true;
             }
-            IEnumerable<Expression> args = this.VisitExpressionList(node.Arguments);
+            IEnumerable<Expression> args = VisitExpressionList(node.Arguments);
             if (obj != node.Object || args != node.Arguments)
             {
 

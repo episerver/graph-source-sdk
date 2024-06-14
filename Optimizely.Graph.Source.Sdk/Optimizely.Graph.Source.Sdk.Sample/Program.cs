@@ -3,7 +3,7 @@
 using Optimizely.Graph.Source.Sdk.Repository;
 using Optimizely.Graph.Source.Sdk.Sample;
 
-var repository = new DefaultGraphSourceRepository();
+var repository = new DefaultGraphSourceRepository("https://cg.optimizely.com", "", "");
 
 repository.Confiture<ExampleData>()
     .Field(x => x.FirstName, Optimizely.Graph.Source.Sdk.Model.IndexingType.Searchable)

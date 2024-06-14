@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.Expression
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
 {
     /// <summary>
     /// A class that is capable of doing a find and replace in an <see cref="Expression"/> tree.
