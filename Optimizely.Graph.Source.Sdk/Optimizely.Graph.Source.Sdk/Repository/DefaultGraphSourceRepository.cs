@@ -30,6 +30,8 @@ namespace Optimizely.Graph.Source.Sdk.Repository
             var fields = typeConfiguration.GetFields();
 
             // TODO: Generate content json
+
+            // POST /api/content/v2/data
         }
 
         public Task DeleteAsync(string id)
@@ -42,8 +44,10 @@ namespace Optimizely.Graph.Source.Sdk.Repository
             // Check for configuration
             var typeConfiguration = new SourceConfigurationModel<T>();
             var fields = typeConfiguration.GetFields();
-        
+
             // TODO: Generate types json
+
+            // PUT /api/content/v3/types
         }
     }
 }

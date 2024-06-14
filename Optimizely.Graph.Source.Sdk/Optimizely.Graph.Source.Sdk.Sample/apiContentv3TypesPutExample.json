@@ -1,0 +1,36 @@
+// Example for PUT /api/content/v3/types
+{
+  "label": "Weather Forecast",
+  "languages": [
+    "en"
+  ],
+  "links": {},
+  "contentTypes": {
+    "Weather": {
+      "contentType": [],
+      "properties": {
+        "Location": {
+          "type": "Location"
+        },
+        "Description": {
+          "type": "String"
+        },
+        "Temperature": {
+          "type": "Int"
+        }
+      }
+    }
+  },
+  "propertyTypes": {
+    "Location": {
+      "properties": {
+        "Latitude": {
+          "type": "Float"
+        },
+        "Longitude": {
+          "type": "Float"
+        }
+      }
+    }
+  }
+}
