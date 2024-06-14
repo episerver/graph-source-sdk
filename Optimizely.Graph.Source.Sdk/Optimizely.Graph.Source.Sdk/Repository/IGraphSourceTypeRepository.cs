@@ -10,7 +10,7 @@ namespace Optimizely.Graph.Source.Sdk.Repository
 {
     public interface IGraphSourceTypeRepository
     {
-        void Confiture<T>(Action<IDictionary<Expression<Func<T, object>>, IndexingType>> mappings);
+        SourceConfigurationModel<T> Confiture<T>();
 
         Task SaveTypeAsync<T>();
     }

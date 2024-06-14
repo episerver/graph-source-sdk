@@ -10,25 +10,29 @@ namespace Optimizely.Graph.Source.Sdk.Repository
 {
     public class DefaultGraphSourceRepository : IGraphSourceContentRepository, IGraphSourceTypeRepository
     {
-        public void Confiture<T>(Action<IDictionary<Expression<Func<T, object>>, IndexingType>> mappings)
+        public SourceConfigurationModel<T> Confiture<T>()
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task DeleteAsync(string id)
-        {
-            throw new NotImplementedException();
+            return new SourceConfigurationModel<T>();
         }
 
         public async Task SaveAsync<T>(Func<T, string> generateId, T data)
         {
             var id = generateId(data);
 
+            var typeConfiguration = new SourceConfigurationModel<T>();
+            var fields = typeConfiguration.GetFields();
+        }
+
+        public Task DeleteAsync(string id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task SaveTypeAsync<T>()
         {
-            throw new NotImplementedException();
+            // Check for configuration
+            var typeConfiguration = new SourceConfigurationModel<T>();
+            var fields = typeConfiguration.GetFields();
         }
     }
 }

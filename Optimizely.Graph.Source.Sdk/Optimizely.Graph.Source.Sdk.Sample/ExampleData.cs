@@ -13,5 +13,10 @@ namespace Optimizely.Graph.Source.Sdk.Sample
         public string LastName { get; set; }
 
         public int Age { get; set; }
+
+        public override string ToString()
+        {
+            return $"{FirstName}_{LastName}_{Age}";
+        }
     }
 }

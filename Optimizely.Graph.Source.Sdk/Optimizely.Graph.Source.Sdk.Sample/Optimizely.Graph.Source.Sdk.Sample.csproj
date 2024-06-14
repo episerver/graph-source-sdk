@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Optimizely.Graph.Source.Sdk.csproj" />
     <ProjectReference Include="..\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.csproj" />
   </ItemGroup>
 
