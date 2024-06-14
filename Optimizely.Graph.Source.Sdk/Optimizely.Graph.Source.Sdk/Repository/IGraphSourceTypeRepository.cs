@@ -4,7 +4,7 @@ namespace Optimizely.Graph.Source.Sdk.Repository
 {
     public interface IGraphSourceTypeRepository : IGraphSourceRepository
     {
-        SourceConfigurationModel<T> Confiture<T>();
+        SourceConfigurationModel<T> Configure<T>();
 
         Task SaveTypeAsync<T>();
     }

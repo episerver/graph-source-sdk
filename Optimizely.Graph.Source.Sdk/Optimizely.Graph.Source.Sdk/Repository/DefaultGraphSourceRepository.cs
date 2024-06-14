@@ -17,7 +17,7 @@ namespace Optimizely.Graph.Source.Sdk.Repository
             Secret = secret;
         }
 
-        public SourceConfigurationModel<T> Confiture<T>()
+        public SourceConfigurationModel<T> Configure<T>()
         {
             return new SourceConfigurationModel<T>();
         }
