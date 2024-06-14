@@ -1,14 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Optimizely.Graph.Source.Sdk.Model;
 using Optimizely.Graph.Source.Sdk.Repository;
 using Optimizely.Graph.Source.Sdk.Sample;
 
 var repository = new DefaultGraphSourceRepository("https://cg.optimizely.com", "", "");
 
 repository.Configure<ExampleData>()
-    .Field(x => x.FirstName, Optimizely.Graph.Source.Sdk.Model.IndexingType.Searchable)
-    .Field(x => x.LastName, Optimizely.Graph.Source.Sdk.Model.IndexingType.Searchable)
-    .Field(x => x.Age, Optimizely.Graph.Source.Sdk.Model.IndexingType.Querable);
+    .Field(x => x.FirstName, IndexingType.Searchable)
+    .Field(x => x.LastName, IndexingType.Searchable)
+    .Field(x => x.Age, IndexingType.Querable);
 
 await repository.SaveTypeAsync<ExampleData>();
 
