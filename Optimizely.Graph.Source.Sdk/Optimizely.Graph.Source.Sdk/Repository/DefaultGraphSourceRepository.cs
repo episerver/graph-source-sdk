@@ -1,4 +1,6 @@
 ﻿using Optimizely.Graph.Source.Sdk.Model;
+using Optimizely.Graph.Source.Sdk.JsonConverter;
+using System.Text.Json;
 
 namespace Optimizely.Graph.Source.Sdk.Repository
 {
@@ -18,11 +20,13 @@ namespace Optimizely.Graph.Source.Sdk.Repository
         }
 
         public SourceConfigurationModel<T> Configure<T>()
+            where T : class, new()
         {
             return new SourceConfigurationModel<T>();
         }
 
         public async Task SaveAsync<T>(Func<T, string> generateId, T data)
+            where T : class, new()
         {
             var id = generateId(data);
 
@@ -40,12 +44,19 @@ namespace Optimizely.Graph.Source.Sdk.Repository
         }
 
         public async Task SaveTypeAsync<T>()
+            where T : class, new()
         {
-            // Check for configuration
-            var typeConfiguration = new SourceConfigurationModel<T>();
-            var fields = typeConfiguration.GetFields();
+            var serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters =
+                {
+                    new ContentTypeModelConverter()
+                }
+            };
 
-            // TODO: Generate types json
+            var typeInstance = new T();
+            var jsonString = JsonSerializer.Serialize(typeInstance, serializeOptions);
 
             // PUT /api/content/v3/types
         }

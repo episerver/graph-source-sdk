@@ -3,35 +3,42 @@ using System.Linq.Expressions;
 
 namespace Optimizely.Graph.Source.Sdk.Model
 {
-    public class SourceConfigurationModel<T>
+    public class SourceConfigurationModel
     {
         private static IDictionary<string, ContentTypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, ContentTypeFieldConfiguration>();
 
-        public SourceConfigurationModel<T> Field(Expression<Func<T, object>> fieldSelector, IndexingType indexingType)
+        public SourceConfigurationModel Field(Type type, Expression<Func<object, object>> fieldSelector, IndexingType indexingType)
+        {
+            AddField(type, fieldSelector, indexingType);
+            return this;
+        }
+
+        protected SourceConfigurationModel AddField (Type type, Expression fieldSelector, IndexingType indexingType)
         {
             ContentTypeFieldConfiguration contentTypeFieldConfiguration;
-            if(!_contentTypeFieldsConfigurations.TryGetValue(typeof(T).Name, out contentTypeFieldConfiguration))
+            if (!_contentTypeFieldsConfigurations.TryGetValue(type.Name, out contentTypeFieldConfiguration))
             {
-                contentTypeFieldConfiguration = new ContentTypeFieldConfiguration(typeof(T));
-                _contentTypeFieldsConfigurations.Add(typeof(T).Name, contentTypeFieldConfiguration);
+                contentTypeFieldConfiguration = new ContentTypeFieldConfiguration(type);
+                _contentTypeFieldsConfigurations.Add(type.Name, contentTypeFieldConfiguration);
             }
 
             var fieldName = ExpressionExtensions.GetFieldPath(fieldSelector);
             var fieldType = ExpressionExtensions.GetReturnType(fieldSelector);
             var mappedTypeName = GetTypeName(fieldType);
 
-            contentTypeFieldConfiguration.Fields.Add(new FieldInfo {
+            contentTypeFieldConfiguration.Fields.Add(new FieldInfo
+            {
                 Name = fieldName,
                 IndexingType = indexingType,
-                MappedType = mappedTypeName 
+                MappedType = mappedTypeName
             });
 
             return this;
         }
 
-        public IEnumerable<FieldInfo> GetFields()
+        public IEnumerable<FieldInfo> GetFields(Type type)
         {
-            return _contentTypeFieldsConfigurations[typeof(T).Name].Fields;
+            return _contentTypeFieldsConfigurations[type.Name].Fields;
         }
 
         private string GetTypeName(Type fieldType)
@@ -78,6 +85,23 @@ namespace Optimizely.Graph.Source.Sdk.Model
             }
 
             throw new NotImplementedException();
+        }
+    }
+
+    public class SourceConfigurationModel<T> : SourceConfigurationModel
+        where T : class, new()
+    {
+        private static IDictionary<string, ContentTypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, ContentTypeFieldConfiguration>();
+
+        public SourceConfigurationModel<T> Field(Expression<Func<T, object>> fieldSelector, IndexingType indexingType)
+        {
+            AddField(typeof(T), fieldSelector, indexingType);
+            return this;
+        }
+
+        public IEnumerable<FieldInfo> GetFields()
+        {
+            return GetFields(typeof(T));
         }
     }
 }
