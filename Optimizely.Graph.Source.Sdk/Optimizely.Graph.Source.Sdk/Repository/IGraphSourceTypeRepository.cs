@@ -6,6 +6,6 @@ namespace Optimizely.Graph.Source.Sdk.Repository
     {
         SourceConfigurationModel<T> Configure<T>() where T : class, new();
 
-        Task SaveTypeAsync<T>() where T : class, new();
+        Task<string> SaveTypeAsync<T>() where T : class, new();
     }
 }

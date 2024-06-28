@@ -32,6 +32,10 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverter
             writer.WriteBoolean("useTypedFieldNames", true);
             writer.WriteString("label", contentTypeName);
 
+            writer.WriteStartArray("languages");
+            writer.WriteStringValue("en");
+            writer.WriteEndArray();
+
             writer.WriteStartObject("contentTypes");
             writer.WriteStartObject(contentTypeName);
 

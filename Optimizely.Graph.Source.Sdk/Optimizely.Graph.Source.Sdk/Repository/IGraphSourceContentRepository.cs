@@ -2,8 +2,8 @@
 {
     public interface IGraphSourceContentRepository : IGraphSourceRepository
     {
-        Task SaveAsync<T>(Func<T, string> generateId, T data) where T : class, new();
+        Task<string> SaveAsync<T>(Func<T, string> generateId, T data) where T : class, new();
 
-        Task DeleteAsync(string id);
+        Task<string> DeleteAsync(string id);
     }
 }
