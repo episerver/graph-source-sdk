@@ -4,14 +4,15 @@ using Optimizely.Graph.Source.Sdk.Model;
 using Optimizely.Graph.Source.Sdk.Repository;
 using Optimizely.Graph.Source.Sdk.Sample;
 
-var repository = new DefaultGraphSourceRepository("https://cg.optimizely.com", "ed", "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4", "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO"); // tRslkha3vNV44UQcFUDtgTVxFUtfkvIsqHcfHR1kARKvjQre
+var repository = new DefaultGraphSourceRepository("https://cg.optimizely.com", "", "", "");
 
+repository.AddLanguage("en");
 repository.Configure<ExampleData>()
     .Field(x => x.FirstName, IndexingType.Searchable)
     .Field(x => x.LastName, IndexingType.Searchable)
     .Field(x => x.Age, IndexingType.Querable);
 
-await repository.SaveTypeAsync<ExampleData>();
+await repository.SaveTypesAsync();
 
 var exampleDataInstance = new ExampleData
 {
@@ -19,6 +20,6 @@ var exampleDataInstance = new ExampleData
     LastName = "Bergqvist",
     Age = 43
 };
-//await repository.SaveAsync(generateId: (x) => x.ToString(), exampleDataInstance);
+await repository.SaveAsync(generateId: (x) => x.ToString(), exampleDataInstance);
 
 Console.WriteLine("Hello, World!");

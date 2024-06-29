@@ -6,6 +6,19 @@ namespace Optimizely.Graph.Source.Sdk.Model
     public class SourceConfigurationModel
     {
         private static IDictionary<string, ContentTypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, ContentTypeFieldConfiguration>();
+        private static HashSet<string> _languages = new HashSet<string>();
+
+        public static void AddLanguage(string language)
+        {
+            _languages.Add(language);
+        }
+
+        public static IEnumerable<string> GetLanguages() { return _languages; }
+
+        public IEnumerable<ContentTypeFieldConfiguration> GetContentTypeFieldConfiguration()
+        {
+            return _contentTypeFieldsConfigurations.Values.ToArray();
+        }
 
         public SourceConfigurationModel Field(Type type, Expression<Func<object, object>> fieldSelector, IndexingType indexingType)
         {
@@ -13,7 +26,7 @@ namespace Optimizely.Graph.Source.Sdk.Model
             return this;
         }
 
-        protected SourceConfigurationModel AddField (Type type, Expression fieldSelector, IndexingType indexingType)
+        protected SourceConfigurationModel AddField(Type type, Expression fieldSelector, IndexingType indexingType)
         {
             ContentTypeFieldConfiguration contentTypeFieldConfiguration;
             if (!_contentTypeFieldsConfigurations.TryGetValue(type.Name, out contentTypeFieldConfiguration))
@@ -38,6 +51,11 @@ namespace Optimizely.Graph.Source.Sdk.Model
 
         public IEnumerable<FieldInfo> GetFields(Type type)
         {
+            if(!_contentTypeFieldsConfigurations.ContainsKey(type.Name))
+            {
+                throw new NotSupportedException($"The type {type.Name} has not been configured. Please configure it and try again.");
+            }
+
             return _contentTypeFieldsConfigurations[type.Name].Fields;
         }
 
@@ -91,8 +109,6 @@ namespace Optimizely.Graph.Source.Sdk.Model
     public class SourceConfigurationModel<T> : SourceConfigurationModel
         where T : class, new()
     {
-        private static IDictionary<string, ContentTypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, ContentTypeFieldConfiguration>();
-
         public SourceConfigurationModel<T> Field(Expression<Func<T, object>> fieldSelector, IndexingType indexingType)
         {
             AddField(typeof(T), fieldSelector, indexingType);

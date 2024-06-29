@@ -26,6 +26,11 @@ namespace Optimizely.Graph.Source.Sdk.Repository
             Source = source;
         }
 
+        public void AddLanguage(string language)
+        {
+            SourceConfigurationModel.AddLanguage(language);
+        }
+
         public SourceConfigurationModel<T> Configure<T>()
             where T : class, new()
         {
@@ -35,15 +40,18 @@ namespace Optimizely.Graph.Source.Sdk.Repository
         public async Task<string> SaveAsync<T>(Func<T, string> generateId, T data)
             where T : class, new()
         {
-            var id = generateId(data);
+            var serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters =
+                {
+                    new SourceSdkContentConverter()
+                }
+            };
 
-            var typeConfiguration = new SourceConfigurationModel<T>();
-            var fields = typeConfiguration.GetFields();
-
-            // TODO: Generate content json
-
-            // POST /api/content/v2/data
-            return await SendContentBulk("");
+            var jsonString = JsonSerializer.Serialize(data, serializeOptions).Replace("\r\n","");
+            var result = await SendContentBulk(jsonString);
+            return result;
         }
 
         public Task<string> DeleteAsync(string id)
@@ -51,20 +59,19 @@ namespace Optimizely.Graph.Source.Sdk.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<string> SaveTypeAsync<T>()
-            where T : class, new()
+        public async Task<string> SaveTypesAsync()
         {
             var serializeOptions = new JsonSerializerOptions
             {
                 WriteIndented = true,
                 Converters =
                 {
-                    new ContentTypeModelConverter()
+                    new SourceSdkContentTypeConverter()
                 }
             };
 
-            var typeInstance = new T();
-            var jsonString = JsonSerializer.Serialize(typeInstance, serializeOptions);
+            var typeConfiguration = new SourceConfigurationModel();
+            var jsonString = JsonSerializer.Serialize(typeConfiguration.GetContentTypeFieldConfiguration(), serializeOptions);
 
             return await SendTypes(jsonString);
         }
