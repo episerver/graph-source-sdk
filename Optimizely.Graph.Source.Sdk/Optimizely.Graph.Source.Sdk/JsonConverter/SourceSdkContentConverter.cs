@@ -30,7 +30,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverter
             var typeConfiguration = new SourceConfigurationModel();
             var fields = typeConfiguration.GetFields(contentType);
 
-            WriteMetaData(writer, value, options, contentType, fields);
+            //WriteMetaData(writer, value, options, contentType, fields);
             WriteContent(writer, value, options, contentType, fields);
         }
 

@@ -49,8 +49,16 @@ namespace Optimizely.Graph.Source.Sdk.Repository
                 }
             };
 
-            var jsonString = JsonSerializer.Serialize(data, serializeOptions).Replace("\r\n","");
-            var result = await SendContentBulk(jsonString);
+            var id = "1";
+            var language = "en";
+
+            var itemJson = $"{{ \"index\": {{ \"_id\": \"{id}\", \"language_routing\": \"{language}\" }} }}";
+            itemJson += Environment.NewLine;
+            itemJson += JsonSerializer.Serialize(data, serializeOptions).Replace("\r\n","");
+            itemJson += Environment.NewLine;
+
+
+            var result = await SendContentBulk(itemJson);
             return result;
         }
 
