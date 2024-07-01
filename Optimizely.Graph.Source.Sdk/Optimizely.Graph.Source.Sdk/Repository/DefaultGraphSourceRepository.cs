@@ -49,7 +49,7 @@ namespace Optimizely.Graph.Source.Sdk.Repository
                 }
             };
 
-            var id = "1";
+            var id = generateId(data);
             var language = "en";
 
             var itemJson = $"{{ \"index\": {{ \"_id\": \"{id}\", \"language_routing\": \"{language}\" }} }}";
