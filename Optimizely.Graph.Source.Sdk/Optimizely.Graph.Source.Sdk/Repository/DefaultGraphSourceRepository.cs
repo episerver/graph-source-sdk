@@ -37,7 +37,7 @@ namespace Optimizely.Graph.Source.Sdk.Repository
             return new SourceConfigurationModel<T>();
         }
 
-        public async Task<string> SaveAsync<T>(Func<T, string> generateId, T data)
+        public async Task<string> SaveAsync<T>(Func<T, string> generateId, params T[] data)
             where T : class, new()
         {
             var serializeOptions = new JsonSerializerOptions
