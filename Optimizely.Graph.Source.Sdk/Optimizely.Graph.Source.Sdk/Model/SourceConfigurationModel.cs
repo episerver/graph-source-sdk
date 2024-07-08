@@ -67,7 +67,7 @@ namespace Optimizely.Graph.Source.Sdk.Model
 
             var fieldName = ExpressionExtensions.GetFieldPath(fieldSelector);
             var fieldType = ExpressionExtensions.GetReturnType(fieldSelector);
-            var mappedTypeName = indexingType == IndexingType.PropertyType ? type.Name : GetTypeName(fieldType);
+            var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
 
             contentTypeFieldConfiguration.Fields.Add(new FieldInfo
             {
