@@ -6,11 +6,18 @@
 
         public IndexingType IndexingType { get; set; }
 
-        public   string MappedType { get; set; }
+        public Type MappedType { get; set; }
+
+        public string MappedTypeName { get; set; }
 
         public override string ToString()
         {
-            var value = $"{Name}$${MappedType}";
+            if(IndexingType == IndexingType.PropertyType)
+            {
+                return Name;
+            }
+        
+            var value = $"{Name}$${MappedTypeName}";
             if (IndexingType == IndexingType.Searchable)
             {
                 value += "___searchable";

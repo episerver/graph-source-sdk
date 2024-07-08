@@ -3,6 +3,7 @@ using Optimizely.Graph.Source.Sdk.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -15,7 +16,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverter
     {
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeToConvert.GetType() != typeof(IEnumerable<ContentTypeFieldConfiguration>);
+            return typeToConvert.GetType() != typeof(IEnumerable<TypeFieldConfiguration>);
         }
 
         public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -27,8 +28,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverter
         {
             var contentType = value.GetType();
 
-            var typeConfiguration = new SourceConfigurationModel();
-            var fields = typeConfiguration.GetFields(contentType);
+            var fields = SourceConfigurationModel.GetContentFields(contentType);
 
             //WriteMetaData(writer, value, options, contentType, fields);
             WriteContent(writer, value, options, contentType, fields);
@@ -62,74 +62,94 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverter
             foreach(var fieldInfoItem in fieldInfoItems)
             {
                 var fieldValue = contentType.GetProperty(fieldInfoItem.Name).GetValue(value);
-                if (fieldInfoItem.MappedType == "Boolean")
-                {
-                    writer.WriteBoolean(fieldInfoItem.ToString(), (bool)fieldValue);
-                }
-                else if (fieldInfoItem.MappedType == "[Boolean]")
-                {
-                    writer.WriteStartArray(fieldInfoItem.ToString());
-                    foreach (var item in (IEnumerable<bool>)fieldValue)
-                    {
-                        writer.WriteBooleanValue(item);
-                    }
-                    writer.WriteEndArray();
-                }
-                else if (fieldInfoItem.MappedType == "DateTime")
-                {
-                    writer.WriteString(fieldInfoItem.ToString(), ((DateTime)fieldValue).ToUniversalTime().ToString());
-                }
-                else if (fieldInfoItem.MappedType == "[DateTime]")
-                {
-                    writer.WriteStartArray(fieldInfoItem.ToString());
-                    foreach (var item in (IEnumerable<DateTime>)fieldValue)
-                    {
-                        writer.WriteStringValue(((DateTime)fieldValue).ToUniversalTime().ToString());
-                    }
-                    writer.WriteEndArray();
-                }
-                else if (fieldInfoItem.MappedType == "Int")
-                {
-                    writer.WriteNumber(fieldInfoItem.ToString(), (int)fieldValue);
-                }
-                else if (fieldInfoItem.MappedType == "[Int]")
-                {
-                    writer.WriteStartArray(fieldInfoItem.ToString());
-                    foreach (var item in (IEnumerable<float>)fieldValue)
-                    {
-                        writer.WriteNumberValue(item);
-                    }
-                    writer.WriteEndArray();
-                }
-                else if (fieldInfoItem.MappedType == "Float")
-                {
-                    writer.WriteNumber(fieldInfoItem.ToString(), (float)fieldValue);
-                }
-                else if (fieldInfoItem.MappedType == "[Float]")
-                {
-                    writer.WriteStartArray(fieldInfoItem.ToString());
-                    foreach (var item in (IEnumerable<float>)fieldValue)
-                    {
-                        writer.WriteNumberValue(item);
-                    }
-                    writer.WriteEndArray();
-                }
-                else if (fieldInfoItem.MappedType == "String")
-                {
-                    writer.WriteString(fieldInfoItem.ToString(), (string)fieldValue);
-                }
-                else if (fieldInfoItem.MappedType == "[String]")
-                {
-                    writer.WriteStartArray(fieldInfoItem.ToString());
-                    foreach (var item in (IEnumerable<string>)fieldValue)
-                    {
-                        writer.WriteStringValue(item);
-                    }
-                    writer.WriteEndArray();
-                }
+                WriteField(writer, fieldValue, fieldInfoItem);
             }
 
             writer.WriteEndObject();
+        }
+
+        private static void WriteField(Utf8JsonWriter writer, object fieldValue, FieldInfo fieldInfoItem)
+        {
+            if(fieldInfoItem.IndexingType == IndexingType.PropertyType)
+            {
+                writer.WriteStartObject(fieldInfoItem.Name);
+
+                var type = fieldInfoItem.MappedType.GetProperty(fieldInfoItem.Name).PropertyType;
+                var fields = SourceConfigurationModel.GetPropertyFields(type);
+                foreach( var field in fields)
+                {
+                    var propertyFieldValue = type.GetProperty(field.Name).GetValue(fieldValue);
+                    WriteField(writer, propertyFieldValue, field);
+                }
+
+                writer.WriteEndObject();
+            }
+
+            if (fieldInfoItem.MappedTypeName == "Boolean")
+            {
+                writer.WriteBoolean(fieldInfoItem.ToString(), (bool)fieldValue);
+            }
+            else if (fieldInfoItem.MappedTypeName == "[Boolean]")
+            {
+                writer.WriteStartArray(fieldInfoItem.ToString());
+                foreach (var item in (IEnumerable<bool>)fieldValue)
+                {
+                    writer.WriteBooleanValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            else if (fieldInfoItem.MappedTypeName == "DateTime")
+            {
+                writer.WriteString(fieldInfoItem.ToString(), ((DateTime)fieldValue).ToUniversalTime().ToString());
+            }
+            else if (fieldInfoItem.MappedTypeName == "[DateTime]")
+            {
+                writer.WriteStartArray(fieldInfoItem.ToString());
+                foreach (var item in (IEnumerable<DateTime>)fieldValue)
+                {
+                    writer.WriteStringValue(((DateTime)fieldValue).ToUniversalTime().ToString());
+                }
+                writer.WriteEndArray();
+            }
+            else if (fieldInfoItem.MappedTypeName == "Int")
+            {
+                writer.WriteNumber(fieldInfoItem.ToString(), (int)fieldValue);
+            }
+            else if (fieldInfoItem.MappedTypeName == "[Int]")
+            {
+                writer.WriteStartArray(fieldInfoItem.ToString());
+                foreach (var item in (IEnumerable<float>)fieldValue)
+                {
+                    writer.WriteNumberValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            else if (fieldInfoItem.MappedTypeName == "Float")
+            {
+                writer.WriteNumber(fieldInfoItem.ToString(), (float)fieldValue);
+            }
+            else if (fieldInfoItem.MappedTypeName == "[Float]")
+            {
+                writer.WriteStartArray(fieldInfoItem.ToString());
+                foreach (var item in (IEnumerable<float>)fieldValue)
+                {
+                    writer.WriteNumberValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            else if (fieldInfoItem.MappedTypeName == "String")
+            {
+                writer.WriteString(fieldInfoItem.ToString(), (string)fieldValue);
+            }
+            else if (fieldInfoItem.MappedTypeName == "[String]")
+            {
+                writer.WriteStartArray(fieldInfoItem.ToString());
+                foreach (var item in (IEnumerable<string>)fieldValue)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
         }
     }
 }
