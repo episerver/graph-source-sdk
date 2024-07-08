@@ -16,7 +16,7 @@ repository.ConfigureContentType<ExampleData>()
 
 repository.ConfigurePropertyType<SubType1>()
     .Field(x => x.One, IndexingType.Searchable)
-    .Field(x => x.Two, IndexingType.OnlyStored);
+    .Field(x => x.Two, IndexingType.Querable);
 
 await repository.SaveTypesAsync();
 
