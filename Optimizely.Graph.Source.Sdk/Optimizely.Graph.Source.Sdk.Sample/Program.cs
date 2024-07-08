@@ -16,7 +16,12 @@ repository.ConfigureContentType<ExampleData>()
 
 repository.ConfigurePropertyType<SubType1>()
     .Field(x => x.One, IndexingType.Searchable)
-    .Field(x => x.Two, IndexingType.Querable);
+    .Field(x => x.Two, IndexingType.Querable)
+    .Field(x => x.AnotherType, IndexingType.PropertyType);
+
+repository.ConfigurePropertyType<SubType2>()
+    .Field(x => x.Four, IndexingType.Querable)
+    .Field(x => x.Five, IndexingType.Querable);
 
 await repository.SaveTypesAsync();
 
@@ -28,7 +33,12 @@ var exampleDataInstance1 = new ExampleData
     SubType = new SubType1
     { 
         One = "Fagerstrand",
-        Two = 125
+        Two = 125,
+        AnotherType = new SubType2
+        {
+            Four = "Stockholm",
+            Five = "Sweden"
+        }
     }
 };
 var exampleDataInstance2 = new ExampleData
@@ -39,7 +49,12 @@ var exampleDataInstance2 = new ExampleData
     SubType = new SubType1
     {
         One = "Fagerstrand",
-        Two = 125
+        Two = 125,
+        AnotherType = new SubType2
+        {
+            Four = "Stockholm",
+            Five = "Sweden"
+        }
     }
 };
 await repository.SaveAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2);

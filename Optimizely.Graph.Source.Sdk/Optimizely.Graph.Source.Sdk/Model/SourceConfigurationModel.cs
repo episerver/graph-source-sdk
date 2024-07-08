@@ -91,12 +91,13 @@ namespace Optimizely.Graph.Source.Sdk.Model
 
             var fieldName = ExpressionExtensions.GetFieldPath(fieldSelector);
             var fieldType = ExpressionExtensions.GetReturnType(fieldSelector);
-            var mappedTypeName = indexingType == IndexingType.PropertyType ? type.Name : GetTypeName(fieldType);
+            var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
 
             propertyTypeFieldConfiguration.Fields.Add(new FieldInfo
             {
                 Name = fieldName,
                 IndexingType = indexingType,
+                MappedType= type,
                 MappedTypeName = mappedTypeName
             });
 

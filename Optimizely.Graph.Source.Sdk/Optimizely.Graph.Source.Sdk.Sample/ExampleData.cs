@@ -21,5 +21,14 @@
         public string One { get; set; }
 
         public int Two { get; set; }
+
+        public SubType2 AnotherType { get; set; }
+    }
+
+    public class SubType2
+    {
+        public string Four { get; set; }
+
+        public string Five { get; set; }
     }
 }
