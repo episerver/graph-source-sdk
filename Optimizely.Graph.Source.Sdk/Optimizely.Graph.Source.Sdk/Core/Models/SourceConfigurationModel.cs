@@ -1,7 +1,7 @@
-﻿using Optimizely.Graph.Source.Sdk.ExpressionHelper;
+﻿using Optimizely.Graph.Source.Sdk.ExpressionHelpers;
 using System.Linq.Expressions;
 
-namespace Optimizely.Graph.Source.Sdk.Model
+namespace Optimizely.Graph.Source.Sdk.Core.Models
 {
     public class SourceConfigurationModel
     {
@@ -44,7 +44,7 @@ namespace Optimizely.Graph.Source.Sdk.Model
 
         public SourceConfigurationModel Field(Type type, Expression<Func<object, object>> fieldSelector, IndexingType indexingType)
         {
-            if(ConfigurationType == ConfigurationType.ContentType)
+            if (ConfigurationType == ConfigurationType.ContentType)
             {
                 AddContentTypeField(type, fieldSelector, indexingType);
             }
@@ -52,7 +52,7 @@ namespace Optimizely.Graph.Source.Sdk.Model
             {
                 AddPropertyTypeField(type, fieldSelector, indexingType);
             }
-            
+
             return this;
         }
 
@@ -65,8 +65,8 @@ namespace Optimizely.Graph.Source.Sdk.Model
                 _contentTypeFieldsConfigurations.Add(type.Name, contentTypeFieldConfiguration);
             }
 
-            var fieldName = ExpressionExtensions.GetFieldPath(fieldSelector);
-            var fieldType = ExpressionExtensions.GetReturnType(fieldSelector);
+            var fieldName = fieldSelector.GetFieldPath();
+            var fieldType = fieldSelector.GetReturnType();
             var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
 
             contentTypeFieldConfiguration.Fields.Add(new FieldInfo
@@ -89,15 +89,15 @@ namespace Optimizely.Graph.Source.Sdk.Model
                 _propertyTypeFieldsConfigurations.Add(type.Name, propertyTypeFieldConfiguration);
             }
 
-            var fieldName = ExpressionExtensions.GetFieldPath(fieldSelector);
-            var fieldType = ExpressionExtensions.GetReturnType(fieldSelector);
+            var fieldName = fieldSelector.GetFieldPath();
+            var fieldType = fieldSelector.GetReturnType();
             var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
 
             propertyTypeFieldConfiguration.Fields.Add(new FieldInfo
             {
                 Name = fieldName,
                 IndexingType = indexingType,
-                MappedType= type,
+                MappedType = type,
                 MappedTypeName = mappedTypeName
             });
 
@@ -106,7 +106,7 @@ namespace Optimizely.Graph.Source.Sdk.Model
 
         public static IEnumerable<FieldInfo> GetContentFields(Type type)
         {
-            if(!_contentTypeFieldsConfigurations.ContainsKey(type.Name))
+            if (!_contentTypeFieldsConfigurations.ContainsKey(type.Name))
             {
                 throw new NotSupportedException($"The type {type.Name} has not been configured. Please configure it and try again.");
             }
@@ -181,7 +181,7 @@ namespace Optimizely.Graph.Source.Sdk.Model
 
         public SourceConfigurationModel<T> Field(Expression<Func<T, object>> fieldSelector, IndexingType indexingType)
         {
-            if(ConfigurationType == ConfigurationType.ContentType)
+            if (ConfigurationType == ConfigurationType.ContentType)
             {
                 AddContentTypeField(typeof(T), fieldSelector, indexingType);
             }

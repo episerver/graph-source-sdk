@@ -1,4 +1,4 @@
-﻿namespace Optimizely.Graph.Source.Sdk.Repository
+﻿namespace Optimizely.Graph.Source.Sdk.Core
 {
     public interface IGraphSourceContentRepository : IGraphSourceRepository
     {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelpers
 {
     public abstract class ExpressionVisitor
     {

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelpers
 {
     public static class ExpressionExtensions
     {

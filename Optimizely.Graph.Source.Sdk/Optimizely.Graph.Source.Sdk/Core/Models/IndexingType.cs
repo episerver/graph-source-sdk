@@ -1,4 +1,4 @@
-﻿namespace Optimizely.Graph.Source.Sdk.Model
+﻿namespace Optimizely.Graph.Source.Sdk.Core.Models
 {
     public enum IndexingType
     {

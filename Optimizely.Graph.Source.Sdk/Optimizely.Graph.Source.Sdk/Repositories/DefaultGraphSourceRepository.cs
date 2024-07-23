@@ -1,9 +1,10 @@
-﻿using Optimizely.Graph.Source.Sdk.Model;
-using Optimizely.Graph.Source.Sdk.JsonConverter;
+﻿using Optimizely.Graph.Source.Sdk.JsonConverters;
 using System.Text.Json;
 using System.Text;
+using Optimizely.Graph.Source.Sdk.Core.Models;
+using Optimizely.Graph.Source.Sdk.Core;
 
-namespace Optimizely.Graph.Source.Sdk.Repository
+namespace Optimizely.Graph.Source.Sdk.Repositories
 {
     public class DefaultGraphSourceRepository : IGraphSourceContentRepository, IGraphSourceTypeRepository
     {

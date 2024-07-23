@@ -1,6 +1,6 @@
-﻿using Optimizely.Graph.Source.Sdk.Model;
+﻿using Optimizely.Graph.Source.Sdk.Core.Models;
 
-namespace Optimizely.Graph.Source.Sdk.Repository
+namespace Optimizely.Graph.Source.Sdk.Core
 {
     public interface IGraphSourceTypeRepository : IGraphSourceRepository
     {

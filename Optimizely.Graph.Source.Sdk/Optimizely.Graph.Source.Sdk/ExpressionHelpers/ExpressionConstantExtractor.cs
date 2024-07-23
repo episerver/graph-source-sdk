@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelpers
 {
     public class ExpressionConstantExtractor : System.Linq.Expressions.ExpressionVisitor
     {

@@ -1,4 +1,4 @@
-﻿namespace Optimizely.Graph.Source.Sdk.Model
+﻿namespace Optimizely.Graph.Source.Sdk.Core.Models
 {
     public enum ConfigurationType
     {
@@ -15,7 +15,7 @@
             ConfigurationType = configurationType;
         }
 
-        public ConfigurationType ConfigurationType {get; private set;}
+        public ConfigurationType ConfigurationType { get; private set; }
 
         public string TypeName { get; set; }
 

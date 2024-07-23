@@ -1,4 +1,4 @@
-﻿namespace Optimizely.Graph.Source.Sdk.Model
+﻿namespace Optimizely.Graph.Source.Sdk.Core.Models
 {
     public class FieldInfo
     {
@@ -12,11 +12,11 @@
 
         public override string ToString()
         {
-            if(IndexingType == IndexingType.PropertyType)
+            if (IndexingType == IndexingType.PropertyType)
             {
                 return Name;
             }
-        
+
             var value = $"{Name}$${MappedTypeName}";
             if (IndexingType == IndexingType.Searchable)
             {

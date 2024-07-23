@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Optimizely.Graph.Source.Sdk.Model;
-using Optimizely.Graph.Source.Sdk.Repository;
+using Optimizely.Graph.Source.Sdk.Core.Models;
+using Optimizely.Graph.Source.Sdk.Repositories;
 using Optimizely.Graph.Source.Sdk.Sample;
 
 var repository = new DefaultGraphSourceRepository("https://cg.optimizely.com", "", "", "");

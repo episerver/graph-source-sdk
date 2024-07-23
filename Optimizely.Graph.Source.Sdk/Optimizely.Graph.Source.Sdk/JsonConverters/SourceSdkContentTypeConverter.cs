@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Optimizely.Graph.Source.Sdk.Model;
+using Optimizely.Graph.Source.Sdk.Core.Models;
 
-namespace Optimizely.Graph.Source.Sdk.JsonConverter
+namespace Optimizely.Graph.Source.Sdk.JsonConverters
 {
     public class SourceSdkContentTypeConverter : JsonConverter<IEnumerable<TypeFieldConfiguration>>
     {

@@ -1,16 +1,8 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using Optimizely.Graph.Source.Sdk.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Security.Cryptography;
-using System.Text;
+﻿using Optimizely.Graph.Source.Sdk.Core.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.JsonConverter
+namespace Optimizely.Graph.Source.Sdk.JsonConverters
 {
     public class SourceSdkContentConverter : JsonConverter<object>
     {

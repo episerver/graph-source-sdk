@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace Optimizely.Graph.Source.Sdk.ExpressionHelper
+namespace Optimizely.Graph.Source.Sdk.ExpressionHelpers
 {
     /// <summary>
     /// A class that is capable of doing a find and replace in an <see cref="Expression"/> tree.
