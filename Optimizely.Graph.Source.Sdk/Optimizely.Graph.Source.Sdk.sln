@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimizely.Graph.Source.Sdk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimizely.Graph.Source.Sdk", "Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.csproj", "{ACF1027C-609A-49D0-9FA6-46534E9F04F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimizely.Graph.Source.Sdk.Tests", "Optimizely.Graph.Source.Sdk.Tests\Optimizely.Graph.Source.Sdk.Tests.csproj", "{9C1F28FA-B708-495C-8AD7-46BE944D363D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ACF1027C-609A-49D0-9FA6-46534E9F04F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACF1027C-609A-49D0-9FA6-46534E9F04F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACF1027C-609A-49D0-9FA6-46534E9F04F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C1F28FA-B708-495C-8AD7-46BE944D363D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1F28FA-B708-495C-8AD7-46BE944D363D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1F28FA-B708-495C-8AD7-46BE944D363D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1F28FA-B708-495C-8AD7-46BE944D363D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

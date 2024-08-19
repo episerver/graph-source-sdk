@@ -1,62 +1,63 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Optimizely.Graph.Source.Sdk.Core.Models;
-using Optimizely.Graph.Source.Sdk.Repositories;
+using Optimizely.Graph.Source.Sdk;
+using Optimizely.Graph.Source.Sdk.Models;
 using Optimizely.Graph.Source.Sdk.Sample;
 
-var repository = new DefaultGraphSourceRepository("https://cg.optimizely.com", "", "", "");
+//var client = GraphSourceClient.Create("https://cg.optimizely.com", "", "", "");
+var client = GraphSourceClient.Create("https://cg.optimizely.com", "ed", "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4", "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO");
 
-repository.AddLanguage("en");
+client.AddLanguage("en");
 
-repository.ConfigureContentType<ExampleData>()
+client.ConfigureContentType<ExampleData>()
     .Field(x => x.FirstName, IndexingType.Searchable)
     .Field(x => x.LastName, IndexingType.Searchable)
     .Field(x => x.Age, IndexingType.Querable)
     .Field(x => x.SubType, IndexingType.PropertyType);
 
-repository.ConfigurePropertyType<SubType1>()
+client.ConfigurePropertyType<SubType1>()
     .Field(x => x.One, IndexingType.Searchable)
     .Field(x => x.Two, IndexingType.Querable)
     .Field(x => x.AnotherType, IndexingType.PropertyType);
 
-repository.ConfigurePropertyType<SubType2>()
+client.ConfigurePropertyType<SubType2>()
     .Field(x => x.Four, IndexingType.Querable)
     .Field(x => x.Five, IndexingType.Querable);
 
-await repository.SaveTypesAsync();
+await client.SaveTypesAsync();
 
 var exampleDataInstance1 = new ExampleData
 {
-    FirstName = "Jonas",
-    LastName = "Bergqvist",
-    Age = 43,
+    FirstName = "Testing1",
+    LastName = "1",
+    Age = 100,
     SubType = new SubType1
     { 
-        One = "Fagerstrand",
-        Two = 125,
+        One = "This is a test",
+        Two = 13,
         AnotherType = new SubType2
         {
-            Four = "Stockholm",
-            Five = "Sweden"
+            Four = "Who knows",
+            Five = "Somewhere"
         }
     }
 };
 var exampleDataInstance2 = new ExampleData
 {
-    FirstName = "William",
-    LastName = "Bergqvist",
-    Age = 14,
+    FirstName = "Testing2",
+    LastName = "2",
+    Age = 99,
     SubType = new SubType1
     {
-        One = "Fagerstrand",
-        Two = 125,
+        One = "This is also a test",
+        Two = 14,
         AnotherType = new SubType2
         {
-            Four = "Stockholm",
-            Five = "Sweden"
+            Four = "Not sure",
+            Five = "Yeah"
         }
     }
 };
-await repository.SaveAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2);
+await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2);
 
 Console.WriteLine("Hello, World!");
