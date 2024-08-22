@@ -45,6 +45,11 @@ namespace Optimizely.Graph.Source.Sdk
             return _repository.ConfigurePropertyType<T>();
         }
 
+        public async Task<string> SaveTypesAsync()
+        {
+            return await _repository.SaveTypesAsync();
+        }
+
         public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
             where T : class, new()
         {
@@ -54,11 +59,6 @@ namespace Optimizely.Graph.Source.Sdk
         public async Task<string> DeleteContentAsync(string id)
         {
             return await _repository.DeleteContentAsync(id);
-        }
-
-        public async Task<string> SaveTypesAsync()
-        {
-            return await _repository.SaveTypesAsync();
         }
     }
 }

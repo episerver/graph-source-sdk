@@ -110,3 +110,11 @@ C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimiz
 C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\obj\Debug\net8.0\Optimizely.Graph.Source.Sdk.Tests.pdb
 C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\obj\Debug\net8.0\Optimizely.Graph.Source.Sdk.Tests.genruntimeconfig.cache
 C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\obj\Debug\net8.0\ref\Optimizely.Graph.Source.Sdk.Tests.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_Optimizely.Graph.Source.Sdk.Tests
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\Moq.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\Optimizely.Graph.Source.Sdk.dll
+C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk.Tests\bin\Debug\net8.0\Optimizely.Graph.Source.Sdk.pdb

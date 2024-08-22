@@ -30,5 +30,7 @@
         public string Four { get; set; }
 
         public string Five { get; set; }
+
+        public string Six { get; set; }
     }
 }

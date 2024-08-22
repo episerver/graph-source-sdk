@@ -1,7 +1,7 @@
 ﻿
 namespace Optimizely.Graph.Source.Sdk.ContentGraph
 {
-    internal interface IContentGraphClient
+    public interface IContentGraphClient
     {
         Task<string> SendTypesAsync(string typeJson);
 

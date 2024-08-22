@@ -2,7 +2,7 @@
 
 namespace Optimizely.Graph.Source.Sdk.ContentGraph
 {
-    internal class ContentGraphClient : IContentGraphClient
+    public class ContentGraphClient : IContentGraphClient
     {
         private const string TypeUrl = "/api/content/v3/types";
         private const string DataUrl = "/api/content/v2/data";

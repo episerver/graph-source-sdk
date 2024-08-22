@@ -12,7 +12,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
     {
         private readonly IContentGraphClient client;
 
-        internal GraphSourceRepository(IContentGraphClient client)
+        public GraphSourceRepository(IContentGraphClient client)
         {
             this.client = client;
         }
@@ -32,6 +32,22 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
             where T : class, new()
         {
             return new SourceConfigurationModel<T>(ConfigurationType.PropertyType);
+        }
+
+        public async Task<string> SaveTypesAsync()
+        {
+            var serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters =
+                {
+                    new SourceSdkContentTypeConverter()
+                }
+            };
+
+            var jsonString = JsonSerializer.Serialize(SourceConfigurationModel.GetTypeFieldConfiguration(), serializeOptions);
+
+            return await client.SendTypesAsync(jsonString);
         }
 
         public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
@@ -65,22 +81,6 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         public Task<string> DeleteContentAsync(string id)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<string> SaveTypesAsync()
-        {
-            var serializeOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Converters =
-                {
-                    new SourceSdkContentTypeConverter()
-                }
-            };
-
-            var jsonString = JsonSerializer.Serialize(SourceConfigurationModel.GetTypeFieldConfiguration(), serializeOptions);
-
-            return await client.SendTypesAsync(jsonString);
         }
     }
 }

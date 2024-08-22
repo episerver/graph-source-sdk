@@ -22,7 +22,8 @@ client.ConfigurePropertyType<SubType1>()
 
 client.ConfigurePropertyType<SubType2>()
     .Field(x => x.Four, IndexingType.Querable)
-    .Field(x => x.Five, IndexingType.Querable);
+    .Field(x => x.Five, IndexingType.Querable)
+    .Field(x => x.Six, IndexingType.Searchable);
 
 await client.SaveTypesAsync();
 
@@ -54,7 +55,8 @@ var exampleDataInstance2 = new ExampleData
         AnotherType = new SubType2
         {
             Four = "Not sure",
-            Five = "Yeah"
+            Five = "Yeah",
+            Six = "Cool"
         }
     }
 };
