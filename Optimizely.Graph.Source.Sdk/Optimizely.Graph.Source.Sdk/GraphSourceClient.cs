@@ -23,7 +23,7 @@ namespace Optimizely.Graph.Source.Sdk
         /// <returns></returns>
         public static GraphSourceClient Create(string baseUrl, string source, string appKey, string secret)
         {
-            var contentGraphClientFactory = new ContentGraphClientFactory(baseUrl, source, appKey, secret);
+            IContentGraphClientFactory contentGraphClientFactory = new ContentGraphClientFactory(baseUrl, source, appKey, secret);
             var repository = new GraphSourceRepository(contentGraphClientFactory.Create());
             return new GraphSourceClient(repository);
         }

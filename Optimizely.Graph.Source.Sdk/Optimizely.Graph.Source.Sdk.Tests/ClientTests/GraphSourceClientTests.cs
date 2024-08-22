@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Moq;
+using Optimizely.Graph.Source.Sdk.ContentGraph;
+using Optimizely.Graph.Source.Sdk.Repositories;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.ClientTests
 {
@@ -11,5 +9,19 @@ namespace Optimizely.Graph.Source.Sdk.Tests.ClientTests
     [TestClass]
     public class GraphSourceClientTests
     {
+        private GraphSourceClient client;
+        private Mock<IContentGraphClientFactory> mockGraphClientFactory;
+        private Mock<IContentGraphClient> mockGraphClient;
+        private Mock<IGraphSourceRepository> mockGraphRepository;
+
+        public GraphSourceClientTests()
+        {
+            client = GraphSourceClient.Create("https://test.url/", "application-key", "source", "application-secret");
+            mockGraphClientFactory = new Mock<IContentGraphClientFactory>();
+            mockGraphClient = new Mock<IContentGraphClient>();
+            mockGraphRepository = new Mock<IGraphSourceRepository>();
+        }
+
+        
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {
-    internal interface IGraphSourceRepository
+    public interface IGraphSourceRepository
     {
         void AddLanguage(string language);
 

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.39590000000000003" branch-rate="0.2733" version="1.9" timestamp="1724296231" lines-covered="352" lines-valid="889" branches-covered="85" branches-valid="311">
+<coverage line-rate="0.41950000000000004" branch-rate="0.299" version="1.9" timestamp="1724334150" lines-covered="373" lines-valid="889" branches-covered="93" branches-valid="311">
   <sources>
     <source>C:\Users\jamin\</source>
   </sources>
   <packages>
-    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.3922" branch-rate="0.2733" complexity="370">
+    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.41600000000000004" branch-rate="0.299" complexity="370">
       <classes>
         <class name="Optimizely.Graph.Source.Sdk.GraphSourceClient" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\GraphSourceClient.cs" line-rate="0" branch-rate="1" complexity="5">
           <methods>
@@ -3152,26 +3152,26 @@
             <line number="15" hits="15" branch="False" />
           </lines>
         </class>
-        <class name="Optimizely.Graph.Source.Sdk.ContentGraph.ContentGraphClient" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\ContentGraph\ContentGraphClient.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="Optimizely.Graph.Source.Sdk.ContentGraph.ContentGraphClient" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\ContentGraph\ContentGraphClient.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(System.Net.Http.HttpClient,System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(System.Net.Http.HttpClient,System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="14" hits="0" branch="False" />
-                <line number="15" hits="0" branch="False" />
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
+                <line number="14" hits="1" branch="False" />
+                <line number="15" hits="1" branch="False" />
+                <line number="16" hits="1" branch="False" />
+                <line number="17" hits="1" branch="False" />
+                <line number="18" hits="1" branch="False" />
+                <line number="19" hits="1" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="14" hits="0" branch="False" />
-            <line number="15" hits="0" branch="False" />
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
+            <line number="14" hits="1" branch="False" />
+            <line number="15" hits="1" branch="False" />
+            <line number="16" hits="1" branch="False" />
+            <line number="17" hits="1" branch="False" />
+            <line number="18" hits="1" branch="False" />
+            <line number="19" hits="1" branch="False" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.ContentGraph.ContentGraphClient/&lt;SendContentBulkAsync&gt;d__7" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\ContentGraph\ContentGraphClient.cs" line-rate="0" branch-rate="1" complexity="1">
@@ -3214,84 +3214,84 @@
             <line number="26" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Optimizely.Graph.Source.Sdk.ContentGraph.ContentGraphClientFactory" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\ContentGraph\ContentGraphClientFactory.cs" line-rate="0" branch-rate="0" complexity="10">
+        <class name="Optimizely.Graph.Source.Sdk.ContentGraph.ContentGraphClientFactory" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\ContentGraph\ContentGraphClientFactory.cs" line-rate="1" branch-rate="1" complexity="10">
           <methods>
-            <method name="Create" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="Create" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="30" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
+                <line number="26" hits="1" branch="False" />
+                <line number="27" hits="1" branch="False" />
+                <line number="28" hits="1" branch="False" />
+                <line number="30" hits="1" branch="False" />
+                <line number="31" hits="1" branch="False" />
               </lines>
             </method>
-            <method name="GetBasicAuthString" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="GetBasicAuthString" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="34" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
+                <line number="34" hits="1" branch="False" />
+                <line number="35" hits="1" branch="False" />
+                <line number="36" hits="1" branch="False" />
               </lines>
             </method>
-            <method name=".ctor" signature="(System.String,System.String,System.String,System.String)" line-rate="0" branch-rate="0" complexity="8">
+            <method name=".ctor" signature="(System.String,System.String,System.String,System.String)" line-rate="1" branch-rate="1" complexity="8">
               <lines>
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="17" hits="5" branch="False" />
+                <line number="18" hits="5" branch="False" />
+                <line number="19" hits="5" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="11" type="jump" coverage="0%" />
+                    <condition number="11" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="20" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="20" hits="4" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="33" type="jump" coverage="0%" />
+                    <condition number="33" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="21" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="21" hits="3" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="55" type="jump" coverage="0%" />
+                    <condition number="55" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="22" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="22" hits="2" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="78" type="jump" coverage="0%" />
+                    <condition number="78" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="23" hits="0" branch="False" />
+                <line number="23" hits="1" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="30" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="26" hits="1" branch="False" />
+            <line number="27" hits="1" branch="False" />
+            <line number="28" hits="1" branch="False" />
+            <line number="30" hits="1" branch="False" />
+            <line number="31" hits="1" branch="False" />
+            <line number="34" hits="1" branch="False" />
+            <line number="35" hits="1" branch="False" />
+            <line number="36" hits="1" branch="False" />
+            <line number="17" hits="5" branch="False" />
+            <line number="18" hits="5" branch="False" />
+            <line number="19" hits="5" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="11" type="jump" coverage="0%" />
+                <condition number="11" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="20" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="20" hits="4" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="33" type="jump" coverage="0%" />
+                <condition number="33" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="21" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="21" hits="3" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="55" type="jump" coverage="0%" />
+                <condition number="55" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="22" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="22" hits="2" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="78" type="jump" coverage="0%" />
+                <condition number="78" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="23" hits="0" branch="False" />
+            <line number="23" hits="1" branch="False" />
           </lines>
         </class>
       </classes>

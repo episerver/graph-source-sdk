@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Optimizely.Graph.Source.Sdk.ContentGraph
 {
-    internal class ContentGraphClientFactory : IContentGraphClientFactory
+    public class ContentGraphClientFactory : IContentGraphClientFactory
     {
         private readonly string baseUrl;
         private readonly string source;
