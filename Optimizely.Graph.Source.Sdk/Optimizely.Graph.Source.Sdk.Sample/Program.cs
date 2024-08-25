@@ -9,75 +9,81 @@ var client = GraphSourceClient.Create(new UriBuilder("https://cg.optimizely.com"
 
 client.AddLanguage("en");
 
-client.ConfigureContentType<ExampleData>()
+client.ConfigureContentType<PersonDetails>()
     .Field(x => x.FirstName, IndexingType.Searchable)
     .Field(x => x.LastName, IndexingType.Searchable)
+    .Field(x => x.Email, IndexingType.Searchable)
     .Field(x => x.Age, IndexingType.Querable)
-    .Field(x => x.SubType, IndexingType.PropertyType);
+    .Field(x => x.BirthDate, IndexingType.PropertyType)
+    .Field(x => x.Location, IndexingType.PropertyType);
 
-client.ConfigurePropertyType<SubType1>()
-    .Field(x => x.One, IndexingType.Searchable)
-    .Field(x => x.Two, IndexingType.Querable)
-    .Field(x => x.AnotherType, IndexingType.PropertyType);
+client.ConfigurePropertyType<BirthDate>()
+    .Field(x => x.Month, IndexingType.Searchable)
+    .Field(x => x.Day, IndexingType.Querable)
+    .Field(x => x.Year, IndexingType.Searchable);
 
-client.ConfigurePropertyType<SubType2>()
-    .Field(x => x.Four, IndexingType.Querable)
-    .Field(x => x.Five, IndexingType.Querable)
-    .Field(x => x.Six, IndexingType.Searchable);
+client.ConfigurePropertyType<Location>()
+    .Field(x => x.City, IndexingType.Querable)
+    .Field(x => x.State, IndexingType.Querable)
+    .Field(x => x.Country, IndexingType.Searchable)
+    .Field(x => x.Zip, IndexingType.Searchable);
 
 await client.SaveTypesAsync();
 
-var exampleDataInstance1 = new ExampleData
+var exampleDataInstance1 = new PersonDetails
 {
-    FirstName = "Testing1",
-    LastName = "1",
-    Age = 100,
-    SubType = new SubType1
-    { 
-        One = "This is a test",
-        Two = 13,
-        AnotherType = new SubType2
-        {
-            Four = "Who knows",
-            Five = "Somewhere"
-        }
+    FirstName = "Jake",
+    LastName = "Minard",
+    Email = "jake.minard@opti.com",
+    Age = 29,
+    BirthDate = new BirthDate
+    {
+        Month = 06,
+        Day = 12,
+        Year = 1995
+    },
+    Location = new Location
+    {
+        City = "Southington",
+        State = "CT",
+        Country = "USA",
+        Zip = "06489"
     }
 };
-var exampleDataInstance2 = new ExampleData
+var exampleDataInstance2 = new PersonDetails
 {
-    FirstName = "Testing2",
-    LastName = "2",
-    Age = 99,
-    SubType = new SubType1
+    FirstName = "Victoria",
+    LastName = "Minard",
+    Email = "victoria@gmail.com",
+    Age = 28,
+    BirthDate = new BirthDate
     {
-        One = "This is also a test",
-        Two = 14,
-        AnotherType = new SubType2
-        {
-            Four = "Not sure",
-            Five = "Yeah",
-            Six = "Cool"
-        }
+        Month = 09,
+        Day = 14,
+        Year = 1995
+    },
+    Location = new Location
+    {
+        City = "Southington",
+        State = "CT",
+        Country = "USA",
+        Zip = "06489"
     }
 };
 
-var exampleDataInstance3 = new ExampleData
+var exampleDataInstance3 = new PersonDetails
 {
-    FirstName = "Testing123",
-    LastName = "123",
-    Age = 00,
-    SubType = new SubType1
+    FirstName = "Grace",
+    LastName = "Minard",
+    Email = "grace@gmail.com",
+    Age = 8,
+    BirthDate = new BirthDate
     {
-        One = "Testing something",
-        Two = 14,
-        AnotherType = new SubType2
-        {
-            Four = "Does",
-            Five = "This",
-            Six = "Work?"
-        }
+        Month = 03,
+        Day = 28,
+        Year = 2016
     }
 };
-await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2, exampleDataInstance3);
+await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance3);
 
 Console.WriteLine("Hello, World!");

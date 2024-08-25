@@ -16,9 +16,14 @@ namespace Optimizely.Graph.Source.Sdk.Sample
 
         public int Age { get; set; }
 
-        public BirthDate BirthDate { get; set; }
+        public BirthDate BirthDate { get; set; } = new BirthDate();
 
-        public Location Location { get; set; }
+        public Location Location { get; set; } = new Location();
+
+        public override string ToString()
+        {
+            return $"{FirstName}_{LastName}_{Age}";
+        }
 
     }
 
