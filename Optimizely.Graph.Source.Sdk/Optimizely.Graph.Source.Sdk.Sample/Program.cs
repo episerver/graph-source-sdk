@@ -5,7 +5,7 @@ using Optimizely.Graph.Source.Sdk.Models;
 using Optimizely.Graph.Source.Sdk.Sample;
 
 //var client = GraphSourceClient.Create("https://cg.optimizely.com", "", "", "");
-var client = GraphSourceClient.Create("https://cg.optimizely.com", "ed", "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4", "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO");
+var client = GraphSourceClient.Create(new UriBuilder("https://cg.optimizely.com").Uri, "ed", "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4", "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO");
 
 client.AddLanguage("en");
 
@@ -60,6 +60,24 @@ var exampleDataInstance2 = new ExampleData
         }
     }
 };
-await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2);
+
+var exampleDataInstance3 = new ExampleData
+{
+    FirstName = "Testing123",
+    LastName = "123",
+    Age = 00,
+    SubType = new SubType1
+    {
+        One = "Testing something",
+        Two = 14,
+        AnotherType = new SubType2
+        {
+            Four = "Does",
+            Five = "This",
+            Six = "Work?"
+        }
+    }
+};
+await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2, exampleDataInstance3);
 
 Console.WriteLine("Hello, World!");

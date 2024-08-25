@@ -1,7 +1,7 @@
 ﻿using Optimizely.Graph.Source.Sdk.JsonConverters;
 using System.Text.Json;
-using Optimizely.Graph.Source.Sdk.ContentGraph;
 using Optimizely.Graph.Source.Sdk.Models;
+using System.Text;
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {
@@ -10,11 +10,16 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
     /// </summary>
     public class GraphSourceRepository : IGraphSourceRepository
     {
-        private readonly IContentGraphClient client;
+        private readonly IRestClient client;
+        private readonly string source;
 
-        public GraphSourceRepository(IContentGraphClient client)
+        private const string TypeUrl = "/api/content/v3/types";
+        private const string DataUrl = "/api/content/v2/data";
+
+        public GraphSourceRepository(IRestClient client, string source)
         {
             this.client = client;
+            this.source = source;
         }
 
         public void AddLanguage(string language)
@@ -47,7 +52,18 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
 
             var jsonString = JsonSerializer.Serialize(SourceConfigurationModel.GetTypeFieldConfiguration(), serializeOptions);
 
-            return await client.SendTypesAsync(jsonString);
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Put, $"{TypeUrl}?id={source}"))
+            {
+                requestMessage.Content = content;
+                using (var responseMessage = await client.SendAsync(requestMessage))
+                {
+                    await client.HandleResponse(responseMessage);
+                }
+            }
+
+            return string.Empty;
         }
 
         public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
@@ -74,8 +90,17 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
                 itemJson += Environment.NewLine;
             }
 
-            var result = await client.SendContentBulkAsync(itemJson);
-            return result;
+            var content = new StringContent(itemJson, Encoding.UTF8, "application/json");
+
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}"))
+            {
+                requestMessage.Content = content;
+                using (var responseMessage = await client.SendAsync(requestMessage))
+                {
+                    await client.HandleResponse(responseMessage);
+                }
+            }
+            return string.Empty;
         }
 
         public Task<string> DeleteContentAsync(string id)

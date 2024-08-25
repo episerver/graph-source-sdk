@@ -1,15 +1,15 @@
-﻿
-namespace Optimizely.Graph.Source.Sdk.ContentGraph
+﻿namespace Optimizely.Graph.Source.Sdk.BasicAuth
 {
     /// <summary>
     /// An interface that describes a factory that creates a http client for Content Graph.
     /// </summary>
-    public interface IContentGraphClientFactory
+    public interface IBasicAuthClientFactory
     {
         /// <summary>
-        /// Creates a http client for Content Graph.
+        /// 
         /// </summary>
+        /// <param name="inner"></param>
         /// <returns></returns>
-        IContentGraphClient Create();
+        IRestClient Create(IRestClient inner);
     }
 }

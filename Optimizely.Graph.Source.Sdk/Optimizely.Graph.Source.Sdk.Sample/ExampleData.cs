@@ -22,6 +22,8 @@
 
         public int Two { get; set; }
 
+        public int Three { get; set; }
+
         public SubType2 AnotherType { get; set; }
     }
 

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Optimizely.Graph.Source.Sdk.Tests.ClientTests
+namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuth
 {
     [ExcludeFromCodeCoverage]
     [TestClass]
-    public class ContentGraphClientTests
+    public class BasicAuthClientTests
     {
     }
 }

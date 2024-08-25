@@ -1,4 +1,4 @@
-﻿using Optimizely.Graph.Source.Sdk.ContentGraph;
+﻿using Optimizely.Graph.Source.Sdk.BasicAuth;
 using Optimizely.Graph.Source.Sdk.Models;
 using Optimizely.Graph.Source.Sdk.Repositories;
 
@@ -21,10 +21,12 @@ namespace Optimizely.Graph.Source.Sdk
         /// <param name="appKey"></param>
         /// <param name="secret"></param>
         /// <returns></returns>
-        public static GraphSourceClient Create(string baseUrl, string source, string appKey, string secret)
+        public static GraphSourceClient Create(Uri baseUrl, string source, string appKey, string secret)
         {
-            var contentGraphClientFactory = new ContentGraphClientFactory(baseUrl, source, appKey, secret);
-            var repository = new GraphSourceRepository(contentGraphClientFactory.Create());
+            var httpClientFactory = CreateHttpClientFactory(appKey, secret);
+            var contentGraphClientFactory = new BasicAuthClientFactory(appKey, secret);
+            var restClient = new RestClient(httpClientFactory, baseUrl);
+            var repository = new GraphSourceRepository(contentGraphClientFactory.Create(restClient), source);
             return new GraphSourceClient(repository);
         }
 
@@ -59,6 +61,36 @@ namespace Optimizely.Graph.Source.Sdk
         public async Task<string> DeleteContentAsync(string id)
         {
             return await repository.DeleteContentAsync(id);
+        }
+
+        /// <summary>
+        /// Creates the HttpClientFactory for the REST services.
+        /// </summary>
+        /// <param name="appKey">Application key identifying the tenant</param>
+        /// <param name="secretKey">Secret key for the tenant</param>
+        /// <returns>CachingHttpClientFactory</returns>
+        private static IHttpClientFactory CreateHttpClientFactory(string appKey, string secretKey)
+        {
+            Assert(appKey, secretKey);
+
+            return new CachingHttpClientFactory(
+                new HttpClientFactory(),
+                uri => new AuthenticatingHttpClientCacheKey(uri, appKey, secretKey)
+            );
+        }
+
+        /// <summary>
+        /// Asserts the values provided.
+        /// </summary>
+        /// <param name="appKey">The application key.</param>
+        /// <param name="secretKey">The secret key.</param>
+        private static void Assert(string appKey, string secretKey)
+        {
+            if (String.IsNullOrWhiteSpace(appKey))
+                throw new ArgumentException("The value must contain at least one non-whitespace character.", nameof(appKey));
+
+            if (String.IsNullOrWhiteSpace(secretKey))
+                throw new ArgumentException("The value must contain at least one non-whitespace character.", nameof(secretKey));
         }
     }
 }
