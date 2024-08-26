@@ -43,7 +43,8 @@ namespace Optimizely.Graph.Source.Sdk.HttpClientHelpers
         /// identified for this factory. If a client for this service has
         /// previously been requested, a cached instance will be returned.
         /// </summary>
-        /// <returns>HTTP client target the specified base address</returns>
+        /// <param name="endpoint">Uri endpoint.</param>
+        /// <returns>HTTP client target the specified base address.</returns>
         public HttpClient Create(Uri endpoint)
         {
             var cacheKey = createCacheKey(endpoint);

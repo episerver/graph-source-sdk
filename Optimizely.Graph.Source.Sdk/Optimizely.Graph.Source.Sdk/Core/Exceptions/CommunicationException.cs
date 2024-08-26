@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Optimizely.Graph.Source.Sdk.Core.Exceptions
+﻿namespace Optimizely.Graph.Source.Sdk.Core.Exceptions
 {
     /// <summary>
     /// The CommunicationException class describes an error occurring in the
@@ -20,6 +18,4 @@ namespace Optimizely.Graph.Source.Sdk.Core.Exceptions
 
         }
     }
-
-
 }

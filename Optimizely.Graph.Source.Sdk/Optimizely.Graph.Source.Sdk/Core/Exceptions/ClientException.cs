@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Optimizely.Graph.Source.Sdk.Core.Exceptions
+﻿namespace Optimizely.Graph.Source.Sdk.Core.Exceptions
 {
     /// <summary>
     /// The ClientException class describes an error occurring while
