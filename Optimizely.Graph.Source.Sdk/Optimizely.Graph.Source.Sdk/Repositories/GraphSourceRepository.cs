@@ -7,7 +7,8 @@ using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {
     /// <summary>
-    /// 
+    /// The GraphSourceRepository manages and delivers content types and content
+    /// to the Content Graph services api.
     /// </summary>
     public class GraphSourceRepository : IGraphSourceRepository
     {
@@ -17,29 +18,39 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         private const string TypeUrl = "/api/content/v3/types";
         private const string DataUrl = "/api/content/v2/data";
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="client">Rest client targeting Content Graph api services.</param>
+        /// <param name="source">Content Graph source.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public GraphSourceRepository(IRestClient client, string source)
         {
             this.client = client;
-            this.source = source;
+            this.source = source ?? throw new ArgumentNullException(nameof(source));
         }
 
+        /// <inheritdoc/>
         public void AddLanguage(string language)
         {
             SourceConfigurationModel.AddLanguage(language);
         }
 
+        /// <inheritdoc/>
         public SourceConfigurationModel<T> ConfigureContentType<T>()
             where T : class, new()
         {
             return new SourceConfigurationModel<T>(ConfigurationType.ContentType);
         }
 
+        /// <inheritdoc/>
         public SourceConfigurationModel<T> ConfigurePropertyType<T>()
             where T : class, new()
         {
             return new SourceConfigurationModel<T>(ConfigurationType.PropertyType);
         }
 
+        /// <inheritdoc/>
         public async Task<string> SaveTypesAsync()
         {
             var serializeOptions = new JsonSerializerOptions
@@ -67,6 +78,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
             return string.Empty;
         }
 
+        /// <inheritdoc/>
         public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
             where T : class, new()
         {
@@ -104,6 +116,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
             return string.Empty;
         }
 
+        /// <inheritdoc/>
         public Task<string> DeleteContentAsync(string id)
         {
             throw new NotImplementedException();

@@ -25,6 +25,12 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         }
 
         [TestMethod]
+        public void Constructor_WithEmptySource_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new GraphSourceRepository(mockRestClient.Object, null));
+        }
+
+        [TestMethod]
         public void AddLanguage_SetsExpectedValue_InSourceConfigurationModel()
         {
             // Arrange
