@@ -1,5 +1,4 @@
-﻿
-namespace Optimizely.Graph.Source.Sdk
+﻿namespace Optimizely.Graph.Source.Sdk.HttpClientHelpers
 {
     /// <summary>
     /// The HttpClientFactory class constructs instances of

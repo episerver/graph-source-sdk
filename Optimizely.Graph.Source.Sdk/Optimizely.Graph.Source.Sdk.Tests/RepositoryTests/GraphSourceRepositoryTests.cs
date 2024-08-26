@@ -6,6 +6,7 @@ using Optimizely.Graph.Source.Sdk.JsonConverters;
 using System.Text.Json;
 using System.Net;
 using System.Text;
+using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {

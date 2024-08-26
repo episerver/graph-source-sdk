@@ -1,5 +1,4 @@
-﻿
-namespace Optimizely.Graph.Source.Sdk
+﻿namespace Optimizely.Graph.Source.Sdk.RestClientHelpers
 {
     /// <summary>
     /// The IRestClient interface describes the contract for a client capable of communicating 

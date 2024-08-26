@@ -1,4 +1,6 @@
-﻿namespace Optimizely.Graph.Source.Sdk.BasicAuth
+﻿using Optimizely.Graph.Source.Sdk.RestClientHelpers;
+
+namespace Optimizely.Graph.Source.Sdk.BasicAuth
 {
     /// <summary>
     /// An interface that describes a factory that creates a http client for Content Graph.

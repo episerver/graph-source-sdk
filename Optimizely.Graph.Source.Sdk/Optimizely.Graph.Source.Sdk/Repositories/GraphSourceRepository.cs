@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Optimizely.Graph.Source.Sdk.Models;
 using System.Text;
+using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {

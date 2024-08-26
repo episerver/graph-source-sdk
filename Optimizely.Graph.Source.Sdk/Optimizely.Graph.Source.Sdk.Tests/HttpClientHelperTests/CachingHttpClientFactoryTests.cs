@@ -1,7 +1,8 @@
 ﻿using Moq;
+using Optimizely.Graph.Source.Sdk.HttpClientHelpers;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Optimizely.Graph.Source.Sdk.Tests
+namespace Optimizely.Graph.Source.Sdk.Tests.HttpClientHelperTests
 {
     [ExcludeFromCodeCoverage]
     [TestClass]

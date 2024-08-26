@@ -4,8 +4,11 @@ using System.Net;
 using System.Net.Http.Json;
 using TimeoutException = Optimizely.Graph.Source.Sdk.Core.Exceptions.TimeoutException;
 using Optimizely.Graph.Source.Sdk.Core.Exceptions;
+using Optimizely.Graph.Source.Sdk.RestClientHelpers;
+using Optimizely.Graph.Source.Sdk.HttpClientHelpers;
+using Optimizely.Graph.Source.Sdk.Tests.HttpClientHelperTests;
 
-namespace Optimizely.Graph.Source.Sdk.Tests
+namespace Optimizely.Graph.Source.Sdk.Tests.RestClientHelperTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

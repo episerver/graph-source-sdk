@@ -1,4 +1,6 @@
 ﻿using Optimizely.Graph.Source.Sdk.BasicAuth;
+using Optimizely.Graph.Source.Sdk.HttpClientHelpers;
+using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using Optimizely.Graph.Source.Sdk.Models;
 using Optimizely.Graph.Source.Sdk.Repositories;
 

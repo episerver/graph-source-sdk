@@ -1,4 +1,5 @@
-﻿
+﻿using Optimizely.Graph.Source.Sdk.RestClientHelpers;
+
 namespace Optimizely.Graph.Source.Sdk.BasicAuth
 {
     public class BasicAuthClientFactory : IBasicAuthClientFactory

@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Optimizely.Graph.Source.Sdk
+namespace Optimizely.Graph.Source.Sdk.HttpClientHelpers
 {
     /// <summary>
     /// The HttpClientCacheKey class represents a unique key applied in the

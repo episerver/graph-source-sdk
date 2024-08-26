@@ -1,5 +1,4 @@
-﻿
-namespace Optimizely.Graph.Source.Sdk
+﻿namespace Optimizely.Graph.Source.Sdk.HttpClientHelpers
 {
     /// <summary>
     /// The IHttpClientFactory interface describes a factory capable of constructing instances of HttpClient.

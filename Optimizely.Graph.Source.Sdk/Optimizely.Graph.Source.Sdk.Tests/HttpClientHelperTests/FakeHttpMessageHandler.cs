@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Optimizely.Graph.Source.Sdk.Tests
+namespace Optimizely.Graph.Source.Sdk.Tests.HttpClientHelperTests
 {
     [ExcludeFromCodeCoverage]
     public class FakeHttpMessageHandler : HttpMessageHandler

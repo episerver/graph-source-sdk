@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Optimizely.Graph.Source.Sdk.Core.Exceptions;
+using Optimizely.Graph.Source.Sdk.HttpClientHelpers;
 using System.Net;
 
-namespace Optimizely.Graph.Source.Sdk
+namespace Optimizely.Graph.Source.Sdk.RestClientHelpers
 {
     /// <summary>
     /// The RestClient class describes a client capable of communicating with REST services.

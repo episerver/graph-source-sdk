@@ -1,184 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.48444863336475" branch-rate="0.297213622291022" lines-covered="514" lines-valid="1061" branches-covered="96" branches-valid="323" complexity="416" version="0" timestamp="1724680893">
+<coverage line-rate="0.48444863336475" branch-rate="0.297213622291022" lines-covered="514" lines-valid="1061" branches-covered="96" branches-valid="323" complexity="416" version="0" timestamp="1724681626">
   <sources>
     <source>C:\Users\jamin\</source>
   </sources>
   <packages>
     <package name="Optimizely.Graph.Source.Sdk" line-rate="0.481973434535104" branch-rate="0.297213622291022" complexity="409">
       <classes>
-        <class name="Optimizely.Graph.Source.Sdk.AuthenticatingHttpClientCacheKey" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\AuthenticatingHttpClientCacheKey.cs" line-rate="1" branch-rate="1" complexity="2">
-          <methods>
-            <method name="KeyFor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="31" hits="4" branch="false" />
-                <line number="32" hits="4" branch="false" />
-                <line number="33" hits="4" branch="false" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="18" hits="4" branch="false" />
-                <line number="19" hits="4" branch="false" />
-                <line number="21" hits="4" branch="false" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="18" hits="4" branch="false" />
-            <line number="19" hits="4" branch="false" />
-            <line number="21" hits="4" branch="false" />
-            <line number="31" hits="4" branch="false" />
-            <line number="32" hits="4" branch="false" />
-            <line number="33" hits="4" branch="false" />
-          </lines>
-        </class>
         <class name="Optimizely.Graph.Source.Sdk.BasicAuth.BasicAuthClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\BasicAuth\BasicAuthClient.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
             <method name="HandleResponse" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="31" hits="1" branch="false" />
                 <line number="32" hits="1" branch="false" />
                 <line number="33" hits="1" branch="false" />
+                <line number="34" hits="1" branch="false" />
               </lines>
             </method>
             <method name="HandleResponse" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="36" hits="1" branch="false" />
                 <line number="37" hits="1" branch="false" />
                 <line number="38" hits="1" branch="false" />
+                <line number="39" hits="1" branch="false" />
               </lines>
             </method>
             <method name="GetBasicAuthString" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="41" hits="2" branch="false" />
                 <line number="42" hits="2" branch="false" />
                 <line number="43" hits="2" branch="false" />
+                <line number="44" hits="2" branch="false" />
               </lines>
             </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="11" hits="5" branch="false" />
                 <line number="12" hits="5" branch="false" />
                 <line number="13" hits="5" branch="false" />
                 <line number="14" hits="5" branch="false" />
                 <line number="15" hits="5" branch="false" />
                 <line number="16" hits="5" branch="false" />
+                <line number="17" hits="5" branch="false" />
               </lines>
             </method>
             <method name="SendAsync" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="19" hits="1" branch="false" />
                 <line number="20" hits="1" branch="false" />
                 <line number="21" hits="1" branch="false" />
                 <line number="22" hits="1" branch="false" />
+                <line number="23" hits="1" branch="false" />
               </lines>
             </method>
             <method name="SendAsync" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="25" hits="1" branch="false" />
                 <line number="26" hits="1" branch="false" />
                 <line number="27" hits="1" branch="false" />
                 <line number="28" hits="1" branch="false" />
+                <line number="29" hits="1" branch="false" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="11" hits="5" branch="false" />
             <line number="12" hits="5" branch="false" />
             <line number="13" hits="5" branch="false" />
             <line number="14" hits="5" branch="false" />
             <line number="15" hits="5" branch="false" />
             <line number="16" hits="5" branch="false" />
-            <line number="19" hits="1" branch="false" />
+            <line number="17" hits="5" branch="false" />
             <line number="20" hits="1" branch="false" />
             <line number="21" hits="1" branch="false" />
             <line number="22" hits="1" branch="false" />
-            <line number="25" hits="1" branch="false" />
+            <line number="23" hits="1" branch="false" />
             <line number="26" hits="1" branch="false" />
             <line number="27" hits="1" branch="false" />
             <line number="28" hits="1" branch="false" />
-            <line number="31" hits="1" branch="false" />
+            <line number="29" hits="1" branch="false" />
             <line number="32" hits="1" branch="false" />
             <line number="33" hits="1" branch="false" />
-            <line number="36" hits="1" branch="false" />
+            <line number="34" hits="1" branch="false" />
             <line number="37" hits="1" branch="false" />
             <line number="38" hits="1" branch="false" />
-            <line number="41" hits="2" branch="false" />
+            <line number="39" hits="1" branch="false" />
             <line number="42" hits="2" branch="false" />
             <line number="43" hits="2" branch="false" />
+            <line number="44" hits="2" branch="false" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.BasicAuth.BasicAuthClientFactory" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\BasicAuth\BasicAuthClientFactory.cs" line-rate="1" branch-rate="1" complexity="5">
           <methods>
             <method name="Create" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="16" hits="1" branch="false" />
                 <line number="17" hits="1" branch="false" />
                 <line number="18" hits="1" branch="false" />
+                <line number="19" hits="1" branch="false" />
               </lines>
             </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
               <lines>
-                <line number="9" hits="3" branch="false" />
                 <line number="10" hits="3" branch="false" />
-                <line number="11" hits="3" branch="true" condition-coverage="100% (2/2)" />
-                <line number="12" hits="2" branch="true" condition-coverage="100% (2/2)" />
-                <line number="13" hits="1" branch="false" />
+                <line number="11" hits="3" branch="false" />
+                <line number="12" hits="3" branch="true" condition-coverage="100% (2/2)" />
+                <line number="13" hits="2" branch="true" condition-coverage="100% (2/2)" />
+                <line number="14" hits="1" branch="false" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="9" hits="3" branch="false" />
             <line number="10" hits="3" branch="false" />
-            <line number="11" hits="3" branch="true" condition-coverage="100% (2/2)" />
-            <line number="12" hits="2" branch="true" condition-coverage="100% (2/2)" />
-            <line number="13" hits="1" branch="false" />
-            <line number="16" hits="1" branch="false" />
+            <line number="11" hits="3" branch="false" />
+            <line number="12" hits="3" branch="true" condition-coverage="100% (2/2)" />
+            <line number="13" hits="2" branch="true" condition-coverage="100% (2/2)" />
+            <line number="14" hits="1" branch="false" />
             <line number="17" hits="1" branch="false" />
             <line number="18" hits="1" branch="false" />
-          </lines>
-        </class>
-        <class name="Optimizely.Graph.Source.Sdk.CachingHttpClientFactory" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\CachingHttpClientFactory.cs" line-rate="1" branch-rate="0.5" complexity="6">
-          <methods>
-            <method name="Create" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="48" hits="4" branch="false" />
-                <line number="49" hits="4" branch="false" />
-                <line number="50" hits="7" branch="false" />
-                <line number="51" hits="4" branch="false" />
-              </lines>
-            </method>
-            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="26" hits="1" branch="false" />
-                <line number="27" hits="1" branch="false" />
-                <line number="28" hits="1" branch="false" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="0.5" complexity="4">
-              <lines>
-                <line number="35" hits="4" branch="false" />
-                <line number="36" hits="4" branch="false" />
-                <line number="37" hits="4" branch="true" condition-coverage="50% (1/2)" />
-                <line number="38" hits="4" branch="true" condition-coverage="50% (1/2)" />
-                <line number="39" hits="4" branch="false" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="26" hits="1" branch="false" />
-            <line number="27" hits="1" branch="false" />
-            <line number="28" hits="1" branch="false" />
-            <line number="35" hits="4" branch="false" />
-            <line number="36" hits="4" branch="false" />
-            <line number="37" hits="4" branch="true" condition-coverage="50% (1/2)" />
-            <line number="38" hits="4" branch="true" condition-coverage="50% (1/2)" />
-            <line number="39" hits="4" branch="false" />
-            <line number="48" hits="4" branch="false" />
-            <line number="49" hits="4" branch="false" />
-            <line number="50" hits="7" branch="false" />
-            <line number="51" hits="4" branch="false" />
+            <line number="19" hits="1" branch="false" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.Core.Exceptions.ClientException" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\Core\Exceptions\ClientException.cs" line-rate="0.692307692307692" branch-rate="1" complexity="4">
@@ -1469,133 +1401,201 @@
           <methods>
             <method name="Create" signature="(...)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="25" hits="0" branch="false" />
-                <line number="26" hits="0" branch="false" />
                 <line number="27" hits="0" branch="false" />
                 <line number="28" hits="0" branch="false" />
                 <line number="29" hits="0" branch="false" />
                 <line number="30" hits="0" branch="false" />
                 <line number="31" hits="0" branch="false" />
+                <line number="32" hits="0" branch="false" />
+                <line number="33" hits="0" branch="false" />
               </lines>
             </method>
             <method name="AddLanguage" signature="(...)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="34" hits="0" branch="false" />
-                <line number="35" hits="0" branch="false" />
                 <line number="36" hits="0" branch="false" />
+                <line number="37" hits="0" branch="false" />
+                <line number="38" hits="0" branch="false" />
               </lines>
             </method>
             <method name="ConfigureContentType" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="40" hits="0" branch="false" />
-                <line number="41" hits="0" branch="false" />
                 <line number="42" hits="0" branch="false" />
+                <line number="43" hits="0" branch="false" />
+                <line number="44" hits="0" branch="false" />
               </lines>
             </method>
             <method name="ConfigurePropertyType" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="46" hits="0" branch="false" />
-                <line number="47" hits="0" branch="false" />
                 <line number="48" hits="0" branch="false" />
+                <line number="49" hits="0" branch="false" />
+                <line number="50" hits="0" branch="false" />
               </lines>
             </method>
             <method name="CreateHttpClientFactory" signature="(...)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="73" hits="0" branch="false" />
-                <line number="74" hits="0" branch="false" />
+                <line number="75" hits="0" branch="false" />
                 <line number="76" hits="0" branch="false" />
-                <line number="77" hits="0" branch="false" />
                 <line number="78" hits="0" branch="false" />
                 <line number="79" hits="0" branch="false" />
                 <line number="80" hits="0" branch="false" />
+                <line number="81" hits="0" branch="false" />
+                <line number="82" hits="0" branch="false" />
               </lines>
             </method>
             <method name="Assert" signature="(...)" line-rate="0" branch-rate="0" complexity="4">
               <lines>
-                <line number="88" hits="0" branch="false" />
-                <line number="89" hits="0" branch="true" condition-coverage="0% (0/2)" />
                 <line number="90" hits="0" branch="false" />
-                <line number="92" hits="0" branch="true" condition-coverage="0% (0/2)" />
-                <line number="93" hits="0" branch="false" />
-                <line number="94" hits="0" branch="false" />
+                <line number="91" hits="0" branch="true" condition-coverage="0% (0/2)" />
+                <line number="92" hits="0" branch="false" />
+                <line number="94" hits="0" branch="true" condition-coverage="0% (0/2)" />
+                <line number="95" hits="0" branch="false" />
+                <line number="96" hits="0" branch="false" />
               </lines>
             </method>
             <method name=".ctor" signature="(...)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="11" hits="0" branch="false" />
-                <line number="12" hits="0" branch="false" />
                 <line number="13" hits="0" branch="false" />
                 <line number="14" hits="0" branch="false" />
+                <line number="15" hits="0" branch="false" />
+                <line number="16" hits="0" branch="false" />
               </lines>
             </method>
             <method name="DeleteContentAsync" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="62" hits="0" branch="false" />
-                <line number="63" hits="0" branch="false" />
                 <line number="64" hits="0" branch="false" />
+                <line number="65" hits="0" branch="false" />
+                <line number="66" hits="0" branch="false" />
               </lines>
             </method>
             <method name="SaveContentAsync" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="57" hits="0" branch="false" />
-                <line number="58" hits="0" branch="false" />
                 <line number="59" hits="0" branch="false" />
+                <line number="60" hits="0" branch="false" />
+                <line number="61" hits="0" branch="false" />
               </lines>
             </method>
             <method name="SaveTypesAsync" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="51" hits="0" branch="false" />
-                <line number="52" hits="0" branch="false" />
                 <line number="53" hits="0" branch="false" />
+                <line number="54" hits="0" branch="false" />
+                <line number="55" hits="0" branch="false" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="11" hits="0" branch="false" />
-            <line number="12" hits="0" branch="false" />
             <line number="13" hits="0" branch="false" />
             <line number="14" hits="0" branch="false" />
-            <line number="25" hits="0" branch="false" />
-            <line number="26" hits="0" branch="false" />
+            <line number="15" hits="0" branch="false" />
+            <line number="16" hits="0" branch="false" />
             <line number="27" hits="0" branch="false" />
             <line number="28" hits="0" branch="false" />
             <line number="29" hits="0" branch="false" />
             <line number="30" hits="0" branch="false" />
             <line number="31" hits="0" branch="false" />
-            <line number="34" hits="0" branch="false" />
-            <line number="35" hits="0" branch="false" />
+            <line number="32" hits="0" branch="false" />
+            <line number="33" hits="0" branch="false" />
             <line number="36" hits="0" branch="false" />
-            <line number="40" hits="0" branch="false" />
-            <line number="41" hits="0" branch="false" />
+            <line number="37" hits="0" branch="false" />
+            <line number="38" hits="0" branch="false" />
             <line number="42" hits="0" branch="false" />
-            <line number="46" hits="0" branch="false" />
-            <line number="47" hits="0" branch="false" />
+            <line number="43" hits="0" branch="false" />
+            <line number="44" hits="0" branch="false" />
             <line number="48" hits="0" branch="false" />
-            <line number="51" hits="0" branch="false" />
-            <line number="52" hits="0" branch="false" />
+            <line number="49" hits="0" branch="false" />
+            <line number="50" hits="0" branch="false" />
             <line number="53" hits="0" branch="false" />
-            <line number="57" hits="0" branch="false" />
-            <line number="58" hits="0" branch="false" />
+            <line number="54" hits="0" branch="false" />
+            <line number="55" hits="0" branch="false" />
             <line number="59" hits="0" branch="false" />
-            <line number="62" hits="0" branch="false" />
-            <line number="63" hits="0" branch="false" />
+            <line number="60" hits="0" branch="false" />
+            <line number="61" hits="0" branch="false" />
             <line number="64" hits="0" branch="false" />
-            <line number="73" hits="0" branch="false" />
-            <line number="74" hits="0" branch="false" />
+            <line number="65" hits="0" branch="false" />
+            <line number="66" hits="0" branch="false" />
+            <line number="75" hits="0" branch="false" />
             <line number="76" hits="0" branch="false" />
-            <line number="77" hits="0" branch="false" />
             <line number="78" hits="0" branch="false" />
             <line number="79" hits="0" branch="false" />
             <line number="80" hits="0" branch="false" />
-            <line number="88" hits="0" branch="false" />
-            <line number="89" hits="0" branch="true" condition-coverage="0% (0/2)" />
+            <line number="81" hits="0" branch="false" />
+            <line number="82" hits="0" branch="false" />
             <line number="90" hits="0" branch="false" />
-            <line number="92" hits="0" branch="true" condition-coverage="0% (0/2)" />
-            <line number="93" hits="0" branch="false" />
-            <line number="94" hits="0" branch="false" />
+            <line number="91" hits="0" branch="true" condition-coverage="0% (0/2)" />
+            <line number="92" hits="0" branch="false" />
+            <line number="94" hits="0" branch="true" condition-coverage="0% (0/2)" />
+            <line number="95" hits="0" branch="false" />
+            <line number="96" hits="0" branch="false" />
           </lines>
         </class>
-        <class name="Optimizely.Graph.Source.Sdk.HttpClientCacheKey" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientCacheKey.cs" line-rate="1" branch-rate="1" complexity="3">
+        <class name="Optimizely.Graph.Source.Sdk.HttpClientHelpers.AuthenticatingHttpClientCacheKey" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientHelpers\AuthenticatingHttpClientCacheKey.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="KeyFor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="30" hits="4" branch="false" />
+                <line number="31" hits="4" branch="false" />
+                <line number="32" hits="4" branch="false" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="4" branch="false" />
+                <line number="18" hits="4" branch="false" />
+                <line number="20" hits="4" branch="false" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="17" hits="4" branch="false" />
+            <line number="18" hits="4" branch="false" />
+            <line number="20" hits="4" branch="false" />
+            <line number="30" hits="4" branch="false" />
+            <line number="31" hits="4" branch="false" />
+            <line number="32" hits="4" branch="false" />
+          </lines>
+        </class>
+        <class name="Optimizely.Graph.Source.Sdk.HttpClientHelpers.CachingHttpClientFactory" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientHelpers\CachingHttpClientFactory.cs" line-rate="1" branch-rate="0.5" complexity="6">
+          <methods>
+            <method name="Create" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="48" hits="4" branch="false" />
+                <line number="49" hits="4" branch="false" />
+                <line number="50" hits="7" branch="false" />
+                <line number="51" hits="4" branch="false" />
+              </lines>
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="26" hits="1" branch="false" />
+                <line number="27" hits="1" branch="false" />
+                <line number="28" hits="1" branch="false" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(...)" line-rate="1" branch-rate="0.5" complexity="4">
+              <lines>
+                <line number="35" hits="4" branch="false" />
+                <line number="36" hits="4" branch="false" />
+                <line number="37" hits="4" branch="true" condition-coverage="50% (1/2)" />
+                <line number="38" hits="4" branch="true" condition-coverage="50% (1/2)" />
+                <line number="39" hits="4" branch="false" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="26" hits="1" branch="false" />
+            <line number="27" hits="1" branch="false" />
+            <line number="28" hits="1" branch="false" />
+            <line number="35" hits="4" branch="false" />
+            <line number="36" hits="4" branch="false" />
+            <line number="37" hits="4" branch="true" condition-coverage="50% (1/2)" />
+            <line number="38" hits="4" branch="true" condition-coverage="50% (1/2)" />
+            <line number="39" hits="4" branch="false" />
+            <line number="48" hits="4" branch="false" />
+            <line number="49" hits="4" branch="false" />
+            <line number="50" hits="7" branch="false" />
+            <line number="51" hits="4" branch="false" />
+          </lines>
+        </class>
+        <class name="Optimizely.Graph.Source.Sdk.HttpClientHelpers.HttpClientCacheKey" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientHelpers\HttpClientCacheKey.cs" line-rate="1" branch-rate="1" complexity="3">
           <methods>
             <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1641,66 +1641,66 @@
             <line number="45" hits="4" branch="false" />
           </lines>
         </class>
-        <class name="Optimizely.Graph.Source.Sdk.HttpClientFactory" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientFactory.cs" line-rate="0.863636363636364" branch-rate="0.75" complexity="5">
+        <class name="Optimizely.Graph.Source.Sdk.HttpClientHelpers.HttpClientFactory" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientHelpers\HttpClientFactory.cs" line-rate="0.863636363636364" branch-rate="0.75" complexity="5">
           <methods>
             <method name="Create" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
-                <line number="17" hits="2" branch="false" />
-                <line number="18" hits="2" branch="true" condition-coverage="100% (2/2)" />
+                <line number="16" hits="2" branch="false" />
+                <line number="17" hits="2" branch="true" condition-coverage="100% (2/2)" />
+                <line number="18" hits="1" branch="false" />
                 <line number="19" hits="1" branch="false" />
-                <line number="20" hits="1" branch="false" />
+                <line number="22" hits="1" branch="false" />
                 <line number="23" hits="1" branch="false" />
                 <line number="24" hits="1" branch="false" />
                 <line number="25" hits="1" branch="false" />
                 <line number="26" hits="1" branch="false" />
-                <line number="27" hits="1" branch="false" />
+                <line number="28" hits="1" branch="false" />
                 <line number="29" hits="1" branch="false" />
-                <line number="30" hits="1" branch="false" />
               </lines>
             </method>
             <method name="CreateBaseHandler" signature="(...)" line-rate="0.625" branch-rate="0.5" complexity="2">
               <lines>
+                <line number="37" hits="1" branch="false" />
                 <line number="38" hits="1" branch="false" />
-                <line number="39" hits="1" branch="false" />
-                <line number="41" hits="1" branch="true" condition-coverage="50% (1/2)" />
+                <line number="40" hits="1" branch="true" condition-coverage="50% (1/2)" />
+                <line number="41" hits="0" branch="false" />
                 <line number="42" hits="0" branch="false" />
                 <line number="43" hits="0" branch="false" />
-                <line number="44" hits="0" branch="false" />
+                <line number="45" hits="1" branch="false" />
                 <line number="46" hits="1" branch="false" />
-                <line number="47" hits="1" branch="false" />
               </lines>
             </method>
             <method name="IsTrustedHost" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
+                <line number="55" hits="1" branch="false" />
                 <line number="56" hits="1" branch="false" />
                 <line number="57" hits="1" branch="false" />
-                <line number="58" hits="1" branch="false" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="17" hits="2" branch="false" />
-            <line number="18" hits="2" branch="true" condition-coverage="100% (2/2)" />
+            <line number="16" hits="2" branch="false" />
+            <line number="17" hits="2" branch="true" condition-coverage="100% (2/2)" />
+            <line number="18" hits="1" branch="false" />
             <line number="19" hits="1" branch="false" />
-            <line number="20" hits="1" branch="false" />
+            <line number="22" hits="1" branch="false" />
             <line number="23" hits="1" branch="false" />
             <line number="24" hits="1" branch="false" />
             <line number="25" hits="1" branch="false" />
             <line number="26" hits="1" branch="false" />
-            <line number="27" hits="1" branch="false" />
+            <line number="28" hits="1" branch="false" />
             <line number="29" hits="1" branch="false" />
-            <line number="30" hits="1" branch="false" />
+            <line number="37" hits="1" branch="false" />
             <line number="38" hits="1" branch="false" />
-            <line number="39" hits="1" branch="false" />
-            <line number="41" hits="1" branch="true" condition-coverage="50% (1/2)" />
+            <line number="40" hits="1" branch="true" condition-coverage="50% (1/2)" />
+            <line number="41" hits="0" branch="false" />
             <line number="42" hits="0" branch="false" />
             <line number="43" hits="0" branch="false" />
-            <line number="44" hits="0" branch="false" />
+            <line number="45" hits="1" branch="false" />
             <line number="46" hits="1" branch="false" />
-            <line number="47" hits="1" branch="false" />
+            <line number="55" hits="1" branch="false" />
             <line number="56" hits="1" branch="false" />
             <line number="57" hits="1" branch="false" />
-            <line number="58" hits="1" branch="false" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.JsonConverters.SourceSdkContentConverter" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\JsonConverters\SourceSdkContentConverter.cs" line-rate="0.47787610619469" branch-rate="0.5" complexity="40">
@@ -2535,43 +2535,42 @@
           <methods>
             <method name="AddLanguage" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="26" hits="1" branch="false" />
                 <line number="27" hits="1" branch="false" />
                 <line number="28" hits="1" branch="false" />
+                <line number="29" hits="1" branch="false" />
               </lines>
             </method>
             <method name="ConfigureContentType" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="32" hits="3" branch="false" />
                 <line number="33" hits="3" branch="false" />
                 <line number="34" hits="3" branch="false" />
+                <line number="35" hits="3" branch="false" />
               </lines>
             </method>
             <method name="ConfigurePropertyType" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="38" hits="2" branch="false" />
                 <line number="39" hits="2" branch="false" />
                 <line number="40" hits="2" branch="false" />
+                <line number="41" hits="2" branch="false" />
               </lines>
             </method>
             <method name="DeleteContentAsync" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="107" hits="1" branch="false" />
                 <line number="108" hits="1" branch="false" />
+                <line number="109" hits="1" branch="false" />
               </lines>
             </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="19" hits="6" branch="false" />
                 <line number="20" hits="6" branch="false" />
                 <line number="21" hits="6" branch="false" />
                 <line number="22" hits="6" branch="false" />
                 <line number="23" hits="6" branch="false" />
+                <line number="24" hits="6" branch="false" />
               </lines>
             </method>
             <method name="SaveContentAsync" signature="()" line-rate="1" branch-rate="1" complexity="2">
               <lines>
-                <line number="71" hits="1" branch="false" />
                 <line number="72" hits="1" branch="false" />
                 <line number="73" hits="1" branch="false" />
                 <line number="74" hits="1" branch="false" />
@@ -2580,18 +2579,18 @@
                 <line number="77" hits="1" branch="false" />
                 <line number="78" hits="1" branch="false" />
                 <line number="79" hits="1" branch="false" />
-                <line number="81" hits="1" branch="false" />
-                <line number="82" hits="5" branch="true" condition-coverage="100% (2/2)" />
-                <line number="83" hits="1" branch="false" />
+                <line number="80" hits="1" branch="false" />
+                <line number="82" hits="1" branch="false" />
+                <line number="83" hits="5" branch="true" condition-coverage="100% (2/2)" />
                 <line number="84" hits="1" branch="false" />
                 <line number="85" hits="1" branch="false" />
-                <line number="87" hits="1" branch="false" />
+                <line number="86" hits="1" branch="false" />
                 <line number="88" hits="1" branch="false" />
                 <line number="89" hits="1" branch="false" />
                 <line number="90" hits="1" branch="false" />
                 <line number="91" hits="1" branch="false" />
-                <line number="93" hits="1" branch="false" />
-                <line number="95" hits="1" branch="false" />
+                <line number="92" hits="1" branch="false" />
+                <line number="94" hits="1" branch="false" />
                 <line number="96" hits="1" branch="false" />
                 <line number="97" hits="1" branch="false" />
                 <line number="98" hits="1" branch="false" />
@@ -2601,11 +2600,11 @@
                 <line number="102" hits="1" branch="false" />
                 <line number="103" hits="1" branch="false" />
                 <line number="104" hits="1" branch="false" />
+                <line number="105" hits="1" branch="false" />
               </lines>
             </method>
             <method name="SaveTypesAsync" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="43" hits="1" branch="false" />
                 <line number="44" hits="1" branch="false" />
                 <line number="45" hits="1" branch="false" />
                 <line number="46" hits="1" branch="false" />
@@ -2614,9 +2613,9 @@
                 <line number="49" hits="1" branch="false" />
                 <line number="50" hits="1" branch="false" />
                 <line number="51" hits="1" branch="false" />
-                <line number="53" hits="1" branch="false" />
-                <line number="55" hits="1" branch="false" />
-                <line number="57" hits="1" branch="false" />
+                <line number="52" hits="1" branch="false" />
+                <line number="54" hits="1" branch="false" />
+                <line number="56" hits="1" branch="false" />
                 <line number="58" hits="1" branch="false" />
                 <line number="59" hits="1" branch="false" />
                 <line number="60" hits="1" branch="false" />
@@ -2624,27 +2623,27 @@
                 <line number="62" hits="1" branch="false" />
                 <line number="63" hits="1" branch="false" />
                 <line number="64" hits="1" branch="false" />
-                <line number="66" hits="1" branch="false" />
+                <line number="65" hits="1" branch="false" />
                 <line number="67" hits="1" branch="false" />
+                <line number="68" hits="1" branch="false" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="19" hits="6" branch="false" />
             <line number="20" hits="6" branch="false" />
             <line number="21" hits="6" branch="false" />
             <line number="22" hits="6" branch="false" />
             <line number="23" hits="6" branch="false" />
-            <line number="26" hits="1" branch="false" />
+            <line number="24" hits="6" branch="false" />
             <line number="27" hits="1" branch="false" />
             <line number="28" hits="1" branch="false" />
-            <line number="32" hits="3" branch="false" />
+            <line number="29" hits="1" branch="false" />
             <line number="33" hits="3" branch="false" />
             <line number="34" hits="3" branch="false" />
-            <line number="38" hits="2" branch="false" />
+            <line number="35" hits="3" branch="false" />
             <line number="39" hits="2" branch="false" />
             <line number="40" hits="2" branch="false" />
-            <line number="43" hits="1" branch="false" />
+            <line number="41" hits="2" branch="false" />
             <line number="44" hits="1" branch="false" />
             <line number="45" hits="1" branch="false" />
             <line number="46" hits="1" branch="false" />
@@ -2653,9 +2652,9 @@
             <line number="49" hits="1" branch="false" />
             <line number="50" hits="1" branch="false" />
             <line number="51" hits="1" branch="false" />
-            <line number="53" hits="1" branch="false" />
-            <line number="55" hits="1" branch="false" />
-            <line number="57" hits="1" branch="false" />
+            <line number="52" hits="1" branch="false" />
+            <line number="54" hits="1" branch="false" />
+            <line number="56" hits="1" branch="false" />
             <line number="58" hits="1" branch="false" />
             <line number="59" hits="1" branch="false" />
             <line number="60" hits="1" branch="false" />
@@ -2663,9 +2662,9 @@
             <line number="62" hits="1" branch="false" />
             <line number="63" hits="1" branch="false" />
             <line number="64" hits="1" branch="false" />
-            <line number="66" hits="1" branch="false" />
+            <line number="65" hits="1" branch="false" />
             <line number="67" hits="1" branch="false" />
-            <line number="71" hits="1" branch="false" />
+            <line number="68" hits="1" branch="false" />
             <line number="72" hits="1" branch="false" />
             <line number="73" hits="1" branch="false" />
             <line number="74" hits="1" branch="false" />
@@ -2674,18 +2673,18 @@
             <line number="77" hits="1" branch="false" />
             <line number="78" hits="1" branch="false" />
             <line number="79" hits="1" branch="false" />
-            <line number="81" hits="1" branch="false" />
-            <line number="82" hits="5" branch="true" condition-coverage="100% (2/2)" />
-            <line number="83" hits="1" branch="false" />
+            <line number="80" hits="1" branch="false" />
+            <line number="82" hits="1" branch="false" />
+            <line number="83" hits="5" branch="true" condition-coverage="100% (2/2)" />
             <line number="84" hits="1" branch="false" />
             <line number="85" hits="1" branch="false" />
-            <line number="87" hits="1" branch="false" />
+            <line number="86" hits="1" branch="false" />
             <line number="88" hits="1" branch="false" />
             <line number="89" hits="1" branch="false" />
             <line number="90" hits="1" branch="false" />
             <line number="91" hits="1" branch="false" />
-            <line number="93" hits="1" branch="false" />
-            <line number="95" hits="1" branch="false" />
+            <line number="92" hits="1" branch="false" />
+            <line number="94" hits="1" branch="false" />
             <line number="96" hits="1" branch="false" />
             <line number="97" hits="1" branch="false" />
             <line number="98" hits="1" branch="false" />
@@ -2695,144 +2694,145 @@
             <line number="102" hits="1" branch="false" />
             <line number="103" hits="1" branch="false" />
             <line number="104" hits="1" branch="false" />
-            <line number="107" hits="1" branch="false" />
+            <line number="105" hits="1" branch="false" />
             <line number="108" hits="1" branch="false" />
+            <line number="109" hits="1" branch="false" />
           </lines>
         </class>
-        <class name="Optimizely.Graph.Source.Sdk.RestClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\RestClient.cs" line-rate="0.686274509803922" branch-rate="0.5" complexity="9">
+        <class name="Optimizely.Graph.Source.Sdk.RestClientHelpers.RestClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\RestClientHelpers\RestClient.cs" line-rate="0.686274509803922" branch-rate="0.5" complexity="9">
           <methods>
             <method name="SendAsync" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="31" hits="1" branch="false" />
                 <line number="32" hits="1" branch="false" />
                 <line number="33" hits="1" branch="false" />
+                <line number="34" hits="1" branch="false" />
               </lines>
             </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="20" hits="11" branch="false" />
                 <line number="21" hits="11" branch="false" />
                 <line number="22" hits="11" branch="false" />
                 <line number="23" hits="11" branch="false" />
+                <line number="24" hits="11" branch="false" />
               </lines>
             </method>
             <method name="HandleResponse" signature="()" line-rate="0.454545454545455" branch-rate="0.5" complexity="2">
               <lines>
-                <line number="68" hits="5" branch="false" />
                 <line number="69" hits="5" branch="false" />
-                <line number="71" hits="5" branch="true" condition-coverage="50% (1/2)" />
-                <line number="72" hits="0" branch="false" />
+                <line number="70" hits="5" branch="false" />
+                <line number="72" hits="5" branch="true" condition-coverage="50% (1/2)" />
                 <line number="73" hits="0" branch="false" />
                 <line number="74" hits="0" branch="false" />
-                <line number="76" hits="5" branch="false" />
+                <line number="75" hits="0" branch="false" />
                 <line number="77" hits="5" branch="false" />
-                <line number="78" hits="0" branch="false" />
-                <line number="80" hits="0" branch="false" />
+                <line number="78" hits="5" branch="false" />
+                <line number="79" hits="0" branch="false" />
                 <line number="81" hits="0" branch="false" />
+                <line number="82" hits="0" branch="false" />
               </lines>
             </method>
             <method name="HandleResponse" signature="()" line-rate="0.666666666666667" branch-rate="0.5" complexity="2">
               <lines>
-                <line number="89" hits="1" branch="false" />
-                <line number="90" hits="1" branch="true" condition-coverage="50% (1/2)" />
-                <line number="91" hits="1" branch="false" />
+                <line number="90" hits="1" branch="false" />
+                <line number="91" hits="1" branch="true" condition-coverage="50% (1/2)" />
                 <line number="92" hits="1" branch="false" />
-                <line number="93" hits="0" branch="false" />
+                <line number="93" hits="1" branch="false" />
                 <line number="94" hits="0" branch="false" />
+                <line number="95" hits="0" branch="false" />
               </lines>
             </method>
             <method name="HandleSuccessfulResponseAsync" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="103" hits="0" branch="false" />
                 <line number="104" hits="0" branch="false" />
                 <line number="105" hits="0" branch="false" />
                 <line number="106" hits="0" branch="false" />
+                <line number="107" hits="0" branch="false" />
               </lines>
             </method>
             <method name="HandleUnsuccessfulResponseAsync" signature="()" line-rate="0.909090909090909" branch-rate="1" complexity="1">
               <lines>
-                <line number="114" hits="6" branch="false" />
                 <line number="115" hits="6" branch="false" />
                 <line number="116" hits="6" branch="false" />
-                <line number="119" hits="1" branch="false" />
+                <line number="117" hits="6" branch="false" />
                 <line number="120" hits="1" branch="false" />
-                <line number="122" hits="1" branch="false" />
-                <line number="124" hits="1" branch="false" />
-                <line number="126" hits="1" branch="false" />
-                <line number="128" hits="0" branch="false" />
-                <line number="130" hits="1" branch="false" />
-                <line number="132" hits="1" branch="false" />
+                <line number="121" hits="1" branch="false" />
+                <line number="123" hits="1" branch="false" />
+                <line number="125" hits="1" branch="false" />
+                <line number="127" hits="1" branch="false" />
+                <line number="129" hits="0" branch="false" />
+                <line number="131" hits="1" branch="false" />
+                <line number="133" hits="1" branch="false" />
               </lines>
             </method>
             <method name="SendAsync" signature="()" line-rate="0.75" branch-rate="1" complexity="1">
               <lines>
-                <line number="42" hits="3" branch="false" />
-                <line number="46" hits="3" branch="false" />
+                <line number="43" hits="3" branch="false" />
                 <line number="47" hits="3" branch="false" />
-                <line number="48" hits="2" branch="false" />
-                <line number="49" hits="0" branch="false" />
+                <line number="48" hits="3" branch="false" />
+                <line number="49" hits="2" branch="false" />
                 <line number="50" hits="0" branch="false" />
                 <line number="51" hits="0" branch="false" />
-                <line number="53" hits="1" branch="false" />
+                <line number="52" hits="0" branch="false" />
                 <line number="54" hits="1" branch="false" />
                 <line number="55" hits="1" branch="false" />
-                <line number="58" hits="2" branch="false" />
+                <line number="56" hits="1" branch="false" />
                 <line number="59" hits="2" branch="false" />
+                <line number="60" hits="2" branch="false" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="20" hits="11" branch="false" />
             <line number="21" hits="11" branch="false" />
             <line number="22" hits="11" branch="false" />
             <line number="23" hits="11" branch="false" />
-            <line number="31" hits="1" branch="false" />
+            <line number="24" hits="11" branch="false" />
             <line number="32" hits="1" branch="false" />
             <line number="33" hits="1" branch="false" />
-            <line number="42" hits="3" branch="false" />
-            <line number="46" hits="3" branch="false" />
+            <line number="34" hits="1" branch="false" />
+            <line number="43" hits="3" branch="false" />
             <line number="47" hits="3" branch="false" />
-            <line number="48" hits="2" branch="false" />
-            <line number="49" hits="0" branch="false" />
+            <line number="48" hits="3" branch="false" />
+            <line number="49" hits="2" branch="false" />
             <line number="50" hits="0" branch="false" />
             <line number="51" hits="0" branch="false" />
-            <line number="53" hits="1" branch="false" />
+            <line number="52" hits="0" branch="false" />
             <line number="54" hits="1" branch="false" />
             <line number="55" hits="1" branch="false" />
-            <line number="58" hits="2" branch="false" />
+            <line number="56" hits="1" branch="false" />
             <line number="59" hits="2" branch="false" />
-            <line number="68" hits="5" branch="false" />
+            <line number="60" hits="2" branch="false" />
             <line number="69" hits="5" branch="false" />
-            <line number="71" hits="5" branch="true" condition-coverage="50% (1/2)" />
-            <line number="72" hits="0" branch="false" />
+            <line number="70" hits="5" branch="false" />
+            <line number="72" hits="5" branch="true" condition-coverage="50% (1/2)" />
             <line number="73" hits="0" branch="false" />
             <line number="74" hits="0" branch="false" />
-            <line number="76" hits="5" branch="false" />
+            <line number="75" hits="0" branch="false" />
             <line number="77" hits="5" branch="false" />
-            <line number="78" hits="0" branch="false" />
-            <line number="80" hits="0" branch="false" />
+            <line number="78" hits="5" branch="false" />
+            <line number="79" hits="0" branch="false" />
             <line number="81" hits="0" branch="false" />
-            <line number="89" hits="1" branch="false" />
-            <line number="90" hits="1" branch="true" condition-coverage="50% (1/2)" />
-            <line number="91" hits="1" branch="false" />
+            <line number="82" hits="0" branch="false" />
+            <line number="90" hits="1" branch="false" />
+            <line number="91" hits="1" branch="true" condition-coverage="50% (1/2)" />
             <line number="92" hits="1" branch="false" />
-            <line number="93" hits="0" branch="false" />
+            <line number="93" hits="1" branch="false" />
             <line number="94" hits="0" branch="false" />
-            <line number="103" hits="0" branch="false" />
+            <line number="95" hits="0" branch="false" />
             <line number="104" hits="0" branch="false" />
             <line number="105" hits="0" branch="false" />
             <line number="106" hits="0" branch="false" />
-            <line number="114" hits="6" branch="false" />
+            <line number="107" hits="0" branch="false" />
             <line number="115" hits="6" branch="false" />
             <line number="116" hits="6" branch="false" />
-            <line number="119" hits="1" branch="false" />
+            <line number="117" hits="6" branch="false" />
             <line number="120" hits="1" branch="false" />
-            <line number="122" hits="1" branch="false" />
-            <line number="124" hits="1" branch="false" />
-            <line number="126" hits="1" branch="false" />
-            <line number="128" hits="0" branch="false" />
-            <line number="130" hits="1" branch="false" />
-            <line number="132" hits="1" branch="false" />
+            <line number="121" hits="1" branch="false" />
+            <line number="123" hits="1" branch="false" />
+            <line number="125" hits="1" branch="false" />
+            <line number="127" hits="1" branch="false" />
+            <line number="129" hits="0" branch="false" />
+            <line number="131" hits="1" branch="false" />
+            <line number="133" hits="1" branch="false" />
           </lines>
         </class>
       </classes>

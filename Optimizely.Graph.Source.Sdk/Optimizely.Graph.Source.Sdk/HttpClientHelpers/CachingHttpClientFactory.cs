@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Optimizely.Graph.Source.Sdk
+namespace Optimizely.Graph.Source.Sdk.HttpClientHelpers
 {
     /// <summary>
     /// The CachingHttpClientFactory class constructs instances of

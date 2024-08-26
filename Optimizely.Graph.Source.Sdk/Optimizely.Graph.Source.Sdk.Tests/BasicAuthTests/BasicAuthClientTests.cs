@@ -1,8 +1,9 @@
 ﻿using Moq;
 using Optimizely.Graph.Source.Sdk.BasicAuth;
+using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuth
+namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuthTests
 {
     [ExcludeFromCodeCoverage]
     [TestClass]

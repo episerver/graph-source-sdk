@@ -3,7 +3,7 @@ using Optimizely.Graph.Source.Sdk.BasicAuth;
 using Optimizely.Graph.Source.Sdk.Repositories;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuth
+namespace Optimizely.Graph.Source.Sdk.Tests
 {
     [ExcludeFromCodeCoverage]
     [TestClass]
