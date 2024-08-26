@@ -15,11 +15,9 @@ namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuth
 
         public GraphSourceClientTests()
         {
-            //client = GraphSourceClient.Create("https://test.url/", "application-key", "source", "application-secret");
+            client = GraphSourceClient.Create(new UriBuilder("https://test.url/").Uri, "application-key", "source", "application-secret");
             mockGraphClientFactory = new Mock<IBasicAuthClientFactory>();
             mockGraphRepository = new Mock<IGraphSourceRepository>();
         }
-
-
     }
 }

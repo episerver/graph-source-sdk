@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Optimizely.Graph.Source.Sdk.Core.Exceptions;
+using System.Net;
 
 namespace Optimizely.Graph.Source.Sdk
 {
@@ -46,13 +48,11 @@ namespace Optimizely.Graph.Source.Sdk
             }
             catch (TaskCanceledException)
             {
-                //throw new Core.TimeoutException();
-                throw new Exception();
+                throw new Core.Exceptions.TimeoutException();
             }
             catch (Exception ex)
             {
-                //throw new CommunicationException("An unexpected communication error has occurred.", ex);
-                throw new Exception();
+                throw new CommunicationException("An unexpected communication error has occurred.", ex);
             }
 
             return responseMessage;
@@ -115,21 +115,21 @@ namespace Optimizely.Graph.Source.Sdk
             var content = await responseMessage.Content.ReadAsStringAsync();
             switch (responseMessage.StatusCode)
             {
-                //case HttpStatusCode.BadRequest:
-                //    var validationResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
-                //    throw new ValidationException(validationResult);
-                //case HttpStatusCode.InternalServerError:
-                //    throw new ServiceErrorException(await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false));
-                //case HttpStatusCode.NotFound:
-                //    throw new NotFoundException();
-                //case HttpStatusCode.Unauthorized:
-                //    throw new NotAuthorizedException();
-                //case HttpStatusCode.Forbidden:
-                //    throw new ForbiddenException();
-                //case HttpStatusCode.RequestTimeout:
-                //    throw new Core.TimeoutException();
-                //default:
-                //    throw new ServiceErrorException();
+                case HttpStatusCode.BadRequest:
+                    var validationResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ValidationException(validationResult);
+                case HttpStatusCode.InternalServerError:
+                    throw new ServiceErrorException(await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false));
+                case HttpStatusCode.NotFound:
+                    throw new NotFoundException();
+                case HttpStatusCode.Unauthorized:
+                    throw new NotAuthorizedException();
+                case HttpStatusCode.Forbidden:
+                    throw new ForbiddenException();
+                case HttpStatusCode.RequestTimeout:
+                    throw new Core.Exceptions.TimeoutException();
+                default:
+                    throw new ServiceErrorException();
             }
         }
     }

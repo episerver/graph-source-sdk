@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Moq;
+using Optimizely.Graph.Source.Sdk.BasicAuth;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuth
 {
@@ -6,41 +8,36 @@ namespace Optimizely.Graph.Source.Sdk.Tests.BasicAuth
     [TestClass]
     public class BasicAuthClientFactoryTests
     {
-        //[TestMethod]
-        //public async Task Create_CreatesHttpClient()
-        //{
-        //    // Arrange
-        //    var clientFactory = new ContentGraphClientFactory("https://test.url/", "application-key", "source", "application-secret");
+        private Mock<IRestClient> mockRestClient;
 
-        //    // Act
-        //    var client = clientFactory.Create();
+        public BasicAuthClientFactoryTests()
+        {
+            mockRestClient = new Mock<IRestClient>();
+        }
 
-        //    // Assert
-        //    Assert.IsNotNull(client);
-        //}
+        [TestMethod]
+        public async Task Create_CreatesHttpClient()
+        {
+            // Arrange
+            var clientFactory = new BasicAuthClientFactory("app-key", "secret");
 
-        //[TestMethod]
-        //public void Constructor_WithNullBaseUrl_ThrowsArgumentNullException()
-        //{
-        //    Assert.ThrowsException<ArgumentNullException>(() => new ContentGraphClientFactory(null, "application-key", "source", "application-secret"));
-        //}
+            // Act
+            var client = clientFactory.Create(mockRestClient.Object);
 
-        //[TestMethod]
-        //public void Constructor_WithEmptyAppKey_ThrowsArgumentNullException()
-        //{
-        //    Assert.ThrowsException<ArgumentNullException>(() => new ContentGraphClientFactory("https://test.url/", null, "source", "application-secret"));
-        //}
+            // Assert
+            Assert.IsNotNull(client);
+        }
 
-        //[TestMethod]
-        //public void Constructor_WithEmptySource_ThrowsArgumentNullException()
-        //{
-        //    Assert.ThrowsException<ArgumentNullException>(() => new ContentGraphClientFactory("https://test.url/", "application-key", null, "application-secret"));
-        //}
+        [TestMethod]
+        public void Constructor_WithEmptyAppKey_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new BasicAuthClientFactory(null, "secret"));
+        }
 
-        //[TestMethod]
-        //public void Constructor_WithEmptySecret_ThrowsArgumentNullException()
-        //{
-        //    Assert.ThrowsException<ArgumentNullException>(() => new ContentGraphClientFactory("https://test.url/", "application-key", "source", null));
-        //}
+        [TestMethod]
+        public void Constructor_WithEmptySecret_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new BasicAuthClientFactory("app-key", null));
+        }
     }
 }
