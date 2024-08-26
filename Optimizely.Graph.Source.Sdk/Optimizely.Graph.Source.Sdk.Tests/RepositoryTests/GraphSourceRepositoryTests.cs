@@ -1,12 +1,12 @@
 ﻿using Moq;
 using System.Diagnostics.CodeAnalysis;
 using Optimizely.Graph.Source.Sdk.Repositories;
-using Optimizely.Graph.Source.Sdk.Models;
 using Optimizely.Graph.Source.Sdk.JsonConverters;
 using System.Text.Json;
 using System.Net;
 using System.Text;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
+using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {

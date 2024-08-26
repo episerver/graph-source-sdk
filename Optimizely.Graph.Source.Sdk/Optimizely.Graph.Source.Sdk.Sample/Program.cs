@@ -1,8 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Optimizely.Graph.Source.Sdk;
-using Optimizely.Graph.Source.Sdk.Models;
 using Optimizely.Graph.Source.Sdk.Sample;
+using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 
 //var client = GraphSourceClient.Create("https://cg.optimizely.com", "", "", "");
 var client = GraphSourceClient.Create(new UriBuilder("https://cg.optimizely.com").Uri, "ed", "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4", "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO");
@@ -73,15 +73,15 @@ var exampleDataInstance2 = new PersonDetails
 
 var exampleDataInstance3 = new PersonDetails
 {
-    FirstName = "Grace",
+    FirstName = "Isabella",
     LastName = "Minard",
-    Email = "grace@gmail.com",
-    Age = 8,
+    Email = "isabella@gmail.com",
+    Age = 6,
     BirthDate = new BirthDate
     {
-        Month = 03,
-        Day = 28,
-        Year = 2016
+        Month = 06,
+        Day = 23,
+        Year = 2018
     }
 };
 await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance3);

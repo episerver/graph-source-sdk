@@ -1,4 +1,4 @@
-﻿using Optimizely.Graph.Source.Sdk.Models;
+﻿using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

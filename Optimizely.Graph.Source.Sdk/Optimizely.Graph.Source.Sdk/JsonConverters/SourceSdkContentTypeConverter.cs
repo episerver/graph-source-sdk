@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
-using Optimizely.Graph.Source.Sdk.Models;
+using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 
 namespace Optimizely.Graph.Source.Sdk.JsonConverters
 {

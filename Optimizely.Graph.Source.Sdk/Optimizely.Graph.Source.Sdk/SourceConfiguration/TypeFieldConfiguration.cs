@@ -1,4 +1,4 @@
-﻿namespace Optimizely.Graph.Source.Sdk.Models
+﻿namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 {
     public enum ConfigurationType
     {

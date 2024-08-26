@@ -1,8 +1,8 @@
 ﻿using Optimizely.Graph.Source.Sdk.JsonConverters;
 using System.Text.Json;
-using Optimizely.Graph.Source.Sdk.Models;
 using System.Text;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
+using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {

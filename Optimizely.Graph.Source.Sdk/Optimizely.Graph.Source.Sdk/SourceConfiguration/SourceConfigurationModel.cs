@@ -1,7 +1,7 @@
 ﻿using Optimizely.Graph.Source.Sdk.ExpressionHelpers;
 using System.Linq.Expressions;
 
-namespace Optimizely.Graph.Source.Sdk.Models
+namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 {
     public class SourceConfigurationModel
     {
