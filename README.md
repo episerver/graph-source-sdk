@@ -1,11 +1,9 @@
 # Content Graph .Net C# SDK
-
 C# SDK for Content Graph Services api.
 
 This SDK is a C# wrapper around the Optimizely Content Graph API.
 
 ## Accessing the Package
-
 The package is published to the Episerver package repository as Optimizely.Graph.Source.Sdk
 
 ## Usage
@@ -54,9 +52,7 @@ var result = await graphSourceClient.SaveTypesAsync();
 ```
 
 ## Run Examples
-
 In visual studio, set your startup project to the Optimizely.Graph.Source.Sdk.Sample project.
 
 ## Issues
-
 Log issues directly into GitHub. Pull Requests will be created to resolve those issues as soon as they are triaged.
