@@ -9,6 +9,8 @@
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Sample/bin
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin/Debug/net8.0
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj/Debug/net8.0
 
 *.dll
 *.sqlite
