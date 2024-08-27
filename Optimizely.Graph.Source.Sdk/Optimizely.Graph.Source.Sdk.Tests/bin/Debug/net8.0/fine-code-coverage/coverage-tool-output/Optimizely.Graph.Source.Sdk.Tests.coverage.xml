@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.5084000000000001" branch-rate="0.31379999999999997" version="1.9" timestamp="1724714918" lines-covered="541" lines-valid="1064" branches-covered="102" branches-valid="325">
+<coverage line-rate="0.5121" branch-rate="0.31379999999999997" version="1.9" timestamp="1724715773" lines-covered="549" lines-valid="1072" branches-covered="102" branches-valid="325">
   <sources>
     <source>C:\Users\jamin\</source>
   </sources>
   <packages>
-    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.5061" branch-rate="0.31379999999999997" complexity="411">
+    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.5097999999999999" branch-rate="0.31379999999999997" complexity="411">
       <classes>
         <class name="Optimizely.Graph.Source.Sdk.GraphSourceClient" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\GraphSourceClient.cs" line-rate="0.75" branch-rate="1" complexity="11">
           <methods>
@@ -976,7 +976,7 @@
             <line number="60" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="Optimizely.Graph.Source.Sdk.Repositories.GraphSourceRepository" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\Repositories\GraphSourceRepository.cs" line-rate="1" branch-rate="1" complexity="6">
+        <class name="Optimizely.Graph.Source.Sdk.Repositories.GraphSourceRepository" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\Repositories\GraphSourceRepository.cs" line-rate="1" branch-rate="1" complexity="5">
           <methods>
             <method name="AddLanguage" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -997,12 +997,6 @@
                 <line number="49" hits="2" branch="False" />
                 <line number="50" hits="2" branch="False" />
                 <line number="51" hits="2" branch="False" />
-              </lines>
-            </method>
-            <method name="DeleteContentAsync" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="121" hits="1" branch="False" />
-                <line number="122" hits="1" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(Optimizely.Graph.Source.Sdk.RestClientHelpers.IRestClient,System.String)" line-rate="1" branch-rate="1" complexity="2">
@@ -1029,8 +1023,6 @@
             <line number="49" hits="2" branch="False" />
             <line number="50" hits="2" branch="False" />
             <line number="51" hits="2" branch="False" />
-            <line number="121" hits="1" branch="False" />
-            <line number="122" hits="1" branch="False" />
             <line number="27" hits="9" branch="False" />
             <line number="28" hits="9" branch="False" />
             <line number="29" hits="9" branch="False" />
@@ -1040,6 +1032,36 @@
               </conditions>
             </line>
             <line number="31" hits="8" branch="False" />
+          </lines>
+        </class>
+        <class name="Optimizely.Graph.Source.Sdk.Repositories.GraphSourceRepository/&lt;DeleteContentAsync&gt;d__10" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\Repositories\GraphSourceRepository.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="121" hits="1" branch="False" />
+                <line number="122" hits="1" branch="False" />
+                <line number="123" hits="1" branch="False" />
+                <line number="124" hits="1" branch="False" />
+                <line number="125" hits="1" branch="False" />
+                <line number="126" hits="1" branch="False" />
+                <line number="127" hits="1" branch="False" />
+                <line number="128" hits="1" branch="False" />
+                <line number="129" hits="1" branch="False" />
+                <line number="130" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="121" hits="1" branch="False" />
+            <line number="122" hits="1" branch="False" />
+            <line number="123" hits="1" branch="False" />
+            <line number="124" hits="1" branch="False" />
+            <line number="125" hits="1" branch="False" />
+            <line number="126" hits="1" branch="False" />
+            <line number="127" hits="1" branch="False" />
+            <line number="128" hits="1" branch="False" />
+            <line number="129" hits="1" branch="False" />
+            <line number="130" hits="1" branch="False" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.Repositories.GraphSourceRepository/&lt;SaveContentAsync&gt;d__9`1" filename="source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\Repositories\GraphSourceRepository.cs" line-rate="1" branch-rate="1" complexity="2">

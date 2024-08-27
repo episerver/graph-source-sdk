@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.508458646616541" branch-rate="0.313846153846154" lines-covered="541" lines-valid="1064" branches-covered="102" branches-valid="325" complexity="418" version="0" timestamp="1724700519">
+<coverage line-rate="0.512126865671642" branch-rate="0.313846153846154" lines-covered="549" lines-valid="1072" branches-covered="102" branches-valid="325" complexity="418" version="0" timestamp="1724701373">
   <sources>
     <source>C:\Users\jamin\</source>
   </sources>
   <packages>
-    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.506149479659413" branch-rate="0.313846153846154" complexity="411">
+    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.509859154929577" branch-rate="0.313846153846154" complexity="411">
       <classes>
         <class name="Optimizely.Graph.Source.Sdk.BasicAuth.BasicAuthClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\BasicAuth\BasicAuthClient.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -2118,12 +2118,6 @@
                 <line number="51" hits="2" branch="false" />
               </lines>
             </method>
-            <method name="DeleteContentAsync" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="121" hits="1" branch="false" />
-                <line number="122" hits="1" branch="false" />
-              </lines>
-            </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
                 <line number="27" hits="9" branch="false" />
@@ -2131,6 +2125,20 @@
                 <line number="29" hits="9" branch="false" />
                 <line number="30" hits="9" branch="true" condition-coverage="100% (2/2)" />
                 <line number="31" hits="8" branch="false" />
+              </lines>
+            </method>
+            <method name="DeleteContentAsync" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="121" hits="1" branch="false" />
+                <line number="122" hits="1" branch="false" />
+                <line number="123" hits="1" branch="false" />
+                <line number="124" hits="1" branch="false" />
+                <line number="125" hits="1" branch="false" />
+                <line number="126" hits="1" branch="false" />
+                <line number="127" hits="1" branch="false" />
+                <line number="128" hits="1" branch="false" />
+                <line number="129" hits="1" branch="false" />
+                <line number="130" hits="1" branch="false" />
               </lines>
             </method>
             <method name="SaveContentAsync" signature="()" line-rate="1" branch-rate="1" complexity="2">
@@ -2261,6 +2269,14 @@
             <line number="117" hits="1" branch="false" />
             <line number="121" hits="1" branch="false" />
             <line number="122" hits="1" branch="false" />
+            <line number="123" hits="1" branch="false" />
+            <line number="124" hits="1" branch="false" />
+            <line number="125" hits="1" branch="false" />
+            <line number="126" hits="1" branch="false" />
+            <line number="127" hits="1" branch="false" />
+            <line number="128" hits="1" branch="false" />
+            <line number="129" hits="1" branch="false" />
+            <line number="130" hits="1" branch="false" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.RestClientHelpers.RestClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\RestClientHelpers\RestClient.cs" line-rate="0.686274509803922" branch-rate="0.5" complexity="9">
