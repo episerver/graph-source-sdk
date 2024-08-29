@@ -53,7 +53,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
 
             foreach(var fieldInfoItem in fieldInfoItems)
             {
-                var fieldValue = contentType.GetProperty(fieldInfoItem.Name).GetValue(value);
+                var fieldValue = contentType?.GetProperty(fieldInfoItem.Name)?.GetValue(value);
                 WriteField(writer, fieldValue, fieldInfoItem);
             }
 
@@ -64,17 +64,38 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
         {
             if(fieldInfoItem.IndexingType == IndexingType.PropertyType)
             {
-                writer.WriteStartObject(fieldInfoItem.Name);
+                var type = fieldInfoItem.MappedType.GetProperty(fieldInfoItem.Name)?.PropertyType;
 
-                var type = fieldInfoItem.MappedType.GetProperty(fieldInfoItem.Name).PropertyType;
-                var fields = SourceConfigurationModel.GetPropertyFields(type);
-                foreach( var field in fields)
+                if (typeof(IEnumerable<object>).IsAssignableFrom(type))
                 {
-                    var propertyFieldValue = type.GetProperty(field.Name).GetValue(fieldValue);
-                    WriteField(writer, propertyFieldValue, field);
-                }
+                    var fields = SourceConfigurationModel.GetPropertyFieldsByName(type.GetGenericArguments()[0].Name);
 
-                writer.WriteEndObject();
+                    writer.WriteStartArray(fieldInfoItem.ToString());
+                    foreach (var item in (IEnumerable<object>)fieldValue)
+                    {
+                        writer.WriteStartObject();
+                        foreach (var field in fields)
+                        {
+                            var propertyFieldValue = type.GetGenericArguments()[0]?.GetProperty(field.Name)?.GetValue(item);
+                            WriteField(writer, propertyFieldValue, field);
+                        }
+                        writer.WriteEndObject();
+
+                    }
+                    writer.WriteEndArray();
+
+                }
+                else
+                {
+                    writer.WriteStartObject(fieldInfoItem.Name);
+                    var fields = SourceConfigurationModel.GetPropertyFields(type);
+                    foreach (var field in fields)
+                    {
+                        var propertyFieldValue = type.GetProperty(field.Name)?.GetValue(fieldValue);
+                        WriteField(writer, propertyFieldValue, field);
+                    }
+                    writer.WriteEndObject();
+                } 
             }
 
             if (fieldInfoItem.MappedTypeName == "Boolean")
@@ -118,7 +139,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "Float")
             {
-                writer.WriteNumber(fieldInfoItem.ToString(), (float)fieldValue);
+                writer.WriteNumber(fieldInfoItem.ToString(), (double)fieldValue);
             }
             else if (fieldInfoItem.MappedTypeName == "[Float]")
             {
@@ -135,13 +156,27 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "[String]")
             {
-                writer.WriteStartArray(fieldInfoItem.ToString());
+                writer.WriteStartArray(fieldInfoItem.Name + "$$String" + GetFieldSuffix(fieldInfoItem.IndexingType));
                 foreach (var item in (IEnumerable<string>)fieldValue)
                 {
                     writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
             }
+        }
+
+        private static string GetFieldSuffix(IndexingType indexingType)
+        {
+            if (indexingType == IndexingType.Searchable)
+            {
+                return "___searchable";
+            }
+            else if (indexingType == IndexingType.OnlyStored)
+            {
+                return "___skip";
+            }
+
+            return string.Empty;
         }
     }
 }

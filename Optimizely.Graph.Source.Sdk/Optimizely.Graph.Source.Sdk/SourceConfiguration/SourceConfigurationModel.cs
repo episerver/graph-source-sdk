@@ -91,7 +91,16 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 
             var fieldName = fieldSelector.GetFieldPath();
             var fieldType = fieldSelector.GetReturnType();
-            var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
+
+            var mappedTypeName = string.Empty;
+            if (indexingType == IndexingType.PropertyType && typeof(IEnumerable<object>).IsAssignableFrom(fieldType))
+            {
+                mappedTypeName = $"[{fieldType.GetGenericArguments()[0].Name}]";
+            }
+            else
+            {
+                mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
+            }
 
             propertyTypeFieldConfiguration.Fields.Add(new FieldInfo
             {
@@ -121,7 +130,19 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
                 throw new NotSupportedException($"The type {type.Name} has not been configured. Please configure it and try again.");
             }
 
+            
             return _propertyTypeFieldsConfigurations[type.Name].Fields;
+        }
+
+        public static IEnumerable<FieldInfo> GetPropertyFieldsByName(string name)
+        {
+            if (!_propertyTypeFieldsConfigurations.ContainsKey(name))
+            {
+                throw new NotSupportedException($"The type {name} has not been configured. Please configure it and try again.");
+            }
+
+
+            return _propertyTypeFieldsConfigurations[name].Fields;
         }
 
         private string GetTypeName(Type fieldType)
