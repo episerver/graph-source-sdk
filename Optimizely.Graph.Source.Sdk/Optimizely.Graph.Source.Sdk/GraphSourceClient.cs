@@ -132,10 +132,10 @@ namespace Optimizely.Graph.Source.Sdk
         /// <param name="secretKey">The secret key.</param>
         private static void Assert(string appKey, string secretKey)
         {
-            if (String.IsNullOrWhiteSpace(appKey))
+            if (string.IsNullOrWhiteSpace(appKey))
                 throw new ArgumentException("The value must contain at least one non-whitespace character.", nameof(appKey));
 
-            if (String.IsNullOrWhiteSpace(secretKey))
+            if (string.IsNullOrWhiteSpace(secretKey))
                 throw new ArgumentException("The value must contain at least one non-whitespace character.", nameof(secretKey));
         }
         #endregion

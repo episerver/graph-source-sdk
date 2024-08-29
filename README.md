@@ -18,7 +18,7 @@ You can use the client by calling `Create()` and providing your base url, Conten
 
 ```csharp
 // Example of initializing client and configuring content types
-var graphSourceClient = GraphSourceClient.Create(new UriBuilder("https://cg.optimizely.com").Uri, "source", "application-key", "secret");
+var client = GraphSourceClient.Create(new Uri("https://cg.optimizely.com"), "source", "application-key", "secret");
 
 public class ExampleClassObject
 {
@@ -38,13 +38,13 @@ public class ExampleClassObject
     }
 }
 
-repository.ConfigureContentType<ExampleClassObject>()
+client.ConfigureContentType<ExampleClassObject>()
     .Field(x => x.FirstName, IndexingType.Searchable)
     .Field(x => x.LastName, IndexingType.Searchable)
     .Field(x => x.Age, IndexingType.Querable)
     .Field(x => x.SubType, IndexingType.PropertyType);
 
-repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+client.ConfigurePropertyType<ExampleClassObject.SubType1>()
     .Field(x => x.One, IndexingType.Searchable)
     .Field(x => x.Two, IndexingType.Querable);
 
