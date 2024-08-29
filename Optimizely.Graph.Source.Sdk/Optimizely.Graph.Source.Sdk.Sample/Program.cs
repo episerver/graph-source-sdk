@@ -5,85 +5,135 @@ using Optimizely.Graph.Source.Sdk.Sample;
 using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 
 //var client = GraphSourceClient.Create("https://cg.optimizely.com", "", "", "");
-var client = GraphSourceClient.Create(new UriBuilder("https://cg.optimizely.com").Uri, "ed", "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4", "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO");
+var client = GraphSourceClient.Create(
+    new Uri("https://cg.optimizely.com"),
+    "ed",
+    "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4",
+    "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO"
+);
 
 client.AddLanguage("en");
 
-client.ConfigureContentType<PersonDetails>()
-    .Field(x => x.FirstName, IndexingType.Searchable)
-    .Field(x => x.LastName, IndexingType.Searchable)
-    .Field(x => x.Email, IndexingType.Searchable)
-    .Field(x => x.Age, IndexingType.Querable)
-    .Field(x => x.BirthDate, IndexingType.PropertyType)
-    .Field(x => x.Location, IndexingType.PropertyType);
-
-client.ConfigurePropertyType<BirthDate>()
-    .Field(x => x.Month, IndexingType.Searchable)
-    .Field(x => x.Day, IndexingType.Querable)
-    .Field(x => x.Year, IndexingType.Searchable);
+client.ConfigureContentType<Cafe>()
+    .Field(x => x.Name, IndexingType.Querable)
+    .Field(x => x.Established, IndexingType.Searchable)
+    .Field(x => x.Address, IndexingType.PropertyType)
+    .Field(x => x.Menu, IndexingType.PropertyType);
 
 client.ConfigurePropertyType<Location>()
     .Field(x => x.City, IndexingType.Querable)
     .Field(x => x.State, IndexingType.Querable)
-    .Field(x => x.Country, IndexingType.Searchable)
-    .Field(x => x.Zip, IndexingType.Searchable);
+    .Field(x => x.Zipcode, IndexingType.Searchable)
+    .Field(x => x.Country, IndexingType.Searchable);
 
-await client.SaveTypesAsync();
+client.ConfigurePropertyType<Menu>()
+    .Field(x => x.Beverages, IndexingType.PropertyType)
+    .Field(x => x.Food, IndexingType.PropertyType);
 
-var exampleDataInstance1 = new PersonDetails
+client.ConfigurePropertyType<Beverage>()
+    .Field(x => x.Name, IndexingType.Querable)
+    .Field(x => x.Price, IndexingType.Querable)
+    .Field(x => x.Sizes, IndexingType.Searchable);
+
+client.ConfigurePropertyType<FoodItem>()
+    .Field(x => x.Name, IndexingType.Querable)
+    .Field(x => x.Price, IndexingType.Querable)
+    .Field(x => x.IsAvaiable, IndexingType.Searchable);
+
+//await client.SaveTypesAsync();
+
+var exampleDataInstance1 = new Cafe
 {
-    FirstName = "Jake",
-    LastName = "Minard",
-    Email = "jake.minard@opti.com",
-    Age = 29,
-    BirthDate = new BirthDate
+    Name = "Optimizely's Awesome Cafe",
+    Established = new DateTime(2024, 06, 12),
+    Address = new Location
     {
-        Month = 06,
-        Day = 12,
-        Year = 1995
+        City = "New York",
+        State = "NY",
+        Zipcode = "10003",
+        Country = "USA"
     },
-    Location = new Location
+    Menu = new Menu
     {
-        City = "Southington",
-        State = "CT",
-        Country = "USA",
-        Zip = "06489"
-    }
-};
-var exampleDataInstance2 = new PersonDetails
-{
-    FirstName = "Victoria",
-    LastName = "Minard",
-    Email = "victoria@gmail.com",
-    Age = 28,
-    BirthDate = new BirthDate
-    {
-        Month = 09,
-        Day = 14,
-        Year = 1995
-    },
-    Location = new Location
-    {
-        City = "Southington",
-        State = "CT",
-        Country = "USA",
-        Zip = "06489"
+        Beverages = new List<Beverage>
+        {
+            new() {
+                Name = "Espresso",
+                Price = 4.99,
+                Sizes = new[] { "S", "M" }
+            },
+            new() {
+                Name = "Latte",
+                Price = 5.99,
+                Sizes = new[] { "M", "L" }
+            },
+            new() {
+                Name = "Cappuccino",
+                Price = 6.99,
+                Sizes = new[] { "S", "M", "L" }
+            }
+        },
+        Food = new List<FoodItem>
+        {
+            new() {
+                Name = "Bagel",
+                Price = 5.25,
+                IsAvaiable = true
+            },
+            new() {
+                Name = "Croissant",
+                Price = 3.89,
+                IsAvaiable = true
+            },
+            new() {
+                Name = "Cinnamon Roll",
+                Price = 4.99,
+                IsAvaiable = false
+            }
+        }
     }
 };
 
-var exampleDataInstance3 = new PersonDetails
+var exampleDataInstance2 = new Cafe
 {
-    FirstName = "Isabella",
-    LastName = "Minard",
-    Email = "isabella@gmail.com",
-    Age = 6,
-    BirthDate = new BirthDate
+    Name = "Graph's Team Super Awesome Cafe",
+    Established = new DateTime(2024, 08, 28),
+    Address = new Location
     {
-        Month = 06,
-        Day = 23,
-        Year = 2018
+        City = "Stockholm",
+        Country = "Sweden"
+    },
+    Menu = new Menu
+    {
+        Beverages = new List<Beverage>
+        {
+            new() {
+                Name = "Espresso",
+                Price = 2.99,
+                Sizes = new[] { "S", "M", "L" }
+            },
+            new() {
+                Name = "Tea",
+                Price = 1.99,
+                Sizes = new[] { "S", "M", "L" }
+            }
+        },
+        Food = new List<FoodItem>
+        {
+            new() {
+                Name = "Croissant",
+                Price = 4.50,
+                IsAvaiable = true
+            },
+            new() {
+                Name = "Pretzel",
+                Price = 5.99,
+                IsAvaiable = true
+            }
+        }
     }
 };
-await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance3);
+
+await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1);
 
 Console.WriteLine("Hello, World!");

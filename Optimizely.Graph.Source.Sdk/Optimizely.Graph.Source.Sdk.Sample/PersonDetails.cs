@@ -12,10 +12,10 @@ namespace Optimizely.Graph.Source.Sdk.Sample
 
         public string LastName { get; set; }
 
-        public string Email { get; set; }
-
         public int Age { get; set; }
 
+        public string Email { get; set; }
+        
         public BirthDate BirthDate { get; set; } = new BirthDate();
 
         public Location Location { get; set; } = new Location();
@@ -34,16 +34,5 @@ namespace Optimizely.Graph.Source.Sdk.Sample
         public int Day { get; set; }
 
         public int Year { get; set; }
-    }
-
-    public class Location
-    {
-        public string City { get; set; }
-
-        public string State { get; set; }
-
-        public string Country { get; set; }
-
-        public string Zip { get; set; }
     }
 }
