@@ -40,9 +40,8 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data) where T : class, new();
 
         /// <summary>
-        /// Removes content previously saved from the Content Graph api.
+        /// Removes content previously stored by source.
         /// </summary>
-        /// <param name="id">Id of the content being removed.</param>
         /// <returns></returns>
         Task<string> DeleteContentAsync();
     }
