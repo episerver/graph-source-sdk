@@ -88,13 +88,12 @@ namespace Optimizely.Graph.Source.Sdk
         }
 
         /// <summary>
-        /// Removes content previously saved from the Content Graph api.
+        /// Removes content by source.
         /// </summary>
-        /// <param name="id">Id of the content being removed.</param>
         /// <returns></returns>
-        public async Task<string> DeleteContentAsync(string id)
+        public async Task<string> DeleteContentAsync()
         {
-            return await repository.DeleteContentAsync(id);
+            return await repository.DeleteContentAsync();
         }
 
         #region Private

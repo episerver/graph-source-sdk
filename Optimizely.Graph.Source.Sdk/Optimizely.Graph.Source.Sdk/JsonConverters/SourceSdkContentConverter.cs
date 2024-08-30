@@ -113,7 +113,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "DateTime")
             {
-                writer.WriteString(fieldInfoItem.ToString(), ((DateTime)fieldValue).ToUniversalTime().ToString());
+                writer.WriteString(fieldInfoItem.Name + "$$Date" + GetFieldSuffix(fieldInfoItem.IndexingType), ((DateTime)fieldValue).ToUniversalTime());
             }
             else if (fieldInfoItem.MappedTypeName == "[DateTime]")
             {

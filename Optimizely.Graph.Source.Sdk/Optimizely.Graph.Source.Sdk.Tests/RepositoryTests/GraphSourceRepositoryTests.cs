@@ -162,7 +162,19 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         [TestMethod]
         public async Task DeleteContentAsync_ThrowsNotImplementedException()
         {
-            await Assert.ThrowsExceptionAsync<NotImplementedException>(() => this.repository.DeleteContentAsync("id"));
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/content/v2/data?id={source}");
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+
+            // Act
+            await repository.DeleteContentAsync();
+
+            // Assert
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.VerifyAll();
         }
 
         #region Private

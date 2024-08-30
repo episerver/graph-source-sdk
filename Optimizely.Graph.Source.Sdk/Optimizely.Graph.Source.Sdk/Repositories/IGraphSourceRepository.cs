@@ -44,6 +44,6 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         /// </summary>
         /// <param name="id">Id of the content being removed.</param>
         /// <returns></returns>
-        Task<string> DeleteContentAsync(string id);
+        Task<string> DeleteContentAsync();
     }
 }

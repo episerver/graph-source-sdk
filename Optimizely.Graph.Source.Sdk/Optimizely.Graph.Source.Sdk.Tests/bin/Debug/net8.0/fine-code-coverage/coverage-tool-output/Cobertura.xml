@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.496376811594203" branch-rate="0.308781869688385" lines-covered="548" lines-valid="1104" branches-covered="109" branches-valid="353" complexity="446" version="0" timestamp="1724944558">
+<coverage line-rate="0.5" branch-rate="0.308781869688385" lines-covered="556" lines-valid="1112" branches-covered="109" branches-valid="353" complexity="446" version="0" timestamp="1725031609">
   <sources>
     <source>C:\Users\jamin\</source>
   </sources>
   <packages>
-    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.494074749316317" branch-rate="0.308781869688385" complexity="439">
+    <package name="Optimizely.Graph.Source.Sdk" line-rate="0.497737556561086" branch-rate="0.308781869688385" complexity="439">
       <classes>
         <class name="Optimizely.Graph.Source.Sdk.BasicAuth.BasicAuthClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\BasicAuth\BasicAuthClient.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -1433,30 +1433,30 @@
             </method>
             <method name="CreateHttpClientFactory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
+                <line number="107" hits="7" branch="false" />
                 <line number="108" hits="7" branch="false" />
-                <line number="109" hits="7" branch="false" />
+                <line number="110" hits="1" branch="false" />
                 <line number="111" hits="1" branch="false" />
                 <line number="112" hits="1" branch="false" />
                 <line number="113" hits="1" branch="false" />
                 <line number="114" hits="1" branch="false" />
-                <line number="115" hits="1" branch="false" />
               </lines>
             </method>
             <method name="CreateBasicAuthClientFactory" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
+                <line number="123" hits="1" branch="false" />
                 <line number="124" hits="1" branch="false" />
                 <line number="125" hits="1" branch="false" />
-                <line number="126" hits="1" branch="false" />
               </lines>
             </method>
             <method name="Assert" signature="(...)" line-rate="1" branch-rate="1" complexity="4">
               <lines>
-                <line number="134" hits="7" branch="false" />
-                <line number="135" hits="7" branch="true" condition-coverage="100% (2/2)" />
-                <line number="136" hits="3" branch="false" />
-                <line number="138" hits="4" branch="true" condition-coverage="100% (2/2)" />
-                <line number="139" hits="3" branch="false" />
-                <line number="140" hits="1" branch="false" />
+                <line number="133" hits="7" branch="false" />
+                <line number="134" hits="7" branch="true" condition-coverage="100% (2/2)" />
+                <line number="135" hits="3" branch="false" />
+                <line number="137" hits="4" branch="true" condition-coverage="100% (2/2)" />
+                <line number="138" hits="3" branch="false" />
+                <line number="139" hits="1" branch="false" />
               </lines>
             </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
@@ -1469,9 +1469,9 @@
             </method>
             <method name="DeleteContentAsync" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
+                <line number="95" hits="0" branch="false" />
                 <line number="96" hits="0" branch="false" />
                 <line number="97" hits="0" branch="false" />
-                <line number="98" hits="0" branch="false" />
               </lines>
             </method>
             <method name="SaveContentAsync" signature="()" line-rate="0" branch-rate="1" complexity="1">
@@ -1516,25 +1516,25 @@
             <line number="86" hits="0" branch="false" />
             <line number="87" hits="0" branch="false" />
             <line number="88" hits="0" branch="false" />
+            <line number="95" hits="0" branch="false" />
             <line number="96" hits="0" branch="false" />
             <line number="97" hits="0" branch="false" />
-            <line number="98" hits="0" branch="false" />
+            <line number="107" hits="7" branch="false" />
             <line number="108" hits="7" branch="false" />
-            <line number="109" hits="7" branch="false" />
+            <line number="110" hits="1" branch="false" />
             <line number="111" hits="1" branch="false" />
             <line number="112" hits="1" branch="false" />
             <line number="113" hits="1" branch="false" />
             <line number="114" hits="1" branch="false" />
-            <line number="115" hits="1" branch="false" />
+            <line number="123" hits="1" branch="false" />
             <line number="124" hits="1" branch="false" />
             <line number="125" hits="1" branch="false" />
-            <line number="126" hits="1" branch="false" />
-            <line number="134" hits="7" branch="false" />
-            <line number="135" hits="7" branch="true" condition-coverage="100% (2/2)" />
-            <line number="136" hits="3" branch="false" />
-            <line number="138" hits="4" branch="true" condition-coverage="100% (2/2)" />
-            <line number="139" hits="3" branch="false" />
-            <line number="140" hits="1" branch="false" />
+            <line number="133" hits="7" branch="false" />
+            <line number="134" hits="7" branch="true" condition-coverage="100% (2/2)" />
+            <line number="135" hits="3" branch="false" />
+            <line number="137" hits="4" branch="true" condition-coverage="100% (2/2)" />
+            <line number="138" hits="3" branch="false" />
+            <line number="139" hits="1" branch="false" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.HttpClientHelpers.AuthenticatingHttpClientCacheKey" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\HttpClientHelpers\AuthenticatingHttpClientCacheKey.cs" line-rate="1" branch-rate="1" complexity="2">
@@ -2176,12 +2176,6 @@
                 <line number="51" hits="2" branch="false" />
               </lines>
             </method>
-            <method name="DeleteContentAsync" signature="(...)" line-rate="1" branch-rate="1" complexity="1">
-              <lines>
-                <line number="121" hits="1" branch="false" />
-                <line number="122" hits="1" branch="false" />
-              </lines>
-            </method>
             <method name=".ctor" signature="(...)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
                 <line number="27" hits="9" branch="false" />
@@ -2189,6 +2183,20 @@
                 <line number="29" hits="9" branch="false" />
                 <line number="30" hits="9" branch="true" condition-coverage="100% (2/2)" />
                 <line number="31" hits="8" branch="false" />
+              </lines>
+            </method>
+            <method name="DeleteContentAsync" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="121" hits="1" branch="false" />
+                <line number="122" hits="1" branch="false" />
+                <line number="123" hits="1" branch="false" />
+                <line number="124" hits="1" branch="false" />
+                <line number="125" hits="1" branch="false" />
+                <line number="126" hits="1" branch="false" />
+                <line number="127" hits="1" branch="false" />
+                <line number="128" hits="1" branch="false" />
+                <line number="129" hits="1" branch="false" />
+                <line number="130" hits="1" branch="false" />
               </lines>
             </method>
             <method name="SaveContentAsync" signature="()" line-rate="1" branch-rate="1" complexity="2">
@@ -2319,6 +2327,14 @@
             <line number="117" hits="1" branch="false" />
             <line number="121" hits="1" branch="false" />
             <line number="122" hits="1" branch="false" />
+            <line number="123" hits="1" branch="false" />
+            <line number="124" hits="1" branch="false" />
+            <line number="125" hits="1" branch="false" />
+            <line number="126" hits="1" branch="false" />
+            <line number="127" hits="1" branch="false" />
+            <line number="128" hits="1" branch="false" />
+            <line number="129" hits="1" branch="false" />
+            <line number="130" hits="1" branch="false" />
           </lines>
         </class>
         <class name="Optimizely.Graph.Source.Sdk.RestClientHelpers.RestClient" filename="C:\Users\jamin\source\repos\graph-source-sdk\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\RestClientHelpers\RestClient.cs" line-rate="0.686274509803922" branch-rate="0.5" complexity="9">

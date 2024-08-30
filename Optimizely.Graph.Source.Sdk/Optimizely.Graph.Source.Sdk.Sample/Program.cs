@@ -40,7 +40,7 @@ client.ConfigurePropertyType<FoodItem>()
     .Field(x => x.Price, IndexingType.Querable)
     .Field(x => x.IsAvaiable, IndexingType.Searchable);
 
-//await client.SaveTypesAsync();
+await client.SaveTypesAsync();
 
 var exampleDataInstance1 = new Cafe
 {
@@ -134,6 +134,70 @@ var exampleDataInstance2 = new Cafe
     }
 };
 
-await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1);
+var exampleDataInstance3 = new Cafe
+{
+    Name = "Jake's Even More Super Awesome Cafe",
+    Established = new DateTime(2024, 09, 13),
+    Address = new Location
+    {
+        City = "Southington",
+        State = "CT",
+        Zipcode = "06489",
+        Country = "USA"
+    },
+    Menu = new Menu
+    {
+        Beverages = new List<Beverage>
+        {
+            new() {
+                Name = "Cortado",
+                Price = 3.16,
+                Sizes = new[] { "S" }
+            },
+            new() {
+                Name = "Latte",
+                Price = 4.55,
+                Sizes = new[] { "M", "L" }
+            },
+            new() {
+                Name = "Iced Latte",
+                Price = 5.55,
+                Sizes = new[] { "M", "L" }
+            },
+            new() {
+                Name = "Tea",
+                Price = 2.79,
+                Sizes = new[] { "S", "M", "L" }
+            },
+            new() {
+                Name = "Iced Tea",
+                Price = 3.99,
+                Sizes = new[] { "S", "M", "L" }
+            }
+        },
+        Food = new List<FoodItem>
+        {
+            new() {
+                Name = "Breakfast Wrap",
+                Price = 4.80,
+                IsAvaiable = true
+            },
+            new() {
+                Name = "Pancakes",
+                Price = 4.99,
+                IsAvaiable = false
+            },
+            new() {
+                Name = "Danish",
+                Price = 1.99,
+                IsAvaiable = true
+            }
+        }
+    }
+};
+
+await client.SaveContentAsync(generateId: (x) => x.ToString(), exampleDataInstance1, exampleDataInstance2, exampleDataInstance3);
+
+//await client.DeleteContentAsync();
 
 Console.WriteLine("Hello, World!");

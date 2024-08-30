@@ -117,9 +117,16 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         }
 
         /// <inheritdoc/>
-        public Task<string> DeleteContentAsync(string id)
+        public async Task<string> DeleteContentAsync()
         {
-            throw new NotImplementedException();
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"{DataUrl}?id={source}"))
+            {
+                using (var responseMessage = await client.SendAsync(requestMessage))
+                {
+                    await client.HandleResponse(responseMessage);
+                }
+            }
+            return string.Empty;
         }
     }
 }
