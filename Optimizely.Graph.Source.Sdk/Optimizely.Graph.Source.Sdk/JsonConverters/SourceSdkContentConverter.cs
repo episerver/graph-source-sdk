@@ -104,7 +104,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "[Boolean]")
             {
-                writer.WriteStartArray(fieldInfoItem.ToString());
+                writer.WriteStartArray(fieldInfoItem.Name + "$$Boolean" + GetFieldSuffix(fieldInfoItem.IndexingType));
                 foreach (var item in (IEnumerable<bool>)fieldValue)
                 {
                     writer.WriteBooleanValue(item);
@@ -117,10 +117,10 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "[DateTime]")
             {
-                writer.WriteStartArray(fieldInfoItem.ToString());
+                writer.WriteStartArray(fieldInfoItem.Name + "$$DateTime" + GetFieldSuffix(fieldInfoItem.IndexingType));
                 foreach (var item in (IEnumerable<DateTime>)fieldValue)
                 {
-                    writer.WriteStringValue(((DateTime)fieldValue).ToUniversalTime().ToString());
+                    writer.WriteStringValue(item.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
                 }
                 writer.WriteEndArray();
             }
@@ -130,8 +130,8 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "[Int]")
             {
-                writer.WriteStartArray(fieldInfoItem.ToString());
-                foreach (var item in (IEnumerable<float>)fieldValue)
+                writer.WriteStartArray(fieldInfoItem.Name + "$$Int" + GetFieldSuffix(fieldInfoItem.IndexingType));
+                foreach (var item in (IEnumerable<int>)fieldValue)
                 {
                     writer.WriteNumberValue(item);
                 }
@@ -143,8 +143,8 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             else if (fieldInfoItem.MappedTypeName == "[Float]")
             {
-                writer.WriteStartArray(fieldInfoItem.ToString());
-                foreach (var item in (IEnumerable<float>)fieldValue)
+                writer.WriteStartArray(fieldInfoItem.Name + "$$Float" + GetFieldSuffix(fieldInfoItem.IndexingType));
+                foreach (var item in (IEnumerable<double>)fieldValue)
                 {
                     writer.WriteNumberValue(item);
                 }
