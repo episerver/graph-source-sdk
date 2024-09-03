@@ -53,7 +53,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             repository.ConfigureContentType<ExampleClassObject>()
                 .Field(x => x.FirstName, IndexingType.Searchable)
                 .Field(x => x.LastName, IndexingType.Searchable)
-                .Field(x => x.Age, IndexingType.Querable)
+                .Field(x => x.Age, IndexingType.Queryable)
                 .Field(x => x.SubType, IndexingType.PropertyType);
 
 
@@ -64,7 +64,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             Assert.AreEqual(contentTypes.First().TypeName, nameof(ExampleClassObject));
             Assert.IsTrue(contentTypes.First().Fields.Any(x => x.Name == "FirstName" && x.IndexingType == IndexingType.Searchable));
             Assert.IsTrue(contentTypes.First().Fields.Any(x => x.Name == "LastName" && x.IndexingType == IndexingType.Searchable));
-            Assert.IsTrue(contentTypes.First().Fields.Any(x => x.Name == "Age" && x.IndexingType == IndexingType.Querable));
+            Assert.IsTrue(contentTypes.First().Fields.Any(x => x.Name == "Age" && x.IndexingType == IndexingType.Queryable));
             Assert.IsTrue(contentTypes.First().Fields.Any(x => x.Name == "SubType" && x.IndexingType == IndexingType.PropertyType));
             Assert.AreEqual(4, contentTypes.First().Fields.Count);
         }
@@ -75,7 +75,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             // Arrange & Act
             repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
                 .Field(x => x.One, IndexingType.Searchable)
-                .Field(x => x.Two, IndexingType.Querable);
+                .Field(x => x.Two, IndexingType.Queryable);
 
             // Assert
             var propertyTypes = SourceConfigurationModel.GetPropertyTypeFieldConfiguration();
@@ -83,7 +83,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             Assert.AreEqual(propertyTypes.First().ConfigurationType, ConfigurationType.PropertyType);
             Assert.AreEqual(propertyTypes.First().TypeName, "SubType1");
             Assert.IsTrue(propertyTypes.First().Fields.Any(x => x.Name == "One" && x.IndexingType == IndexingType.Searchable));
-            Assert.IsTrue(propertyTypes.First().Fields.Any(x => x.Name == "Two" && x.IndexingType == IndexingType.Querable));
+            Assert.IsTrue(propertyTypes.First().Fields.Any(x => x.Name == "Two" && x.IndexingType == IndexingType.Queryable));
             Assert.AreEqual(2, propertyTypes.First().Fields.Count);
         }
 
@@ -94,7 +94,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             repository.ConfigureContentType<ExampleClassObject>()
                 .Field(x => x.FirstName, IndexingType.Searchable)
                 .Field(x => x.LastName, IndexingType.Searchable)
-                .Field(x => x.Age, IndexingType.Querable);
+                .Field(x => x.Age, IndexingType.Queryable);
 
             var expectedJsonString = BuildExpectedTypeJsonString();
             var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
@@ -121,12 +121,12 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             repository.ConfigureContentType<ExampleClassObject>()
                .Field(x => x.FirstName, IndexingType.Searchable)
                .Field(x => x.LastName, IndexingType.Searchable)
-               .Field(x => x.Age, IndexingType.Querable)
+               .Field(x => x.Age, IndexingType.Queryable)
                .Field(x => x.SubType, IndexingType.PropertyType);
 
             repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
                 .Field(x => x.One, IndexingType.Searchable)
-                .Field(x => x.Two, IndexingType.Querable);
+                .Field(x => x.Two, IndexingType.Queryable);
 
             var exampleData = new ExampleClassObject
             {

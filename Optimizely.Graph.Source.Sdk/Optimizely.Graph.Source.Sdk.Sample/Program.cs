@@ -203,15 +203,15 @@ client.AddLanguage("en");
 
 #region ExampleTypes
 client.ConfigureContentType<ExampleTypes>()
-    .Field(x => x.BoolType, IndexingType.Querable)
+    .Field(x => x.BoolType, IndexingType.Queryable)
     .Field(x => x.BoolTypes, IndexingType.Searchable)
-    .Field(x => x.DateType, IndexingType.Querable)
+    .Field(x => x.DateType, IndexingType.Queryable)
     .Field(x => x.DateTypes, IndexingType.Searchable)
-    .Field(x => x.IntType, IndexingType.Querable)
+    .Field(x => x.IntType, IndexingType.Queryable)
     .Field(x => x.IntTypes, IndexingType.Searchable)
-    .Field(x => x.DoubleType, IndexingType.Querable)
+    .Field(x => x.DoubleType, IndexingType.Queryable)
     .Field(x => x.DoubleTypes, IndexingType.Searchable)
-    .Field(x => x.StringType, IndexingType.Querable)
+    .Field(x => x.StringType, IndexingType.Queryable)
     .Field(x => x.StringTypes, IndexingType.Searchable)
     .Field(x => x.BaseType, IndexingType.PropertyType);
 
