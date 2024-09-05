@@ -1,8 +1,6 @@
 
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/obj
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Sample/obj
-*.v2
-*.vsidx
 /Optimizely.Graph.Source.Sdk/.vs/ProjectEvaluation
 /Optimizely.Graph.Source.Sdk/ClassLibrary1/obj
 /Optimizely.Graph.Source.Sdk/.vs
@@ -17,3 +15,6 @@
 *.pdb
 *.log
 *.cache
+*.v2
+*.vsidx
+*.vs

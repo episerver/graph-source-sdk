@@ -17,9 +17,18 @@ You can find more information [here]https://docs.developers.optimizely.com/platf
 You can use the client by calling `Create()` and providing your base url, Content Graph source, application key and secret, then calling one of the provided functions for synchronizing Content Types and Content Data.
 
 ```csharp
-// Example of initializing client and configuring content types
-var client = GraphSourceClient.Create(new Uri("https://cg.optimizely.com"), "source", "application-key", "secret");
+// Initialize the GraphSourceClient by calling the Create method
+var client = GraphSourceClient.Create(
+    new Uri("https://cg.optimizely.com"),
+    "ed",
+    "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4",
+    "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO"
+);
 
+// Add a language preference
+client.AddLanguage("en");
+
+// Build any C# class object
 public class ExampleClassObject
 {
     public string FirstName { get; set; }
@@ -38,16 +47,18 @@ public class ExampleClassObject
     }
 }
 
+// Use the client to configure content types
 client.ConfigureContentType<ExampleClassObject>()
     .Field(x => x.FirstName, IndexingType.Searchable)
     .Field(x => x.LastName, IndexingType.Searchable)
-    .Field(x => x.Age, IndexingType.Querable)
+    .Field(x => x.Age, IndexingType.Queryable)
     .Field(x => x.SubType, IndexingType.PropertyType);
 
 client.ConfigurePropertyType<ExampleClassObject.SubType1>()
     .Field(x => x.One, IndexingType.Searchable)
-    .Field(x => x.Two, IndexingType.Querable);
+    .Field(x => x.Two, IndexingType.Queryable);
 
+// Save content types to Optimizely Graph
 var result = await graphSourceClient.SaveTypesAsync();
 ```
 
