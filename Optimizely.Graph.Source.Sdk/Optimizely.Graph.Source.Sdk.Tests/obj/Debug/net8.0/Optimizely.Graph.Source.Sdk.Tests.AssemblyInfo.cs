@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Optimizely.Graph.Source.Sdk.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ea96963ef7039a633b17ea1e9fee45f8f546918")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+568a2c5f1c841d1de4e6d1677a10243ccbad2c16")]
 [assembly: System.Reflection.AssemblyProductAttribute("Optimizely.Graph.Source.Sdk.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Optimizely.Graph.Source.Sdk.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,7 +10,7 @@ The package is published to the Episerver package repository as Optimizely.Graph
 ### Set up your Content Graph Instance and Keypair
 
 You will need an application key and secret key provided by your Turnstile credential to get started.
-You can find more information [here]https://docs.developers.optimizely.com/platform-optimizely/v1.4.0-optimizely-graph/docs/introduction-optimizely-graph
+You can find more information https://docs.developers.optimizely.com/platform-optimizely/v1.4.0-optimizely-graph/docs/introduction-optimizely-graph
 
 ### Using the SDK
 
@@ -18,12 +18,7 @@ You can use the client by calling `Create()` and providing your base url, Conten
 
 ```csharp
 // Initialize the GraphSourceClient by calling the Create method
-var client = GraphSourceClient.Create(
-    new Uri("https://cg.optimizely.com"),
-    "ed",
-    "W0LCG2J0CTXtFnJGI0DMFGas1zLNPSRYU0jZJyu4uslPEYS4",
-    "2PiblNXuFA7o7q3EG0csdLTBLe7rcX94GfecOxrbq6FMLXHezm/BQBOkmK6zP8WO"
-);
+var client = GraphSourceClient.Create(new Uri("https://cg.optimizely.com"), "", "", "");
 
 // Add a language preference
 client.AddLanguage("en");
