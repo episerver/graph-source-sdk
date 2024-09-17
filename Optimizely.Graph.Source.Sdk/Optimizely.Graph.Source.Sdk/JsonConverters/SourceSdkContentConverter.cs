@@ -45,7 +45,14 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             writer.WriteString("Status$$String", "Published");
             writer.WriteString("__typename", contentType.Name);
             writer.WriteString("_rbac", "r:Everyone:Read");
-            writer.WriteString("ContentType$$String", contentType.Name);
+
+            writer.WriteStartArray("ContentType$$String");
+            writer.WriteStringValue(contentType.Name);
+            foreach (var type in contentType.GetInterfaces())
+            {
+                writer.WriteStringValue(type.Name);
+            }
+            writer.WriteEndArray();
 
             writer.WriteStartObject("Language");
             writer.WriteString("Name$$String", "en"); //TODO: Set Language
