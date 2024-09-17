@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Optimizely.Graph.Source.Sdk",
+    "\\Optimizely.Graph.Source.Sdk\\Optimizely.Graph.Source.Sdk",
+    "\\Optimizely.Graph.Source.Sdk\\Optimizely.Graph.Source.Sdk.Sample",
+    "\\Optimizely.Graph.Source.Sdk\\Optimizely.Graph.Source.Sdk.Tests",
+    "\\Optimizely.Graph.Source.Sdk\\Optimizely.Graph.Source.Sdk.Tests\\RepositoryTests",
+    "\\Optimizely.Graph.Source.Sdk\\Optimizely.Graph.Source.Sdk\\Repositories"
+  ],
+  "SelectedNode": "\\Optimizely.Graph.Source.Sdk\\Optimizely.Graph.Source.Sdk.Sample\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}

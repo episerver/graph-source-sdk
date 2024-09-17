@@ -1,10 +1,20 @@
 
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/obj
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Sample/obj
-*.v2
-*.vsidx
 /Optimizely.Graph.Source.Sdk/.vs/ProjectEvaluation
 /Optimizely.Graph.Source.Sdk/ClassLibrary1/obj
 /Optimizely.Graph.Source.Sdk/.vs
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Sample/bin
 /Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin/Debug/net8.0
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj/Debug/net8.0
+
+*.dll
+*.sqlite
+*.pdb
+*.log
+*.cache
+*.v2
+*.vsidx
+*.vs

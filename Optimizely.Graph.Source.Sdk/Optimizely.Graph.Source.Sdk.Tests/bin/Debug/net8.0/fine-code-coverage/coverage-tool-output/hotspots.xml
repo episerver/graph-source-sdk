@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Hotspots>
+  <Hotspot>
+    <Assembly>Optimizely.Graph.Source.Sdk</Assembly>
+    <Class>Optimizely.Graph.Source.Sdk.ExpressionHelpers.ExpressionVisitor</Class>
+    <MethodName>Visit(...)</MethodName>
+    <ShortName />
+    <Line>13</Line>
+    <FileIndex>0</FileIndex>
+    <Metrics>
+      <Metric>
+        <Name>Cyclomatic complexity</Name>
+        <Exceeded>true</Exceeded>
+        <Value>49</Value>
+      </Metric>
+    </Metrics>
+  </Hotspot>
+  <Hotspot>
+    <Assembly>Optimizely.Graph.Source.Sdk</Assembly>
+    <Class>Optimizely.Graph.Source.Sdk.JsonConverters.SourceSdkContentConverter</Class>
+    <MethodName>WriteField(...)</MethodName>
+    <ShortName />
+    <Line>64</Line>
+    <FileIndex>0</FileIndex>
+    <Metrics>
+      <Metric>
+        <Name>Cyclomatic complexity</Name>
+        <Exceeded>true</Exceeded>
+        <Value>48</Value>
+      </Metric>
+    </Metrics>
+  </Hotspot>
+</Hotspots>
