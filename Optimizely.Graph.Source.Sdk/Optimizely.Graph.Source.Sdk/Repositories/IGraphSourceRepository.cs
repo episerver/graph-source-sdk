@@ -1,4 +1,5 @@
 ﻿using Optimizely.Graph.Source.Sdk.SourceConfiguration;
+using System.Linq.Expressions;
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {
@@ -9,6 +10,8 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         /// </summary>
         /// <param name="language"></param>
         void AddLanguage(string language);
+
+        void ConfigureLink<T, U>(string name, Expression<Func<T, object>> from, Expression<Func<U, object>> to);
 
         /// <summary>
         /// Configures Content Types within the SourceConfigurationModel.

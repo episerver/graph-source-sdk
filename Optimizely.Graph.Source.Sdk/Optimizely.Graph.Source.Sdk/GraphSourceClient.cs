@@ -3,6 +3,7 @@ using Optimizely.Graph.Source.Sdk.HttpClientHelpers;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using Optimizely.Graph.Source.Sdk.Repositories;
 using Optimizely.Graph.Source.Sdk.SourceConfiguration;
+using System.Linq.Expressions;
 
 namespace Optimizely.Graph.Source.Sdk
 {
@@ -42,6 +43,13 @@ namespace Optimizely.Graph.Source.Sdk
         {
             repository.AddLanguage(language);
         }
+
+        public GraphSourceClient ConfigureLink<T, U>(string name, Expression<Func<T, object>> from, Expression<Func<U, object>> to)
+        {
+            repository.ConfigureLink<T, U>(name, from, to);
+            return this;
+        }
+
 
         /// <summary>
         /// Configures Content Types within the SourceConfigurationModel.
