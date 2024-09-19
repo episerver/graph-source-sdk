@@ -15,19 +15,22 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
         {
             writer.WriteStartObject();
 
-            foreach(var contentTypeFieldConfiguration in value.Where(x => x.ConfigurationType == ConfigurationType.ContentType))
+            writer.WriteBoolean("useTypedFieldNames", true);
+            writer.WriteString("label", "AlloyExternalData");
+
+            writer.WriteStartArray("languages");
+            foreach (var language in SourceConfigurationModel.GetLanguages())
             {
-                writer.WriteBoolean("useTypedFieldNames", true);
-                writer.WriteString("label", contentTypeFieldConfiguration.TypeName);
+                writer.WriteStringValue(language);
+            }
+            writer.WriteEndArray();
 
-                writer.WriteStartArray("languages");
-                foreach (var language in SourceConfigurationModel.GetLanguages())
-                {
-                    writer.WriteStringValue(language);
-                }
-                writer.WriteEndArray();
+            writer.WriteStartObject("contentTypes");
+            foreach (var contentTypeFieldConfiguration in value.Where(x => x.ConfigurationType == ConfigurationType.ContentType))
+            {
+                
+                
 
-                writer.WriteStartObject("contentTypes");
                 writer.WriteStartObject(contentTypeFieldConfiguration.TypeName);
 
                 writer.WriteStartArray("contentType");
@@ -52,8 +55,8 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
                 writer.WriteEndObject();
 
                 writer.WriteEndObject();
-                writer.WriteEndObject();
             }
+            writer.WriteEndObject();
 
             writer.WriteStartObject("propertyTypes");
             foreach (var contentTypeFieldConfiguration in value.Where(x => x.ConfigurationType == ConfigurationType.PropertyType))
