@@ -130,14 +130,9 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
             return string.Empty;
         }
 
-        public void ConfigureLink<T, U>(string name, Expression<Func<T, object>> from, Expression<Func<T, object>> to)
-        {
-            throw new NotImplementedException();
-        }
-
         public void ConfigureLink<T, U>(string name, Expression<Func<T, object>> from, Expression<Func<U, object>> to)
         {
-            throw new NotImplementedException();
+            SourceConfigurationModel.ConfigureLink<T, U>(name, from, to);
         }
     }
 }

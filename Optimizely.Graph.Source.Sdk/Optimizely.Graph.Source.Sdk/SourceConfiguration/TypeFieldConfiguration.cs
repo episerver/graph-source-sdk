@@ -12,6 +12,7 @@
         {
             TypeName = type.Name;
             Fields = new List<FieldInfo>();
+            GraphLinks = new List<ConfiguredGraphLink>();
             ConfigurationType = configurationType;
         }
 
@@ -20,5 +21,7 @@
         public string TypeName { get; set; }
 
         public IList<FieldInfo> Fields { get; private set; }
+
+        public IList<ConfiguredGraphLink> GraphLinks { get; private set; }
     }
 }
