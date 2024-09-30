@@ -3,10 +3,20 @@ using System.Linq.Expressions;
 
 namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 {
+    public class ConfiguredGraphLink
+    { 
+        public string Name { get; set; }
+
+        public FieldInfo From { get; set; }
+
+        public FieldInfo To { get; set; }
+    }
+
     public class SourceConfigurationModel
     {
         private static IDictionary<string, TypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, TypeFieldConfiguration>();
         private static IDictionary<string, TypeFieldConfiguration> _propertyTypeFieldsConfigurations = new Dictionary<string, TypeFieldConfiguration>();
+        //private static IDictionary<string, ConfiguredGraphLink> _configuredGraphLinks = new Dictionary<string, ConfiguredGraphLink>();
         private static HashSet<string> _languages = new HashSet<string>();
 
         protected ConfigurationType ConfigurationType { get; private set; }
@@ -14,6 +24,43 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
         public SourceConfigurationModel(ConfigurationType configurationType)
         {
             ConfigurationType = configurationType;
+        }
+
+        public static void ConfigureLink<T, U>(string name, Expression<Func<T, object>> fromExpression, Expression<Func<U, object>> toExpression)
+        {
+            var fromType = typeof(T);
+            var fromFieldName = fromExpression.GetFieldPath();
+            var fromFieldType = fromExpression.GetReturnType();
+            var fromField = _contentTypeFieldsConfigurations[fromType.Name].Fields.Single(x => x.Name == fromFieldName);
+
+            var toType = typeof(U);
+            var toFieldName = toExpression.GetFieldPath();
+            var toFieldType = toExpression.GetReturnType();
+            var toField = _contentTypeFieldsConfigurations[toType.Name].Fields.Single(x => x.Name == toFieldName);
+
+            if (_contentTypeFieldsConfigurations.TryGetValue(fromType.Name, out TypeFieldConfiguration? contentTypeFieldConfiguration))
+            {
+                var graphLink = new ConfiguredGraphLink
+                {
+                    Name = name,
+                    From = new FieldInfo
+                    {
+                        Name = fromFieldName,
+                        IndexingType = fromField.IndexingType,
+                        MappedType = fromType,
+                        MappedTypeName = fromField.MappedTypeName
+                    },
+                    To = new FieldInfo
+                    {
+                        Name = toFieldName,
+                        IndexingType = toField.IndexingType,
+                        MappedType = toType,
+                        MappedTypeName = toField.MappedTypeName
+                    }
+                };
+
+                contentTypeFieldConfiguration.GraphLinks.Add(graphLink);
+            }
         }
 
         public static void AddLanguage(string language)
