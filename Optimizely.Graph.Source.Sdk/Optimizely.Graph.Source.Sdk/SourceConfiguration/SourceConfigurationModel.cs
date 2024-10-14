@@ -16,7 +16,6 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
     {
         private static IDictionary<string, TypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, TypeFieldConfiguration>();
         private static IDictionary<string, TypeFieldConfiguration> _propertyTypeFieldsConfigurations = new Dictionary<string, TypeFieldConfiguration>();
-        //private static IDictionary<string, ConfiguredGraphLink> _configuredGraphLinks = new Dictionary<string, ConfiguredGraphLink>();
         private static HashSet<string> _languages = new HashSet<string>();
 
         protected ConfigurationType ConfigurationType { get; private set; }
@@ -116,13 +115,22 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
             var fieldType = fieldSelector.GetReturnType();
             var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
 
-            contentTypeFieldConfiguration.Fields.Add(new FieldInfo
+            var exist = contentTypeFieldConfiguration.Fields.Any(x =>
+                x.Name == fieldName &&
+                x.IndexingType == indexingType &&
+                x.MappedType == type &&
+                x.MappedTypeName == mappedTypeName);
+
+            if (!exist)
             {
-                Name = fieldName,
-                IndexingType = indexingType,
-                MappedType = type,
-                MappedTypeName = mappedTypeName
-            });
+                contentTypeFieldConfiguration.Fields.Add(new FieldInfo
+                {
+                    Name = fieldName,
+                    IndexingType = indexingType,
+                    MappedType = type,
+                    MappedTypeName = mappedTypeName
+                });
+            }
 
             return this;
         }
@@ -160,6 +168,11 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
             return this;
         }
 
+        public static bool HasContentType(Type type)
+        {
+            return _contentTypeFieldsConfigurations.ContainsKey(type.Name);
+        }
+
         public static IEnumerable<FieldInfo> GetContentFields(Type type)
         {
             if (!_contentTypeFieldsConfigurations.ContainsKey(type.Name))
@@ -190,6 +203,13 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 
 
             return _propertyTypeFieldsConfigurations[name].Fields;
+        }
+
+        public static void Reset()
+        {
+            _contentTypeFieldsConfigurations.Clear();
+            _propertyTypeFieldsConfigurations.Clear();
+            _languages.Clear();
         }
 
         private string GetTypeName(Type fieldType)

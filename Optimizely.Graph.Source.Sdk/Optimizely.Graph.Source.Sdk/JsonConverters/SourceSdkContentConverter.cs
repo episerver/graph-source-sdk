@@ -95,7 +95,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
                 else
                 {
                     writer.WriteStartObject(fieldInfoItem.Name);
-                    var fields = SourceConfigurationModel.GetPropertyFields(type);
+                    var fields = SourceConfigurationModel.HasContentType(type) ? SourceConfigurationModel.GetContentFields(type) : SourceConfigurationModel.GetPropertyFields(type);
                     foreach (var field in fields)
                     {
                         var propertyFieldValue = type.GetProperty(field.Name)?.GetValue(fieldValue);
