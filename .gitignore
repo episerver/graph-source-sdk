@@ -18,3 +18,6 @@
 *.v2
 *.vsidx
 *.vs
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj
+/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj

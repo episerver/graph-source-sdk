@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using Optimizely.Graph.Source.Sdk.SourceConfiguration;
+using Optimizely.Graph.Source.Sdk.Tests.ExampleObjects;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {
@@ -22,6 +23,12 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         {
             mockRestClient = new Mock<IRestClient>();
             repository = new GraphSourceRepository(mockRestClient.Object, source);
+        }
+
+        [TestInitialize]
+        public void TestInit()
+        {
+            SourceConfigurationModel.Reset();
         }
 
         [TestMethod]
@@ -115,6 +122,123 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         }
 
         [TestMethod]
+        public async Task SaveTypesAsync_WithLink_ShouldGenerateTypesAndLink()
+        {
+            // Arrange
+            repository.ConfigureContentType<Location>()
+                .Field(x => x.Longitude, IndexingType.Queryable)
+                .Field(x => x.Latitude, IndexingType.Queryable)
+                .Field(x => x.Name, IndexingType.Searchable);
+
+            repository.ConfigureContentType<Event>()
+                .Field(x => x.LocationName, IndexingType.Queryable)
+                .Field(x => x.Time, IndexingType.Queryable)
+                .Field(x => x.Name, IndexingType.Searchable)
+                .Field(x => x.AdditionalInfo, IndexingType.PropertyType);
+
+            repository.ConfigureContentType<ExtraInfo>()
+                .Field(x => x.Example1, IndexingType.OnlyStored)
+                .Field(x => x.Example2, IndexingType.Queryable);
+
+            repository.ConfigureLink<Location, Event>(
+                "NameToLocationName",
+                x => x.Name,
+                x => x.LocationName
+            );
+
+            var expectedJsonString = @"{
+  ""useTypedFieldNames"": true,
+  ""languages"": [],
+  ""links"": {
+    ""NameToLocationName"": {
+      ""from"": ""Name$$String___searchable"",
+      ""to"": ""LocationName$$String""
+    }
+  },
+  ""contentTypes"": {
+    ""Location"": {
+      ""contentType"": [],
+      ""properties"": {
+        ""Longitude"": {
+          ""type"": ""Float"",
+          ""searchable"": false,
+          ""skip"": false
+        },
+        ""Latitude"": {
+          ""type"": ""Float"",
+          ""searchable"": false,
+          ""skip"": false
+        },
+        ""Name"": {
+          ""type"": ""String"",
+          ""searchable"": true,
+          ""skip"": false
+        }
+      }
+    },
+    ""Event"": {
+      ""contentType"": [],
+      ""properties"": {
+        ""LocationName"": {
+          ""type"": ""String"",
+          ""searchable"": false,
+          ""skip"": false
+        },
+        ""Time"": {
+          ""type"": ""DateTime"",
+          ""searchable"": false,
+          ""skip"": false
+        },
+        ""Name"": {
+          ""type"": ""String"",
+          ""searchable"": true,
+          ""skip"": false
+        },
+        ""AdditionalInfo"": {
+          ""type"": ""ExtraInfo""
+        }
+      }
+    },
+    ""ExtraInfo"": {
+      ""contentType"": [],
+      ""properties"": {
+        ""Example1"": {
+          ""type"": ""String"",
+          ""searchable"": false,
+          ""skip"": true
+        },
+        ""Example2"": {
+          ""type"": ""Int"",
+          ""searchable"": false,
+          ""skip"": false
+        }
+      }
+    }
+  },
+  ""propertyTypes"": {}
+}";
+
+            var jsonString = BuildExpectedTypeJsonString();
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/content/v3/types?id={source}") { Content = content };
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+
+            // Act
+            await repository.SaveTypesAsync();
+
+            // Assert
+            Assert.AreEqual(expectedJsonString, jsonString);
+
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+
+        [TestMethod]
         public async Task SaveContentAsync_SerializesData_AndCallsGraphClient()
         {
             // Arrange
@@ -140,7 +264,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
                 }
             };
 
-            var expectedJsonString = BuildExpextedContentJsonString(exampleData);
+            var expectedJsonString = BuildExpextedContentJsonString(x => x.ToString(), exampleData);
 
             var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
 
@@ -154,6 +278,118 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
 
             // Assert
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+
+        [TestMethod]
+        public async Task SaveContentAsync_WithMultipleTypes_ShouldGenerateJsonForContentOfDifferentTypes()
+        {
+            // Arrange
+            repository.ConfigureContentType<Location>()
+                .Field(x => x.Longitude, IndexingType.Queryable)
+                .Field(x => x.Latitude, IndexingType.Queryable)
+                .Field(x => x.Name, IndexingType.Searchable);
+
+            repository.ConfigureContentType<Event>()
+                .Field(x => x.LocationName, IndexingType.Queryable)
+                .Field(x => x.Time, IndexingType.Queryable)
+                .Field(x => x.Name, IndexingType.Searchable)
+                .Field(x => x.AdditionalInfo, IndexingType.PropertyType);
+
+            repository.ConfigureContentType<ExtraInfo>()
+                .Field(x => x.Example1, IndexingType.OnlyStored)
+                .Field(x => x.Example2, IndexingType.Queryable);
+
+            var locationStockholm = new Location
+            {
+                Name = "Stockholm",
+                Latitude = 59.334591,
+                Longitude = 18.063241,
+            };
+            var locationLondon = new Location
+            {
+                Name = "London",
+                Latitude = 51.5072,
+                Longitude = 0.1275,
+            };
+            var event1 = new Event
+            {
+                Name = "Future of Project Management",
+                Time = new DateTime(2024, 10, 22),
+                LocationName = "Stockholm",
+                AdditionalInfo = new ExtraInfo
+                {
+                    Example1 = "test1",
+                    Example2 = 1
+                }
+            };
+            var event2 = new Event
+            {
+                Name = "Week of Hope: Football Camp for Homeless Children in Hanoi!",
+                Time = new DateTime(2024, 10, 27),
+                LocationName = "Hanoi",
+                AdditionalInfo = new ExtraInfo
+                {
+                    Example1 = "test2",
+                    Example2 = 2
+                }
+            };
+            var event3 = new Event
+            {
+                Name = "Optimizing Project Management: Strategies for Success",
+                Time = new DateTime(2024, 11, 03),
+                LocationName = "London",
+                AdditionalInfo = new ExtraInfo
+                {
+                    Example1 = "test3",
+                    Example2 = 3
+                }
+            };
+
+            var expectedJsonString = @"{ ""index"": { ""_id"": ""Location-Stockholm"", ""language_routing"": ""en"" } }
+{  ""Status$$String"": ""Published"",  ""__typename"": ""Location"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Location""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""Longitude$$Float"": 18.063241,  ""Latitude$$Float"": 59.334591,  ""Name$$String___searchable"": ""Stockholm""}
+{ ""index"": { ""_id"": ""Location-London"", ""language_routing"": ""en"" } }
+{  ""Status$$String"": ""Published"",  ""__typename"": ""Location"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Location""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""Longitude$$Float"": 0.1275,  ""Latitude$$Float"": 51.5072,  ""Name$$String___searchable"": ""London""}
+{ ""index"": { ""_id"": ""Event-Future of Project Management"", ""language_routing"": ""en"" } }
+{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""Stockholm"",  ""Time$$DateTime"": ""2024-10-21T22:00:00Z"",  ""Name$$String___searchable"": ""Future of Project Management"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test1"",    ""Example2$$Int"": 1  }}
+{ ""index"": { ""_id"": ""Event-Week of Hope: Football Camp for Homeless Children in Hanoi!"", ""language_routing"": ""en"" } }
+{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""Hanoi"",  ""Time$$DateTime"": ""2024-10-26T22:00:00Z"",  ""Name$$String___searchable"": ""Week of Hope: Football Camp for Homeless Children in Hanoi!"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test2"",    ""Example2$$Int"": 2  }}
+{ ""index"": { ""_id"": ""Event-Optimizing Project Management: Strategies for Success"", ""language_routing"": ""en"" } }
+{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""London"",  ""Time$$DateTime"": ""2024-11-02T23:00:00Z"",  ""Name$$String___searchable"": ""Optimizing Project Management: Strategies for Success"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test3"",    ""Example2$$Int"": 3  }}
+";
+
+            Func<object, string> generateId = (x) =>
+            {
+                if (x is Location location)
+                {
+                    return $"Location-{location.Name}";
+                }
+                if (x is Event ev)
+                {
+                    return $"Event-{ev.Name}";
+                }
+                throw new NotImplementedException();
+
+            };
+
+            var jsonString = BuildExpextedContentJsonString<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
+
+            var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+
+            // Act
+            await repository.SaveContentAsync<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
+
+            // Assert
+            Assert.AreEqual(expectedJsonString, jsonString);
+
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
             mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
             mockRestClient.VerifyAll();
@@ -177,6 +413,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.VerifyAll();
         }
 
+
         #region Private
         private string BuildExpectedTypeJsonString()
         {
@@ -192,7 +429,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             return JsonSerializer.Serialize(SourceConfigurationModel.GetTypeFieldConfiguration(), serializeOptions);
         }
 
-        private string BuildExpextedContentJsonString(ExampleClassObject data)
+        private string BuildExpextedContentJsonString<T>(Func<T, string> generateId, params T[] items)
         {
             var serializeOptions = new JsonSerializerOptions
             {
@@ -205,11 +442,13 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 
             var itemJson = string.Empty;
 
-            itemJson += $"{{ \"index\": {{ \"_id\": \"Optimizely.Graph.Source.Sdk.Tests.ExampleClassObject\", \"language_routing\": \"en\" }} }}";
-            itemJson += Environment.NewLine;
-            itemJson += JsonSerializer.Serialize(data, serializeOptions).Replace("\r\n", "");
-            itemJson += Environment.NewLine;
-
+            foreach (var data in items)
+            {
+                itemJson += $"{{ \"index\": {{ \"_id\": \"{generateId(data)}\", \"language_routing\": \"en\" }} }}";
+                itemJson += Environment.NewLine;
+                itemJson += JsonSerializer.Serialize(data, serializeOptions).Replace("\r\n", "");
+                itemJson += Environment.NewLine;
+            }
             return itemJson;
         }
 

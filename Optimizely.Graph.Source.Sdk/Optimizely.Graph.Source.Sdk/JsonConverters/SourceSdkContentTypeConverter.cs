@@ -16,7 +16,6 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             writer.WriteStartObject();
 
             writer.WriteBoolean("useTypedFieldNames", true);
-            writer.WriteString("label", "AlloyExternalData");
 
             writer.WriteStartArray("languages");
             foreach (var language in SourceConfigurationModel.GetLanguages())
@@ -25,19 +24,28 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             }
             writer.WriteEndArray();
 
+            // Links
+            writer.WriteStartObject("links");
+            foreach (var link in value.SelectMany(x => x.GraphLinks))
+            {
+                writer.WriteStartObject(link.Name);
+
+                writer.WriteString("from", GetFieldName(link.From));
+                writer.WriteString("to", GetFieldName(link.To));
+
+                writer.WriteEndObject();
+            }
+            writer.WriteEndObject();
+
             writer.WriteStartObject("contentTypes");
             foreach (var contentTypeFieldConfiguration in value.Where(x => x.ConfigurationType == ConfigurationType.ContentType))
             {
-                
-                
-
                 writer.WriteStartObject(contentTypeFieldConfiguration.TypeName);
 
                 writer.WriteStartArray("contentType");
                 writer.WriteEndArray();
 
                 writer.WriteStartObject("properties");
-
                 foreach (var field in contentTypeFieldConfiguration.Fields)
                 {
                     writer.WriteStartObject(field.Name);
@@ -51,7 +59,6 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
 
                     writer.WriteEndObject();
                 }
-
                 writer.WriteEndObject();
 
                 writer.WriteEndObject();
@@ -86,6 +93,60 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             writer.WriteEndObject();
 
             writer.WriteEndObject();
+        }
+
+        private string GetFieldName(FieldInfo fieldInfoItem)
+        {
+            var fieldName = fieldInfoItem.Name;
+            switch(fieldInfoItem.MappedTypeName)
+            {
+                case "[Boolean]":
+                case "Boolean":
+                    {
+                        fieldName += "$$Boolean";
+                        break;
+                    }
+                case "[DateTime]":
+                case "DateTime":
+                    {
+                        fieldName += "$$DateTime";
+                        break;
+                    }
+                case "[Int]":
+                case "Int":
+                    {
+                        fieldName += "$$Int";
+                        break;
+                    }
+                case "[Float]":
+                case "Float":
+                    {
+                        fieldName += "$$Float";
+                        break;
+                    }
+                case "[String]":
+                case "String":
+                    {
+                        fieldName += "$$String";
+                        break;
+                    }
+            }
+
+            switch(fieldInfoItem.IndexingType)
+            {
+                case IndexingType.OnlyStored:
+                    {
+                        fieldName += "___skip";
+                        break;
+                    }
+                case IndexingType.Searchable:
+                    {
+                        fieldName += "___searchable";
+                        break;
+                    }
+            }
+
+            return fieldName;
         }
     }
 }

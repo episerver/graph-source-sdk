@@ -1,5 +1,4 @@
-﻿
-namespace Optimizely.Graph.Source.Sdk.Tests
+﻿namespace Optimizely.Graph.Source.Sdk.Tests.ExampleObjects
 {
     public class ExampleClassObject
     {

@@ -3,6 +3,15 @@ using System.Linq.Expressions;
 
 namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 {
+    public class ConfiguredGraphLink
+    { 
+        public string Name { get; set; }
+
+        public FieldInfo From { get; set; }
+
+        public FieldInfo To { get; set; }
+    }
+
     public class SourceConfigurationModel
     {
         private static IDictionary<string, TypeFieldConfiguration> _contentTypeFieldsConfigurations = new Dictionary<string, TypeFieldConfiguration>();
@@ -14,6 +23,43 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
         public SourceConfigurationModel(ConfigurationType configurationType)
         {
             ConfigurationType = configurationType;
+        }
+
+        public static void ConfigureLink<T, U>(string name, Expression<Func<T, object>> fromExpression, Expression<Func<U, object>> toExpression)
+        {
+            var fromType = typeof(T);
+            var fromFieldName = fromExpression.GetFieldPath();
+            var fromFieldType = fromExpression.GetReturnType();
+            var fromField = _contentTypeFieldsConfigurations[fromType.Name].Fields.Single(x => x.Name == fromFieldName);
+
+            var toType = typeof(U);
+            var toFieldName = toExpression.GetFieldPath();
+            var toFieldType = toExpression.GetReturnType();
+            var toField = _contentTypeFieldsConfigurations[toType.Name].Fields.Single(x => x.Name == toFieldName);
+
+            if (_contentTypeFieldsConfigurations.TryGetValue(fromType.Name, out TypeFieldConfiguration? contentTypeFieldConfiguration))
+            {
+                var graphLink = new ConfiguredGraphLink
+                {
+                    Name = name,
+                    From = new FieldInfo
+                    {
+                        Name = fromFieldName,
+                        IndexingType = fromField.IndexingType,
+                        MappedType = fromType,
+                        MappedTypeName = fromField.MappedTypeName
+                    },
+                    To = new FieldInfo
+                    {
+                        Name = toFieldName,
+                        IndexingType = toField.IndexingType,
+                        MappedType = toType,
+                        MappedTypeName = toField.MappedTypeName
+                    }
+                };
+
+                contentTypeFieldConfiguration.GraphLinks.Add(graphLink);
+            }
         }
 
         public static void AddLanguage(string language)
@@ -69,13 +115,22 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
             var fieldType = fieldSelector.GetReturnType();
             var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
 
-            contentTypeFieldConfiguration.Fields.Add(new FieldInfo
+            var exist = contentTypeFieldConfiguration.Fields.Any(x =>
+                x.Name == fieldName &&
+                x.IndexingType == indexingType &&
+                x.MappedType == type &&
+                x.MappedTypeName == mappedTypeName);
+
+            if (!exist)
             {
-                Name = fieldName,
-                IndexingType = indexingType,
-                MappedType = type,
-                MappedTypeName = mappedTypeName
-            });
+                contentTypeFieldConfiguration.Fields.Add(new FieldInfo
+                {
+                    Name = fieldName,
+                    IndexingType = indexingType,
+                    MappedType = type,
+                    MappedTypeName = mappedTypeName
+                });
+            }
 
             return this;
         }
@@ -113,6 +168,11 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
             return this;
         }
 
+        public static bool HasContentType(Type type)
+        {
+            return _contentTypeFieldsConfigurations.ContainsKey(type.Name);
+        }
+
         public static IEnumerable<FieldInfo> GetContentFields(Type type)
         {
             if (!_contentTypeFieldsConfigurations.ContainsKey(type.Name))
@@ -143,6 +203,13 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 
 
             return _propertyTypeFieldsConfigurations[name].Fields;
+        }
+
+        public static void Reset()
+        {
+            _contentTypeFieldsConfigurations.Clear();
+            _propertyTypeFieldsConfigurations.Clear();
+            _languages.Clear();
         }
 
         private string GetTypeName(Type fieldType)
