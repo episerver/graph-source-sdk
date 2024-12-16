@@ -1,0 +1,38 @@
+name: Nuget Publish
+
+on: 
+  workflow_dispatch:
+  
+env:
+  NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Git Semantic Version
+      id: semver
+      uses: PaulHatch/semantic-version@v5.4.0
+    - name: Create Tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        custom_tag: ${{ steps.semver.outputs.version }}
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.sln
+    - name: Build
+      run: dotnet build --no-restore ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.sln
+    - name: Package
+      run: dotnet pack ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.csproj --configuration Release -p:PackageVersion=${{ steps.semver.outputs.version }}
+    - name: Publish to Optimizely
+      run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.optimizely.com/feed/packages.svc
+    - name: Publish to Episerver
+      run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/episerver/index.json
