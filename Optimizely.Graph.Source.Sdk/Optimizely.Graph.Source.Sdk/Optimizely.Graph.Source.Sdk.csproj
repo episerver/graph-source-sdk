@@ -4,12 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Authors>Optimizely</Authors>
+    <Description>C# SDK for Content Graph Services api.</Description>
+    <PackageProjectUrl>https://github.com/episerver/graph-source-sdk</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/episerver/graph-source-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Expression\**" />
     <EmbeddedResource Remove="Expression\**" />
     <None Remove="Expression\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
