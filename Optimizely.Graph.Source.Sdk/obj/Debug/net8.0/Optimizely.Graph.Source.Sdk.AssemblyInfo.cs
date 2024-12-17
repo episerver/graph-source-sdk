@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("C# SDK for Content Graph Services api.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c3d01270a17f22e54f7e521f38bca9fa7ce4c84")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e2b4823aaa8ceee0ceb1f43c4560acd1e5d1048")]
 [assembly: System.Reflection.AssemblyProductAttribute("Optimizely.Graph.Source.Sdk")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Optimizely.Graph.Source.Sdk")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

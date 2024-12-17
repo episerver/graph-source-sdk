@@ -194,3 +194,4 @@ Artifacts/
 packages/
 *.sh
 .idea/.idea.Csharp-OptiAI/.idea/workspace.xml
+/.vs/slnx.sqlite
