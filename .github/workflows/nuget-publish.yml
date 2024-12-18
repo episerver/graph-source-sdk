@@ -34,3 +34,5 @@ jobs:
       run: dotnet pack ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.csproj --configuration Release -p:PackageVersion=${{ steps.semver.outputs.version }}
     - name: Publish to Episerver
       run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/episerver/index.json
+    - name: Publish to Optimizely
+      run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://api.nuget.optimizely.com/v3/index.json
