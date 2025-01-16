@@ -9,6 +9,8 @@ env:
 jobs:
   Publish:
     runs-on: ubuntu-latest
+    outputs:
+      releaseVersion: ${{ steps.semver.outputs.version }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -34,10 +36,15 @@ jobs:
       run: dotnet pack ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.csproj --configuration Release -p:PackageVersion=${{ steps.semver.outputs.version }}
     - name: Publish to Episerver
       run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/episerver/index.json
-    - name: Publish to Optimizely
+      
+  upload_T3:
+    runs-on: [self-hosted]
+    needs: [Publish]
+    steps:
+    - name: Publish Nuget
       run: |
           $sourceDirectory = '${{github.workspace}}\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\bin\Release\'
           $destinationDirectory = '\\nuget.ep.se\Releases\thisweek'
 
-          $file = Get-ChildItem -Path "$sourceDirectory" -Recurse | Where-Object {$_.Name -match 'Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg'}
+          $file = Get-ChildItem -Path "$sourceDirectory" -Recurse | Where-Object {$_.Name -match 'Optimizely.Graph.Source.Sdk.${{ needs.Publish.outputs.releaseVersion }}.nupkg'}
           xcopy $file.FullName $destinationDirectory /Y
