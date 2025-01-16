@@ -35,4 +35,9 @@ jobs:
     - name: Publish to Episerver
       run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/episerver/index.json
     - name: Publish to Optimizely
-      run: dotnet nuget push ./Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin/Release/Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://api.nuget.optimizely.com/v3/index.json
+      run: |
+          $sourceDirectory = '${{github.workspace}}\Optimizely.Graph.Source.Sdk\Optimizely.Graph.Source.Sdk\bin\Release\'
+          $destinationDirectory = '\\nuget.ep.se\Releases\thisweek'
+
+          $file = Get-ChildItem -Path "$sourceDirectory" -Recurse | Where-Object {$_.Name -match 'Optimizely.Graph.Source.Sdk.${{ steps.semver.outputs.version }}.nupkg'}
+          xcopy $file.FullName $destinationDirectory /Y
