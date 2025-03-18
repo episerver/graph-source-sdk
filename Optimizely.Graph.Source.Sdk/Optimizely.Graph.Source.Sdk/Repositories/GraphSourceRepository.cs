@@ -100,7 +100,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
 
                 itemJson += $"{{ \"index\": {{ \"_id\": \"{id}\", \"language_routing\": \"{language}\" }} }}";
                 itemJson += Environment.NewLine;
-                itemJson += JsonSerializer.Serialize(item, serializeOptions).Replace("\r\n", "");
+                itemJson += JsonSerializer.Serialize(item, serializeOptions).Replace("\r\n", "").Replace("\n", "");
                 itemJson += Environment.NewLine;
             }
 
