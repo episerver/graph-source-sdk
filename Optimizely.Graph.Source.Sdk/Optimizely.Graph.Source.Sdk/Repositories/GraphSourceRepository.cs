@@ -83,9 +83,24 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
             where T : class, new()
         {
+            var content = CreateContent(generateId, data);
+
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}"))
+            {
+                requestMessage.Content = content;
+                using (var responseMessage = await client.SendAsync(requestMessage))
+                {
+                    await client.HandleResponse(responseMessage);
+                }
+            }
+            return string.Empty;
+        }
+
+        public StringContent CreateContent<T>(Func<T, string> generateId, params T[] data)
+        {
             var serializeOptions = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = false,
                 Converters =
                 {
                     new SourceSdkContentConverter()
@@ -98,23 +113,14 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
                 var id = generateId(item);
                 var language = "en";
 
-                itemJson += $"{{ \"index\": {{ \"_id\": \"{id}\", \"language_routing\": \"{language}\" }} }}";
+                itemJson += $"{{\"index\":{{\"_id\":\"{id}\",\"language_routing\":\"{language}\"}}}}";
                 itemJson += Environment.NewLine;
-                itemJson += JsonSerializer.Serialize(item, serializeOptions).Replace("\r\n", "").Replace("\n", "");
+                itemJson += JsonSerializer.Serialize(item, serializeOptions);
                 itemJson += Environment.NewLine;
             }
 
             var content = new StringContent(itemJson, Encoding.UTF8, "application/json");
-
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}"))
-            {
-                requestMessage.Content = content;
-                using (var responseMessage = await client.SendAsync(requestMessage))
-                {
-                    await client.HandleResponse(responseMessage);
-                }
-            }
-            return string.Empty;
+            return content;
         }
 
         /// <inheritdoc/>
