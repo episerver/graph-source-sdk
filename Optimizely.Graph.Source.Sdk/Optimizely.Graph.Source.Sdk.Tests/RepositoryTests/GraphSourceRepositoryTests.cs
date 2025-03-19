@@ -8,6 +8,7 @@ using System.Text;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 using Optimizely.Graph.Source.Sdk.Tests.ExampleObjects;
+using System.Text.RegularExpressions;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {
@@ -395,6 +396,78 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.VerifyAll();
         }
 
+        [TestMethod]
+        public async Task CreateContent_ShouldContainTwoNewLines()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+               .Field(x => x.FirstName, IndexingType.Searchable)
+               .Field(x => x.LastName, IndexingType.Searchable)
+               .Field(x => x.Age, IndexingType.Queryable)
+               .Field(x => x.SubType, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "First",
+                LastName = "Last",
+                Age = 99,
+                SubType = new ExampleClassObject.SubType1
+                {
+                    One = "type one",
+                    Two = 13
+                }
+            };
+
+            // Act
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var result = createdContent.ReadAsStringAsync().Result;
+
+            // Assert
+            Assert.AreEqual(2, Regex.Matches(result, "\r?\n").Count, "Expected exactly 2 windows- or unix newlines.");
+        }
+
+        [TestMethod]
+        public async Task CreateContent_ShouldProduceMinifiedContent()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+               .Field(x => x.FirstName, IndexingType.Searchable)
+               .Field(x => x.LastName, IndexingType.Searchable)
+               .Field(x => x.Age, IndexingType.Queryable)
+               .Field(x => x.SubType, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "First",
+                LastName = "Last",
+                Age = 99,
+                SubType = new ExampleClassObject.SubType1
+                {
+                    One = "type one",
+                    Two = 13
+                }
+            };
+
+            // Act
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var result = createdContent.ReadAsStringAsync().Result;
+
+            // Assert
+            var lines = result.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            Assert.AreEqual(3, lines.Length, "Expected exactly 3 lines (1 index, 1 content and 1 empty).");
+            Assert.AreEqual("""{"index":{"_id":"Optimizely.Graph.Source.Sdk.Tests.ExampleObjects.ExampleClassObject","language_routing":"en"}}""", lines[0], "Expected index line to be minified (to not contain spaces).");
+            Assert.AreEqual("""{"Status$$String":"Published","__typename":"ExampleClassObject","_rbac":"r:Everyone:Read","ContentType$$String":["ExampleClassObject"],"Language":{"Name$$String":"en"},"FirstName$$String___searchable":"First","LastName$$String___searchable":"Last","Age$$Int":99,"SubType":{"One$$String___searchable":"type one","Two$$Int":13}}""", lines[1], "Expected content line to be minified (to not contain spaces).");
+            Assert.AreEqual("", lines[2], "Expected empty line to be empty.");
+        }
+        
         [TestMethod]
         public async Task DeleteContentAsync_ThrowsNotImplementedException()
         {
