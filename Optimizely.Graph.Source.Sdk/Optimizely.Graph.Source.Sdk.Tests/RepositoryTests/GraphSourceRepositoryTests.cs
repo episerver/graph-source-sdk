@@ -8,6 +8,7 @@ using System.Text;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 using Optimizely.Graph.Source.Sdk.Tests.ExampleObjects;
+using System.Text.RegularExpressions;
 
 namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {
@@ -146,77 +147,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
                 x => x.LocationName
             );
 
-            var expectedJsonString = @"{
-  ""useTypedFieldNames"": true,
-  ""languages"": [],
-  ""links"": {
-    ""NameToLocationName"": {
-      ""from"": ""Name$$String___searchable"",
-      ""to"": ""LocationName$$String""
-    }
-  },
-  ""contentTypes"": {
-    ""Location"": {
-      ""contentType"": [],
-      ""properties"": {
-        ""Longitude"": {
-          ""type"": ""Float"",
-          ""searchable"": false,
-          ""skip"": false
-        },
-        ""Latitude"": {
-          ""type"": ""Float"",
-          ""searchable"": false,
-          ""skip"": false
-        },
-        ""Name"": {
-          ""type"": ""String"",
-          ""searchable"": true,
-          ""skip"": false
-        }
-      }
-    },
-    ""Event"": {
-      ""contentType"": [],
-      ""properties"": {
-        ""LocationName"": {
-          ""type"": ""String"",
-          ""searchable"": false,
-          ""skip"": false
-        },
-        ""Time"": {
-          ""type"": ""DateTime"",
-          ""searchable"": false,
-          ""skip"": false
-        },
-        ""Name"": {
-          ""type"": ""String"",
-          ""searchable"": true,
-          ""skip"": false
-        },
-        ""AdditionalInfo"": {
-          ""type"": ""ExtraInfo""
-        }
-      }
-    },
-    ""ExtraInfo"": {
-      ""contentType"": [],
-      ""properties"": {
-        ""Example1"": {
-          ""type"": ""String"",
-          ""searchable"": false,
-          ""skip"": true
-        },
-        ""Example2"": {
-          ""type"": ""Int"",
-          ""searchable"": false,
-          ""skip"": false
-        }
-      }
-    }
-  },
-  ""propertyTypes"": {}
-}";
+            var expectedJsonString = @"{""useTypedFieldNames"":true,""languages"":[],""links"":{""NameToLocationName"":{""from"":""Name$$String___searchable"",""to"":""LocationName$$String""}},""contentTypes"":{""Location"":{""contentType"":[],""properties"":{""Longitude"":{""type"":""Float"",""searchable"":false,""skip"":false},""Latitude"":{""type"":""Float"",""searchable"":false,""skip"":false},""Name"":{""type"":""String"",""searchable"":true,""skip"":false}}},""Event"":{""contentType"":[],""properties"":{""LocationName"":{""type"":""String"",""searchable"":false,""skip"":false},""Time"":{""type"":""DateTime"",""searchable"":false,""skip"":false},""Name"":{""type"":""String"",""searchable"":true,""skip"":false},""AdditionalInfo"":{""type"":""ExtraInfo""}}},""ExtraInfo"":{""contentType"":[],""properties"":{""Example1"":{""type"":""String"",""searchable"":false,""skip"":true},""Example2"":{""type"":""Int"",""searchable"":false,""skip"":false}}}},""propertyTypes"":{}}";
 
             var jsonString = BuildExpectedTypeJsonString();
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
@@ -264,7 +195,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
                 }
             };
 
-            var expectedJsonString = BuildExpextedContentJsonString(x => x.ToString(), exampleData);
+            var expectedJsonString = BuildExpectedContentJsonString(x => x.ToString(), exampleData);
 
             var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
 
@@ -348,16 +279,16 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
                 }
             };
 
-            var expectedJsonString = @"{ ""index"": { ""_id"": ""Location-Stockholm"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Location"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Location""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""Longitude$$Float"": 18.063241,  ""Latitude$$Float"": 59.334591,  ""Name$$String___searchable"": ""Stockholm""}
-{ ""index"": { ""_id"": ""Location-London"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Location"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Location""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""Longitude$$Float"": 0.1275,  ""Latitude$$Float"": 51.5072,  ""Name$$String___searchable"": ""London""}
-{ ""index"": { ""_id"": ""Event-Future of Project Management"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""Stockholm"",  ""Time$$DateTime"": ""2024-10-21T22:00:00Z"",  ""Name$$String___searchable"": ""Future of Project Management"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test1"",    ""Example2$$Int"": 1  }}
-{ ""index"": { ""_id"": ""Event-Week of Hope: Football Camp for Homeless Children in Hanoi!"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""Hanoi"",  ""Time$$DateTime"": ""2024-10-26T22:00:00Z"",  ""Name$$String___searchable"": ""Week of Hope: Football Camp for Homeless Children in Hanoi!"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test2"",    ""Example2$$Int"": 2  }}
-{ ""index"": { ""_id"": ""Event-Optimizing Project Management: Strategies for Success"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""London"",  ""Time$$DateTime"": ""2024-11-02T23:00:00Z"",  ""Name$$String___searchable"": ""Optimizing Project Management: Strategies for Success"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test3"",    ""Example2$$Int"": 3  }}
+            var expectedJsonString = @"{""index"":{""_id"":""Location-Stockholm"",""language_routing"":""en""}}
+{""Status$$String"":""Published"",""__typename"":""Location"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Location""],""Language"":{""Name$$String"":""en""},""Longitude$$Float"":18.063241,""Latitude$$Float"":59.334591,""Name$$String___searchable"":""Stockholm""}
+{""index"":{""_id"":""Location-London"",""language_routing"":""en""}}
+{""Status$$String"":""Published"",""__typename"":""Location"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Location""],""Language"":{""Name$$String"":""en""},""Longitude$$Float"":0.1275,""Latitude$$Float"":51.5072,""Name$$String___searchable"":""London""}
+{""index"":{""_id"":""Event-Future of Project Management"",""language_routing"":""en""}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Stockholm"",""Time$$DateTime"":""2024-10-21T22:00:00Z"",""Name$$String___searchable"":""Future of Project Management"",""AdditionalInfo"":{""Example1$$String___skip"":""test1"",""Example2$$Int"":1}}
+{""index"":{""_id"":""Event-Week of Hope: Football Camp for Homeless Children in Hanoi!"",""language_routing"":""en""}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Hanoi"",""Time$$DateTime"":""2024-10-26T22:00:00Z"",""Name$$String___searchable"":""Week of Hope: Football Camp for Homeless Children in Hanoi!"",""AdditionalInfo"":{""Example1$$String___skip"":""test2"",""Example2$$Int"":2}}
+{""index"":{""_id"":""Event-Optimizing Project Management: Strategies for Success"",""language_routing"":""en""}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""London"",""Time$$DateTime"":""2024-11-02T23:00:00Z"",""Name$$String___searchable"":""Optimizing Project Management: Strategies for Success"",""AdditionalInfo"":{""Example1$$String___skip"":""test3"",""Example2$$Int"":3}}
 ";
 
             Func<object, string> generateId = (x) =>
@@ -374,7 +305,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 
             };
 
-            var jsonString = BuildExpextedContentJsonString<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
+            var jsonString = BuildExpectedContentJsonString<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
 
             var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
 
@@ -395,6 +326,78 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.VerifyAll();
         }
 
+        [TestMethod]
+        public async Task CreateContent_ShouldContainTwoNewLines()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+               .Field(x => x.FirstName, IndexingType.Searchable)
+               .Field(x => x.LastName, IndexingType.Searchable)
+               .Field(x => x.Age, IndexingType.Queryable)
+               .Field(x => x.SubType, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "First",
+                LastName = "Last",
+                Age = 99,
+                SubType = new ExampleClassObject.SubType1
+                {
+                    One = "type one",
+                    Two = 13
+                }
+            };
+
+            // Act
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var result = createdContent.ReadAsStringAsync().Result;
+
+            // Assert
+            Assert.AreEqual(2, Regex.Matches(result, "\r?\n").Count, "Expected exactly 2 windows- or unix newlines.");
+        }
+
+        [TestMethod]
+        public async Task CreateContent_ShouldProduceMinifiedContent()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+               .Field(x => x.FirstName, IndexingType.Searchable)
+               .Field(x => x.LastName, IndexingType.Searchable)
+               .Field(x => x.Age, IndexingType.Queryable)
+               .Field(x => x.SubType, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "First",
+                LastName = "Last",
+                Age = 99,
+                SubType = new ExampleClassObject.SubType1
+                {
+                    One = "type one",
+                    Two = 13
+                }
+            };
+
+            // Act
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var result = createdContent.ReadAsStringAsync().Result;
+
+            // Assert
+            var lines = result.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            Assert.AreEqual(3, lines.Length, "Expected exactly 3 lines (1 index, 1 content and 1 empty).");
+            Assert.AreEqual("""{"index":{"_id":"Optimizely.Graph.Source.Sdk.Tests.ExampleObjects.ExampleClassObject","language_routing":"en"}}""", lines[0], "Expected index line to be minified (to not contain spaces).");
+            Assert.AreEqual("""{"Status$$String":"Published","__typename":"ExampleClassObject","_rbac":"r:Everyone:Read","ContentType$$String":["ExampleClassObject"],"Language":{"Name$$String":"en"},"FirstName$$String___searchable":"First","LastName$$String___searchable":"Last","Age$$Int":99,"SubType":{"One$$String___searchable":"type one","Two$$Int":13}}""", lines[1], "Expected content line to be minified (to not contain spaces).");
+            Assert.AreEqual("", lines[2], "Expected empty line to be empty.");
+        }
+        
         [TestMethod]
         public async Task DeleteContentAsync_ThrowsNotImplementedException()
         {
@@ -419,7 +422,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         {
             var serializeOptions = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = false,
                 Converters =
                 {
                     new SourceSdkContentTypeConverter()
@@ -429,11 +432,11 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             return JsonSerializer.Serialize(SourceConfigurationModel.GetTypeFieldConfiguration(), serializeOptions);
         }
 
-        private string BuildExpextedContentJsonString<T>(Func<T, string> generateId, params T[] items)
+        private string BuildExpectedContentJsonString<T>(Func<T, string> generateId, params T[] items)
         {
             var serializeOptions = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = false,
                 Converters =
                 {
                     new SourceSdkContentConverter()
@@ -444,9 +447,9 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 
             foreach (var data in items)
             {
-                itemJson += $"{{ \"index\": {{ \"_id\": \"{generateId(data)}\", \"language_routing\": \"en\" }} }}";
+                itemJson += $"{{\"index\":{{\"_id\":\"{generateId(data)}\",\"language_routing\":\"en\"}}}}";
                 itemJson += Environment.NewLine;
-                itemJson += JsonSerializer.Serialize(data, serializeOptions).Replace("\r\n", "");
+                itemJson += JsonSerializer.Serialize(data, serializeOptions);
                 itemJson += Environment.NewLine;
             }
             return itemJson;

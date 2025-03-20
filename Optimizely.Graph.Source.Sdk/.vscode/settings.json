@@ -1,0 +1,6 @@
+{
+    "dotnet-test-explorer.testProjectPath":
+    [
+        "Optimizely.Graph.Source.Sdk.Tests/RepositoryTests/",
+    ],
+}
