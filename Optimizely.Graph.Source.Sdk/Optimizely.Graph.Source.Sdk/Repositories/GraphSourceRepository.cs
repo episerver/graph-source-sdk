@@ -56,7 +56,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         {
             var serializeOptions = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = false,
                 Converters =
                 {
                     new SourceSdkContentTypeConverter()
@@ -85,7 +85,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         {
             var serializeOptions = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = false,
                 Converters =
                 {
                     new SourceSdkContentConverter()

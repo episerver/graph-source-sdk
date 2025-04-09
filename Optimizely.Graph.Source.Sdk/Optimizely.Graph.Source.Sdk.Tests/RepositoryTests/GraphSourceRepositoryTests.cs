@@ -349,15 +349,92 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             };
 
             var expectedJsonString = @"{ ""index"": { ""_id"": ""Location-Stockholm"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Location"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Location""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""Longitude$$Float"": 18.063241,  ""Latitude$$Float"": 59.334591,  ""Name$$String___searchable"": ""Stockholm""}
+{
+  ""Status$$String"": ""Published"",
+  ""__typename"": ""Location"",
+  ""_rbac"": ""r:Everyone:Read"",
+  ""ContentType$$String"": [
+    ""Location""
+  ],
+  ""Language"": {
+    ""Name$$String"": ""en""
+  },
+  ""Longitude$$Float"": 18.063241,
+  ""Latitude$$Float"": 59.334591,
+  ""Name$$String___searchable"": ""Stockholm""
+}
 { ""index"": { ""_id"": ""Location-London"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Location"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Location""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""Longitude$$Float"": 0.1275,  ""Latitude$$Float"": 51.5072,  ""Name$$String___searchable"": ""London""}
+{
+  ""Status$$String"": ""Published"",
+  ""__typename"": ""Location"",
+  ""_rbac"": ""r:Everyone:Read"",
+  ""ContentType$$String"": [
+    ""Location""
+  ],
+  ""Language"": {
+    ""Name$$String"": ""en""
+  },
+  ""Longitude$$Float"": 0.1275,
+  ""Latitude$$Float"": 51.5072,
+  ""Name$$String___searchable"": ""London""
+}
 { ""index"": { ""_id"": ""Event-Future of Project Management"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""Stockholm"",  ""Time$$DateTime"": ""2024-10-21T22:00:00Z"",  ""Name$$String___searchable"": ""Future of Project Management"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test1"",    ""Example2$$Int"": 1  }}
+{
+  ""Status$$String"": ""Published"",
+  ""__typename"": ""Event"",
+  ""_rbac"": ""r:Everyone:Read"",
+  ""ContentType$$String"": [
+    ""Event""
+  ],
+  ""Language"": {
+    ""Name$$String"": ""en""
+  },
+  ""LocationName$$String"": ""Stockholm"",
+  ""Time$$DateTime"": ""2024-10-22T04:00:00Z"",
+  ""Name$$String___searchable"": ""Future of Project Management"",
+  ""AdditionalInfo"": {
+    ""Example1$$String___skip"": ""test1"",
+    ""Example2$$Int"": 1
+  }
+}
 { ""index"": { ""_id"": ""Event-Week of Hope: Football Camp for Homeless Children in Hanoi!"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""Hanoi"",  ""Time$$DateTime"": ""2024-10-26T22:00:00Z"",  ""Name$$String___searchable"": ""Week of Hope: Football Camp for Homeless Children in Hanoi!"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test2"",    ""Example2$$Int"": 2  }}
+{
+  ""Status$$String"": ""Published"",
+  ""__typename"": ""Event"",
+  ""_rbac"": ""r:Everyone:Read"",
+  ""ContentType$$String"": [
+    ""Event""
+  ],
+  ""Language"": {
+    ""Name$$String"": ""en""
+  },
+  ""LocationName$$String"": ""Hanoi"",
+  ""Time$$DateTime"": ""2024-10-27T04:00:00Z"",
+  ""Name$$String___searchable"": ""Week of Hope: Football Camp for Homeless Children in Hanoi!"",
+  ""AdditionalInfo"": {
+    ""Example1$$String___skip"": ""test2"",
+    ""Example2$$Int"": 2
+  }
+}
 { ""index"": { ""_id"": ""Event-Optimizing Project Management: Strategies for Success"", ""language_routing"": ""en"" } }
-{  ""Status$$String"": ""Published"",  ""__typename"": ""Event"",  ""_rbac"": ""r:Everyone:Read"",  ""ContentType$$String"": [    ""Event""  ],  ""Language"": {    ""Name$$String"": ""en""  },  ""LocationName$$String"": ""London"",  ""Time$$DateTime"": ""2024-11-02T23:00:00Z"",  ""Name$$String___searchable"": ""Optimizing Project Management: Strategies for Success"",  ""AdditionalInfo"": {    ""Example1$$String___skip"": ""test3"",    ""Example2$$Int"": 3  }}
+{
+  ""Status$$String"": ""Published"",
+  ""__typename"": ""Event"",
+  ""_rbac"": ""r:Everyone:Read"",
+  ""ContentType$$String"": [
+    ""Event""
+  ],
+  ""Language"": {
+    ""Name$$String"": ""en""
+  },
+  ""LocationName$$String"": ""London"",
+  ""Time$$DateTime"": ""2024-11-03T04:00:00Z"",
+  ""Name$$String___searchable"": ""Optimizing Project Management: Strategies for Success"",
+  ""AdditionalInfo"": {
+    ""Example1$$String___skip"": ""test3"",
+    ""Example2$$Int"": 3
+  }
+}
 ";
 
             Func<object, string> generateId = (x) =>
