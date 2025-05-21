@@ -9,6 +9,7 @@
     <PackageProjectUrl>https://github.com/episerver/graph-source-sdk</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/episerver/graph-source-sdk</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
