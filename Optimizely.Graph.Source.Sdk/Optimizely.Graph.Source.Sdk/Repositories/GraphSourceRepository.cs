@@ -1,9 +1,10 @@
 ﻿using Optimizely.Graph.Source.Sdk.JsonConverters;
-using System.Text.Json;
-using System.Text;
 using Optimizely.Graph.Source.Sdk.RestClientHelpers;
 using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 using System.Linq.Expressions;
+using System.Text;
+using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {
@@ -139,6 +140,41 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         public void ConfigureLink<T, U>(string name, Expression<Func<T, object>> from, Expression<Func<U, object>> to)
         {
             SourceConfigurationModel.ConfigureLink<T, U>(name, from, to);
+        }
+
+        public async Task<string> DeleteContentItemsAsync(string language, params string[] ids)
+        {
+            var serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = false,
+                Converters =
+                {
+                    new SourceSdkContentConverter()
+                }
+            };
+
+            var itemJson = string.Empty;
+            for(int i = 0;i<ids.Length;i++)
+            {
+                itemJson += $"{{\"delete\":{{\"_id\":\"{ids[i]}\",\"language_routing\":\"{language}\"}}}}";
+
+                if (i < ids.Length - 1)
+                {
+                    itemJson += Environment.NewLine;
+                }
+            }
+
+            var content = new StringContent(itemJson, Encoding.UTF8, "application/json");
+
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}"))
+            {
+                requestMessage.Content = content;
+                using (var responseMessage = await client.SendAsync(requestMessage))
+                {
+                    await client.HandleResponse(responseMessage);
+                }
+            }
+            return string.Empty;
         }
     }
 }

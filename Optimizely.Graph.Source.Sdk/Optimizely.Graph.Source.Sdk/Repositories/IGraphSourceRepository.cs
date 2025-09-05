@@ -47,5 +47,11 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         /// </summary>
         /// <returns></returns>
         Task<string> DeleteContentAsync();
+
+        /// <summary>
+        /// Removes content previously stored by source.
+        /// </summary>
+        /// <returns></returns>
+        Task<string> DeleteContentItemsAsync(string language, params string[] ids);
     }
 }
