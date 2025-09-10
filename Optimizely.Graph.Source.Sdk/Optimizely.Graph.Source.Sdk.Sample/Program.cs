@@ -192,7 +192,7 @@ var exampleDataInstance3 = new Cafe
     }
 };
 
-await client.SaveContentAsync(generateId: (x) => $"{x.Name}_{x.Address.City}", exampleDataInstance1, exampleDataInstance2, exampleDataInstance3);
+await client.SaveContentAsync(generateId: (x) => $"{x.Name}_{x.Address.City}", "en", exampleDataInstance1, exampleDataInstance2, exampleDataInstance3);
 #endregion
 
 #region ExampleTypes

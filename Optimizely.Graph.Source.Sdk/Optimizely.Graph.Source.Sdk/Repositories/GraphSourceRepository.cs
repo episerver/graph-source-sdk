@@ -80,10 +80,10 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
+        public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, string language, params T[] data)
             where T : class, new()
         {
-            var content = CreateContent(generateId, data);
+            var content = CreateContent(generateId, language, data);
 
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}"))
             {
@@ -96,7 +96,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
             return string.Empty;
         }
 
-        public StringContent CreateContent<T>(Func<T, string> generateId, params T[] data)
+        public StringContent CreateContent<T>(Func<T, string> generateId, string language, params T[] data)
         {
             var serializeOptions = new JsonSerializerOptions
             {
@@ -111,7 +111,6 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
             foreach (var item in data)
             {
                 var id = generateId(item);
-                var language = "en";
 
                 itemJson += $"{{\"index\":{{\"_id\":\"{id}\",\"language_routing\":\"{language}\"}}}}";
                 itemJson += Environment.NewLine;

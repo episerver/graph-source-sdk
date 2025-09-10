@@ -89,10 +89,10 @@ namespace Optimizely.Graph.Source.Sdk
         /// <param name="generateId">Id associated with content.</param>
         /// <param name="data">Dynamic data being saved to Content Graph.</param>
         /// <returns></returns>
-        public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data)
+        public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, string language, params T[] data)
             where T : class, new()
         {
-            return await repository.SaveContentAsync(generateId, data);
+            return await repository.SaveContentAsync(generateId, language, data);
         }
 
         /// <summary>
