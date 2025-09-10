@@ -16,6 +16,7 @@ You can find more information https://docs.developers.optimizely.com/platform-op
 
 You can use the client by calling `Create()` and providing your base url, Content Graph source, application key and secret, then calling one of the provided functions for synchronizing Content Types and Content Data.
 
+#### Sync Content Types
 ```csharp
 // Initialize the GraphSourceClient by calling the Create method
 var client = GraphSourceClient.Create(new Uri("https://cg.optimizely.com"), "", "", "");
@@ -55,6 +56,26 @@ client.ConfigurePropertyType<ExampleClassObject.SubType1>()
 
 // Save content types to Optimizely Graph
 var result = await graphSourceClient.SaveTypesAsync();
+```
+
+#### Sync Content
+```csharp
+// Instantiate custom C# object and assign values
+var exampleData = new ExampleClassObject
+{
+    FirstName = "First",
+    LastName = "Last",
+    Age = 30,
+    SubType = new SubType1
+    {
+        One = "One",
+        Two = 2,
+    }
+};
+
+// Use the client to sync content
+// Parameters are generated id, language, and data object
+await client.SaveContentAsync(generateId: (x) => $"{x.FirstName}_{x.LastName}", "en", exampleData);
 ```
 
 ## Run Examples
