@@ -203,14 +203,14 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
 
             mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
-            mockRestClient.Setup(c => c.HandleResponse<ApiResponse>(response));
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
 
             // Act
             await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
 
             // Assert
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
-            mockRestClient.Verify(c => c.HandleResponse<ApiResponse>(response), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
             mockRestClient.VerifyAll();
         }
         
@@ -247,10 +247,10 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
 
-            var expectedApiResponse = new ApiResponse { JournalId = "stream/id" };
+            var expectedApiResponse = new ContentV2ApiResponse { JournalId = "stream/id" };
 
             mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
-            mockRestClient.Setup(c => c.HandleResponse<ApiResponse>(response)).ReturnsAsync(expectedApiResponse);
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response)).ReturnsAsync(expectedApiResponse);
 
             // Act
             var actualJournalId = await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
@@ -258,7 +258,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             // Assert
             Assert.AreEqual(expectedApiResponse.JournalId, actualJournalId);
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
-            mockRestClient.Verify(c => c.HandleResponse<ApiResponse>(response), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
             mockRestClient.VerifyAll();
         }
 
@@ -361,7 +361,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
 
             mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
-            mockRestClient.Setup(c => c.HandleResponse<ApiResponse>(response));
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
 
             // Act
             await repository.SaveContentAsync<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
@@ -370,7 +370,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             Assert.AreEqual(expectedJsonString, jsonString);
 
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
-            mockRestClient.Verify(c => c.HandleResponse<ApiResponse>(response), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
             mockRestClient.VerifyAll();
         }
 
