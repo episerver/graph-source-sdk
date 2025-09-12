@@ -206,7 +206,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
 
             // Act
-            await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
+            await repository.SaveContentAsync(generateId: (x) => x.ToString(), "en", exampleData);
 
             // Assert
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
@@ -364,7 +364,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
 
             // Act
-            await repository.SaveContentAsync<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
+            await repository.SaveContentAsync<object>(generateId, "en", locationStockholm, locationLondon, event1, event2, event3);
 
             // Assert
             Assert.AreEqual(expectedJsonString, jsonString);
@@ -401,7 +401,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             };
 
             // Act
-            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), "en", exampleData);
             var result = createdContent.ReadAsStringAsync().Result;
 
             // Assert
@@ -435,7 +435,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             };
 
             // Act
-            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), "en", exampleData);
             var result = createdContent.ReadAsStringAsync().Result;
 
             // Assert
