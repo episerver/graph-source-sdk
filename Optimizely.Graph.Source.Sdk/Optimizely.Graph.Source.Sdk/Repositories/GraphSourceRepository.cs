@@ -85,15 +85,11 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         {
             var content = CreateContent(generateId, data);
 
-            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}"))
-            {
-                requestMessage.Content = content;
-                using (var responseMessage = await client.SendAsync(requestMessage))
-                {
-                    await client.HandleResponse(responseMessage);
-                }
-            }
-            return string.Empty;
+            using var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{DataUrl}?id={source}");
+            requestMessage.Content = content;
+            using var responseMessage = await client.SendAsync(requestMessage);
+            var response = await client.HandleResponse<ContentV2ApiResponse>(responseMessage);
+            return response?.JournalId ?? string.Empty;
         }
 
         public StringContent CreateContent<T>(Func<T, string> generateId, params T[] data)
