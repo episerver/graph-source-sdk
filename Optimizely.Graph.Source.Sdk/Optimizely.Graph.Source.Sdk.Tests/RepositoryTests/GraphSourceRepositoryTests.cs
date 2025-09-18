@@ -464,6 +464,53 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.VerifyAll();
         }
 
+        [TestMethod]
+        public async Task DeleteContentItemsAsync_WhenThereAreOneItemToDelete_ShouldGenerateCorrectDeleteNdJson()
+        {
+            var expectedJsonString = @"{""delete"":{""_id"":""id1"",""language_routing"":""en""}}";
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).Callback<HttpRequestMessage>(req =>
+            {
+                // Read the content of the request
+                var content = req.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+                // Assert
+                Assert.AreEqual(expectedJsonString, content);
+            }).ReturnsAsync(response);
+
+            // Act
+            await repository.DeleteContentItemsAsync("en", "id1");
+        }
+
+        [TestMethod]
+        public async Task DeleteContentItemsAsync_WhenThereAreSeveralItemToDelete_ShouldGenerateCorrectDeleteNdJson()
+        {
+            var expectedJsonStrings = new List<string>
+            {
+                @"{""delete"":{""_id"":""id1"",""language_routing"":""en""}}",
+                @"{""delete"":{""_id"":""id2"",""language_routing"":""en""}}",
+                @"{""delete"":{""_id"":""id3"",""language_routing"":""en""}}"
+            };
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).Callback<HttpRequestMessage>(req =>
+            {
+                // Read the content of the request
+                var content = req.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+                // Assert
+                var contentResultItems = content.Split(Environment.NewLine);
+                Assert.AreEqual(expectedJsonStrings[0], contentResultItems[0]);
+                Assert.AreEqual(expectedJsonStrings[1], contentResultItems[1]);
+                Assert.AreEqual(expectedJsonStrings[2], contentResultItems[2]);
+            }).ReturnsAsync(response);
+
+            // Act
+            await repository.DeleteContentItemsAsync("en", "id1", "id2", "id3");
+        }
 
         #region Private
         private string BuildExpectedTypeJsonString()
