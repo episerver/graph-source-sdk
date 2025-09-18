@@ -40,7 +40,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         /// <param name="generateId">Id associated with content.</param>
         /// <param name="data">Dynamic data being saved to Content Graph.</param>
         /// <returns></returns>
-        Task<string> SaveContentAsync<T>(Func<T, string> generateId, params T[] data) where T : class, new();
+        Task<string> SaveContentAsync<T>(Func<T, string> generateId, string language, params T[] data) where T : class, new();
 
         /// <summary>
         /// Removes content previously stored by source.

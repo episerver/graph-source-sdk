@@ -203,14 +203,62 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
 
             mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
-            mockRestClient.Setup(c => c.HandleResponse(response));
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
 
             // Act
-            await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
+            await repository.SaveContentAsync(generateId: (x) => x.ToString(), "en", exampleData);
 
             // Assert
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
-            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+        
+        [TestMethod]
+        public async Task SaveContentAsync_SerializesData_ReturnsJournalId()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+                .Field(x => x.FirstName, IndexingType.Searchable)
+                .Field(x => x.LastName, IndexingType.Searchable)
+                .Field(x => x.Age, IndexingType.Queryable)
+                .Field(x => x.SubType, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "First",
+                LastName = "Last",
+                Age = 99,
+                SubType = new ExampleClassObject.SubType1
+                {
+                    One = "one",
+                    Two = 13
+                }
+            };
+
+            var expectedJsonString = BuildExpectedContentJsonString(x => x.ToString(), exampleData);
+
+            var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
+
+            var expectedApiResponse = new ContentV2ApiResponse { JournalId = "stream/id" };
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response)).ReturnsAsync(expectedApiResponse);
+
+            // Act
+            var actualJournalId = await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
+
+            // Assert
+            Assert.AreEqual(expectedApiResponse.JournalId, actualJournalId);
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
             mockRestClient.VerifyAll();
         }
 
@@ -284,11 +332,11 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {""index"":{""_id"":""Location-London"",""language_routing"":""en""}}
 {""Status$$String"":""Published"",""__typename"":""Location"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Location""],""Language"":{""Name$$String"":""en""},""Longitude$$Float"":0.1275,""Latitude$$Float"":51.5072,""Name$$String___searchable"":""London""}
 {""index"":{""_id"":""Event-Future of Project Management"",""language_routing"":""en""}}
-{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Stockholm"",""Time$$DateTime"":""2024-10-21T22:00:00Z"",""Name$$String___searchable"":""Future of Project Management"",""AdditionalInfo"":{""Example1$$String___skip"":""test1"",""Example2$$Int"":1}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Stockholm"",""Time$$DateTime"":""2024-10-22T04:00:00Z"",""Name$$String___searchable"":""Future of Project Management"",""AdditionalInfo"":{""Example1$$String___skip"":""test1"",""Example2$$Int"":1}}
 {""index"":{""_id"":""Event-Week of Hope: Football Camp for Homeless Children in Hanoi!"",""language_routing"":""en""}}
-{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Hanoi"",""Time$$DateTime"":""2024-10-26T22:00:00Z"",""Name$$String___searchable"":""Week of Hope: Football Camp for Homeless Children in Hanoi!"",""AdditionalInfo"":{""Example1$$String___skip"":""test2"",""Example2$$Int"":2}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Hanoi"",""Time$$DateTime"":""2024-10-27T04:00:00Z"",""Name$$String___searchable"":""Week of Hope: Football Camp for Homeless Children in Hanoi!"",""AdditionalInfo"":{""Example1$$String___skip"":""test2"",""Example2$$Int"":2}}
 {""index"":{""_id"":""Event-Optimizing Project Management: Strategies for Success"",""language_routing"":""en""}}
-{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""London"",""Time$$DateTime"":""2024-11-02T23:00:00Z"",""Name$$String___searchable"":""Optimizing Project Management: Strategies for Success"",""AdditionalInfo"":{""Example1$$String___skip"":""test3"",""Example2$$Int"":3}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""London"",""Time$$DateTime"":""2024-11-03T04:00:00Z"",""Name$$String___searchable"":""Optimizing Project Management: Strategies for Success"",""AdditionalInfo"":{""Example1$$String___skip"":""test3"",""Example2$$Int"":3}}
 ";
 
             Func<object, string> generateId = (x) =>
@@ -313,16 +361,16 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v2/data?id={source}") { Content = content };
 
             mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
-            mockRestClient.Setup(c => c.HandleResponse(response));
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
 
             // Act
-            await repository.SaveContentAsync<object>(generateId, locationStockholm, locationLondon, event1, event2, event3);
+            await repository.SaveContentAsync<object>(generateId, "en", locationStockholm, locationLondon, event1, event2, event3);
 
             // Assert
             Assert.AreEqual(expectedJsonString, jsonString);
 
             mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
-            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
             mockRestClient.VerifyAll();
         }
 
@@ -353,7 +401,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             };
 
             // Act
-            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), "en", exampleData);
             var result = createdContent.ReadAsStringAsync().Result;
 
             // Assert
@@ -387,7 +435,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             };
 
             // Act
-            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), exampleData);
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), "en", exampleData);
             var result = createdContent.ReadAsStringAsync().Result;
 
             // Assert
