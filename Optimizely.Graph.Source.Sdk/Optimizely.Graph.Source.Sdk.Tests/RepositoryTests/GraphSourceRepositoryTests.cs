@@ -253,7 +253,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response)).ReturnsAsync(expectedApiResponse);
 
             // Act
-            var actualJournalId = await repository.SaveContentAsync(generateId: (x) => x.ToString(), exampleData);
+            var actualJournalId = await repository.SaveContentAsync(generateId: (x) => x.ToString(), "en", exampleData);
 
             // Assert
             Assert.AreEqual(expectedApiResponse.JournalId, actualJournalId);
