@@ -1,23 +1,36 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
 
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/obj
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Sample/obj
-/Optimizely.Graph.Source.Sdk/.vs/ProjectEvaluation
-/Optimizely.Graph.Source.Sdk/ClassLibrary1/obj
-/Optimizely.Graph.Source.Sdk/.vs
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Sample/bin
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk/bin
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin/Debug/net8.0
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj/Debug/net8.0
+# Visual Studio Code
+.vscode
 
-*.dll
-*.sqlite
-*.pdb
-*.log
-*.cache
-*.v2
-*.vsidx
-*.vs
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/bin
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj
-/Optimizely.Graph.Source.Sdk/Optimizely.Graph.Source.Sdk.Tests/obj
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+
+# Rider
+.idea/
+
