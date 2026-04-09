@@ -104,6 +104,15 @@ namespace Optimizely.Graph.Source.Sdk
             return await repository.DeleteContentAsync();
         }
 
+        /// <summary>
+        /// Removes individual content items previously stored by source.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> DeleteContentItemsAsync(string language, params string[] ids)
+        {
+            return await repository.DeleteContentItemsAsync(language, ids);
+        }
+
         #region Private
         /// <summary>
         /// Creates the HttpClientFactory for the REST services.
