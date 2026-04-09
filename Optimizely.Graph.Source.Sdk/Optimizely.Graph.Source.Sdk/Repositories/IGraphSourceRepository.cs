@@ -28,10 +28,16 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         SourceConfigurationModel<T> ConfigurePropertyType<T>() where T : class, new();
 
         /// <summary>
-        /// Saves Content Types set in the SourceConfigurationModel to the Content Graph api.
+        /// Replaces all Content Types set in the SourceConfigurationModel to the Content Graph api.
         /// </summary>
         /// <returns></returns>
         Task<string> SaveTypesAsync();
+
+        /// <summary>
+        /// Updates specific Content Types set in the SourceConfigurationModel to the Content Graph api.
+        /// </summary>
+        /// <returns></returns>
+        Task<string> UpdateTypesAsync();
 
         /// <summary>
         /// Saves dynamic content sent in data array to the Content Graph api.
@@ -49,7 +55,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         Task<string> DeleteContentAsync();
 
         /// <summary>
-        /// Removes content previously stored by source.
+        /// Removes individual content items previously stored by source.
         /// </summary>
         /// <returns></returns>
         Task<string> DeleteContentItemsAsync(string language, params string[] ids);

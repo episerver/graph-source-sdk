@@ -81,6 +81,34 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<string> UpdateTypesAsync()
+        {
+            var serializeOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters =
+                {
+                    new SourceSdkContentTypeConverter()
+                }
+            };
+
+            var jsonString = JsonSerializer.Serialize(SourceConfigurationModel.GetTypeFieldConfiguration(), serializeOptions);
+
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{TypeUrl}?id={source}"))
+            {
+                requestMessage.Content = content;
+                using (var responseMessage = await client.SendAsync(requestMessage))
+                {
+                    await client.HandleResponse(responseMessage);
+                }
+            }
+
+            return string.Empty;
+        }
+
+        /// <inheritdoc/>
         public async Task<string> SaveContentAsync<T>(Func<T, string> generateId, string language, params T[] data)
             where T : class, new()
         {

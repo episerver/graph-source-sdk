@@ -83,6 +83,15 @@ namespace Optimizely.Graph.Source.Sdk
         }
 
         /// <summary>
+        /// Updates Content Types set in the SourceConfigurationModel to the Content Graph api.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> UpdateTypesAsync()
+        {
+            return await repository.UpdateTypesAsync();
+        }
+
+        /// <summary>
         /// Saves dynamic content sent in data array to the Content Graph api.
         /// </summary>
         /// <typeparam name="T"></typeparam>

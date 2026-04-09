@@ -170,6 +170,80 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         }
 
         [TestMethod]
+        public async Task UpdateTypesAsync_BuildsExpectedJsonString_AndCallsGraphClient()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+                .Field(x => x.FirstName, IndexingType.Searchable)
+                .Field(x => x.LastName, IndexingType.Searchable)
+                .Field(x => x.Age, IndexingType.Queryable);
+
+            var expectedJsonString = BuildExpectedTypeJsonString();
+            var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v3/types?id={source}") { Content = content };
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+
+            // Act
+            await repository.UpdateTypesAsync();
+
+            // Assert
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+
+        [TestMethod]
+        public async Task UpdateTypesAsync_WithLink_ShouldGenerateTypesAndLink()
+        {
+            // Arrange
+            repository.ConfigureContentType<Location>()
+                .Field(x => x.Longitude, IndexingType.Queryable)
+                .Field(x => x.Latitude, IndexingType.Queryable)
+                .Field(x => x.Name, IndexingType.Searchable);
+
+            repository.ConfigureContentType<Event>()
+                .Field(x => x.LocationName, IndexingType.Queryable)
+                .Field(x => x.Time, IndexingType.Queryable)
+                .Field(x => x.Name, IndexingType.Searchable)
+                .Field(x => x.AdditionalInfo, IndexingType.PropertyType);
+
+            repository.ConfigureContentType<ExtraInfo>()
+                .Field(x => x.Example1, IndexingType.OnlyStored)
+                .Field(x => x.Example2, IndexingType.Queryable);
+
+            repository.ConfigureLink<Location, Event>(
+                "NameToLocationName",
+                x => x.Name,
+                x => x.LocationName
+            );
+
+            var expectedJsonString = @"{""useTypedFieldNames"":true,""languages"":[],""links"":{""NameToLocationName"":{""from"":""Name$$String___searchable"",""to"":""LocationName$$String""}},""contentTypes"":{""Location"":{""contentType"":[],""properties"":{""Longitude"":{""type"":""Float"",""searchable"":false,""skip"":false},""Latitude"":{""type"":""Float"",""searchable"":false,""skip"":false},""Name"":{""type"":""String"",""searchable"":true,""skip"":false}}},""Event"":{""contentType"":[],""properties"":{""LocationName"":{""type"":""String"",""searchable"":false,""skip"":false},""Time"":{""type"":""DateTime"",""searchable"":false,""skip"":false},""Name"":{""type"":""String"",""searchable"":true,""skip"":false},""AdditionalInfo"":{""type"":""ExtraInfo""}}},""ExtraInfo"":{""contentType"":[],""properties"":{""Example1"":{""type"":""String"",""searchable"":false,""skip"":true},""Example2"":{""type"":""Int"",""searchable"":false,""skip"":false}}}},""propertyTypes"":{}}";
+
+            var jsonString = BuildExpectedTypeJsonString();
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"/api/content/v3/types?id={source}") { Content = content };
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+
+            // Act
+            await repository.UpdateTypesAsync();
+
+            // Assert
+            Assert.AreEqual(expectedJsonString, jsonString);
+
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+
+        [TestMethod]
         public async Task SaveContentAsync_SerializesData_AndCallsGraphClient()
         {
             // Arrange
@@ -296,7 +370,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var event1 = new Event
             {
                 Name = "Future of Project Management",
-                Time = new DateTime(2024, 10, 22),
+                Time = new DateTime(2024, 10, 22, 0, 0, 0, DateTimeKind.Utc),
                 LocationName = "Stockholm",
                 AdditionalInfo = new ExtraInfo
                 {
@@ -307,7 +381,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var event2 = new Event
             {
                 Name = "Week of Hope: Football Camp for Homeless Children in Hanoi!",
-                Time = new DateTime(2024, 10, 27),
+                Time = new DateTime(2024, 10, 27, 0, 0, 0, DateTimeKind.Utc),
                 LocationName = "Hanoi",
                 AdditionalInfo = new ExtraInfo
                 {
@@ -318,7 +392,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             var event3 = new Event
             {
                 Name = "Optimizing Project Management: Strategies for Success",
-                Time = new DateTime(2024, 11, 03),
+                Time = new DateTime(2024, 11, 03, 0, 0, 0, DateTimeKind.Utc),
                 LocationName = "London",
                 AdditionalInfo = new ExtraInfo
                 {
@@ -332,11 +406,11 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 {""index"":{""_id"":""Location-London"",""language_routing"":""en""}}
 {""Status$$String"":""Published"",""__typename"":""Location"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Location""],""Language"":{""Name$$String"":""en""},""Longitude$$Float"":0.1275,""Latitude$$Float"":51.5072,""Name$$String___searchable"":""London""}
 {""index"":{""_id"":""Event-Future of Project Management"",""language_routing"":""en""}}
-{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Stockholm"",""Time$$DateTime"":""2024-10-22T04:00:00Z"",""Name$$String___searchable"":""Future of Project Management"",""AdditionalInfo"":{""Example1$$String___skip"":""test1"",""Example2$$Int"":1}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Stockholm"",""Time$$DateTime"":""2024-10-22T00:00:00Z"",""Name$$String___searchable"":""Future of Project Management"",""AdditionalInfo"":{""Example1$$String___skip"":""test1"",""Example2$$Int"":1}}
 {""index"":{""_id"":""Event-Week of Hope: Football Camp for Homeless Children in Hanoi!"",""language_routing"":""en""}}
-{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Hanoi"",""Time$$DateTime"":""2024-10-27T04:00:00Z"",""Name$$String___searchable"":""Week of Hope: Football Camp for Homeless Children in Hanoi!"",""AdditionalInfo"":{""Example1$$String___skip"":""test2"",""Example2$$Int"":2}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""Hanoi"",""Time$$DateTime"":""2024-10-27T00:00:00Z"",""Name$$String___searchable"":""Week of Hope: Football Camp for Homeless Children in Hanoi!"",""AdditionalInfo"":{""Example1$$String___skip"":""test2"",""Example2$$Int"":2}}
 {""index"":{""_id"":""Event-Optimizing Project Management: Strategies for Success"",""language_routing"":""en""}}
-{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""London"",""Time$$DateTime"":""2024-11-03T04:00:00Z"",""Name$$String___searchable"":""Optimizing Project Management: Strategies for Success"",""AdditionalInfo"":{""Example1$$String___skip"":""test3"",""Example2$$Int"":3}}
+{""Status$$String"":""Published"",""__typename"":""Event"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""Event""],""Language"":{""Name$$String"":""en""},""LocationName$$String"":""London"",""Time$$DateTime"":""2024-11-03T00:00:00Z"",""Name$$String___searchable"":""Optimizing Project Management: Strategies for Success"",""AdditionalInfo"":{""Example1$$String___skip"":""test3"",""Example2$$Int"":3}}
 ";
 
             Func<object, string> generateId = (x) =>
