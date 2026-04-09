@@ -255,7 +255,7 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
                 return "[String]";
             }
 
-            throw new NotImplementedException();
+            throw new NotImplementedException($"Property of type {fieldType.Name} is not assignable to any implemented types");
         }
     }
 
