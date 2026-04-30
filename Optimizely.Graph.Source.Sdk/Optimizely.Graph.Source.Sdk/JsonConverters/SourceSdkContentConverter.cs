@@ -39,7 +39,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             writer.WriteStartObject("index");
 
             writer.WriteString("_id", "testar"); // TODO: Set Id
-            writer.WriteString("language_routing", language); // TODO: Set Language
+            writer.WriteString("language_routing", language);
 
             writer.WriteEndObject();
             writer.WriteEndObject();
