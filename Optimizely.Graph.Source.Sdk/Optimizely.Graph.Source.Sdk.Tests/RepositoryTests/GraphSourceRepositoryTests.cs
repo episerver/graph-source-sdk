@@ -520,8 +520,11 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             Assert.AreEqual("", lines[2], "Expected empty line to be empty.");
         }
         
-        [TestMethod]
-        public async Task CreateContent_ShouldSetLanguageRoutingAndLanguageName()
+        [DataTestMethod]
+        [DataRow("sv")]
+        [DataRow("nl")]
+        [DataRow("en")]
+        public async Task CreateContent_ShouldSetLanguageRoutingAndLanguageName(string language)
         {
             // Arrange
             repository.ConfigureContentType<ExampleClassObject>()
@@ -547,13 +550,13 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             };
 
             // Act
-            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), "sv", exampleData);
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), language, exampleData);
             var result = createdContent.ReadAsStringAsync().Result;
 
             // Assert
             var lines = result.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
-            Assert.AreEqual("""{"index":{"_id":"Optimizely.Graph.Source.Sdk.Tests.ExampleObjects.ExampleClassObject","language_routing":"sv"}}""", lines[0], "Expected index line to contain language_routing 'sv'.");
-            Assert.AreEqual("""{"Status$$String":"Published","__typename":"ExampleClassObject","_rbac":"r:Everyone:Read","ContentType$$String":["ExampleClassObject"],"Language":{"Name$$String":"sv"},"FirstName$$String___searchable":"First","LastName$$String___searchable":"Last","Age$$Int":99,"SubType":{"One$$String___searchable":"type one","Two$$Int":13}}""", lines[1], "Expected content line to contain Language.Name$$String 'sv'.");
+            Assert.AreEqual($@"{{""index"":{{""_id"":""Optimizely.Graph.Source.Sdk.Tests.ExampleObjects.ExampleClassObject"",""language_routing"":""{language}""}}}}", lines[0], $"Expected index line to contain language_routing '{language}'.");
+            Assert.AreEqual($@"{{""Status$$String"":""Published"",""__typename"":""ExampleClassObject"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""ExampleClassObject""],""Language"":{{""Name$$String"":""{language}""}},""FirstName$$String___searchable"":""First"",""LastName$$String___searchable"":""Last"",""Age$$Int"":99,""SubType"":{{""One$$String___searchable"":""type one"",""Two$$Int"":13}}}}", lines[1], $"Expected content line to contain Language.Name$$String '{language}'.");
         }
 
         [TestMethod]
