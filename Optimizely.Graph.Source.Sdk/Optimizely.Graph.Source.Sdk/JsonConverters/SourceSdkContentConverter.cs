@@ -6,6 +6,13 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
 {
     public class SourceSdkContentConverter : JsonConverter<object>
     {
+        private readonly string language;
+
+        public SourceSdkContentConverter(string language)
+        {
+            this.language = language;
+        }
+
         public override bool CanConvert(Type typeToConvert)
         {
             return typeToConvert.GetType() != typeof(IEnumerable<TypeFieldConfiguration>);
@@ -32,7 +39,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             writer.WriteStartObject("index");
 
             writer.WriteString("_id", "testar"); // TODO: Set Id
-            writer.WriteString("language_routing", "en"); // TODO: Set Language
+            writer.WriteString("language_routing", language); // TODO: Set Language
 
             writer.WriteEndObject();
             writer.WriteEndObject();
@@ -55,7 +62,7 @@ namespace Optimizely.Graph.Source.Sdk.JsonConverters
             writer.WriteEndArray();
 
             writer.WriteStartObject("Language");
-            writer.WriteString("Name$$String", "en"); //TODO: Set Language
+            writer.WriteString("Name$$String", language);
             writer.WriteEndObject();
 
             foreach(var fieldInfoItem in fieldInfoItems)
