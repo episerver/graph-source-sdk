@@ -520,6 +520,45 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
             Assert.AreEqual("", lines[2], "Expected empty line to be empty.");
         }
         
+        [DataTestMethod]
+        [DataRow("sv")]
+        [DataRow("nl")]
+        [DataRow("en")]
+        public async Task CreateContent_ShouldSetLanguageRoutingAndLanguageName(string language)
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+               .Field(x => x.FirstName, IndexingType.Searchable)
+               .Field(x => x.LastName, IndexingType.Searchable)
+               .Field(x => x.Age, IndexingType.Queryable)
+               .Field(x => x.SubType, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "First",
+                LastName = "Last",
+                Age = 99,
+                SubType = new ExampleClassObject.SubType1
+                {
+                    One = "type one",
+                    Two = 13
+                }
+            };
+
+            // Act
+            var createdContent = repository.CreateContent(generateId: (x) => x.ToString(), language, exampleData);
+            var result = createdContent.ReadAsStringAsync().Result;
+
+            // Assert
+            var lines = result.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            Assert.AreEqual($@"{{""index"":{{""_id"":""Optimizely.Graph.Source.Sdk.Tests.ExampleObjects.ExampleClassObject"",""language_routing"":""{language}""}}}}", lines[0], $"Expected index line to contain language_routing '{language}'.");
+            Assert.AreEqual($@"{{""Status$$String"":""Published"",""__typename"":""ExampleClassObject"",""_rbac"":""r:Everyone:Read"",""ContentType$$String"":[""ExampleClassObject""],""Language"":{{""Name$$String"":""{language}""}},""FirstName$$String___searchable"":""First"",""LastName$$String___searchable"":""Last"",""Age$$Int"":99,""SubType"":{{""One$$String___searchable"":""type one"",""Two$$Int"":13}}}}", lines[1], $"Expected content line to contain Language.Name$$String '{language}'.");
+        }
+
         [TestMethod]
         public async Task DeleteContentAsync_ThrowsNotImplementedException()
         {
@@ -603,12 +642,17 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 
         private string BuildExpectedContentJsonString<T>(Func<T, string> generateId, params T[] items)
         {
+            return BuildExpectedContentJsonString(generateId, "en", items);
+        }
+
+        private string BuildExpectedContentJsonString<T>(Func<T, string> generateId, string language, params T[] items)
+        {
             var serializeOptions = new JsonSerializerOptions
             {
                 WriteIndented = false,
                 Converters =
                 {
-                    new SourceSdkContentConverter()
+                    new SourceSdkContentConverter(language)
                 }
             };
 
@@ -616,7 +660,7 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
 
             foreach (var data in items)
             {
-                itemJson += $"{{\"index\":{{\"_id\":\"{generateId(data)}\",\"language_routing\":\"en\"}}}}";
+                itemJson += $"{{\"index\":{{\"_id\":\"{generateId(data)}\",\"language_routing\":\"{language}\"}}}}";
                 itemJson += Environment.NewLine;
                 itemJson += JsonSerializer.Serialize(data, serializeOptions);
                 itemJson += Environment.NewLine;

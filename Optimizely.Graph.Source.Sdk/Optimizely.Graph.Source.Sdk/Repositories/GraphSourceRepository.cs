@@ -4,7 +4,6 @@ using Optimizely.Graph.Source.Sdk.SourceConfiguration;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Optimizely.Graph.Source.Sdk.Repositories
 {
@@ -128,7 +127,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
                 WriteIndented = false,
                 Converters =
                 {
-                    new SourceSdkContentConverter()
+                    new SourceSdkContentConverter(language)
                 }
             };
             
@@ -172,7 +171,7 @@ namespace Optimizely.Graph.Source.Sdk.Repositories
                 WriteIndented = false,
                 Converters =
                 {
-                    new SourceSdkContentConverter()
+                    new SourceSdkContentConverter(language)
                 }
             };
 
