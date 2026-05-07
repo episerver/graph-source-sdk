@@ -10,6 +10,8 @@
 
         public SubType1 SubType { get; set; }
 
+        public List<SubType1> SubTypes { get; set; }
+
         public class SubType1
         {
             public string One { get; set; }
