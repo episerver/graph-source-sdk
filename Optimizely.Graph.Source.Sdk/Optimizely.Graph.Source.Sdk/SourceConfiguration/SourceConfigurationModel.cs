@@ -113,7 +113,7 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
 
             var fieldName = fieldSelector.GetFieldPath();
             var fieldType = fieldSelector.GetReturnType();
-            var mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
+            var mappedTypeName = GetMappedTypeName(fieldType, indexingType);
 
             var exist = contentTypeFieldConfiguration.Fields.Any(x =>
                 x.Name == fieldName &&
@@ -147,15 +147,7 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
             var fieldName = fieldSelector.GetFieldPath();
             var fieldType = fieldSelector.GetReturnType();
 
-            var mappedTypeName = string.Empty;
-            if (indexingType == IndexingType.PropertyType && typeof(IEnumerable<object>).IsAssignableFrom(fieldType))
-            {
-                mappedTypeName = $"[{fieldType.GetGenericArguments()[0].Name}]";
-            }
-            else
-            {
-                mappedTypeName = indexingType == IndexingType.PropertyType ? fieldType.Name : GetTypeName(fieldType);
-            }
+            var mappedTypeName = GetMappedTypeName(fieldType, indexingType);
 
             propertyTypeFieldConfiguration.Fields.Add(new FieldInfo
             {
@@ -256,6 +248,19 @@ namespace Optimizely.Graph.Source.Sdk.SourceConfiguration
             }
 
             throw new NotImplementedException($"Property of type {fieldType.Name} is not assignable to any implemented types");
+        }
+
+        private string GetMappedTypeName(Type fieldType, IndexingType indexingType)
+        {
+            if (indexingType == IndexingType.PropertyType)
+            {
+                if (typeof(IEnumerable<object>).IsAssignableFrom(fieldType))
+                {
+                    return $"[{fieldType.GetGenericArguments()[0].Name}]";
+                }
+                return fieldType.Name;
+            }
+            return GetTypeName(fieldType);
         }
     }
 
