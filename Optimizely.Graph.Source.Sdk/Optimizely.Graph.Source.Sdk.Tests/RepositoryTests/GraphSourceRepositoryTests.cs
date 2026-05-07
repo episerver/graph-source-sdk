@@ -449,6 +449,98 @@ namespace Optimizely.Graph.Source.Sdk.Tests.RepositoryTests
         }
 
         [TestMethod]
+        public void ConfigureContentType_WithCollectionPropertyType_SetsMappedTypeNameWithBrackets()
+        {
+            // Arrange & Act
+            repository.ConfigureContentType<ExampleClassObject>()
+                .Field(x => x.FirstName, IndexingType.Searchable)
+                .Field(x => x.SubTypes, IndexingType.PropertyType);
+
+            // Assert
+            var contentTypes = SourceConfigurationModel.GetContentTypeFieldConfiguration();
+            var subTypesField = contentTypes.First().Fields.Single(x => x.Name == "SubTypes");
+
+            Assert.AreEqual(IndexingType.PropertyType, subTypesField.IndexingType);
+            Assert.AreEqual("[SubType1]", subTypesField.MappedTypeName);
+        }
+
+        [TestMethod]
+        public async Task SaveTypesAsync_WithCollectionPropertyType_BuildsExpectedJsonSchema()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+                .Field(x => x.FirstName, IndexingType.Searchable)
+                .Field(x => x.SubType, IndexingType.PropertyType)
+                .Field(x => x.SubTypes, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var expectedJsonString = @"{""useTypedFieldNames"":true,""languages"":[],""links"":{},""contentTypes"":{""ExampleClassObject"":{""contentType"":[],""properties"":{""FirstName"":{""type"":""String"",""searchable"":true,""skip"":false},""SubType"":{""type"":""SubType1""},""SubTypes"":{""type"":""[SubType1]""}}}},""propertyTypes"":{""SubType1"":{""properties"":{""One"":{""type"":""String"",""searchable"":true,""skip"":false},""Two"":{""type"":""Int"",""searchable"":false,""skip"":false}}}}}";
+
+            var jsonString = BuildExpectedTypeJsonString();
+
+            var content = new StringContent(expectedJsonString, Encoding.UTF8, "application/json");
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/content/v3/types?id={source}") { Content = content };
+
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(response);
+            mockRestClient.Setup(c => c.HandleResponse(response));
+
+            // Act
+            await repository.SaveTypesAsync();
+
+            // Assert
+            Assert.AreEqual(expectedJsonString, jsonString);
+
+            mockRestClient.Verify(c => c.SendAsync(It.Is<HttpRequestMessage>(x => Compare(request, x))), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+
+        [TestMethod]
+        public async Task SaveContentAsync_WithCollectionPropertyType_SerializesCollectionCorrectly()
+        {
+            // Arrange
+            repository.ConfigureContentType<ExampleClassObject>()
+                .Field(x => x.FirstName, IndexingType.Searchable)
+                .Field(x => x.SubTypes, IndexingType.PropertyType);
+
+            repository.ConfigurePropertyType<ExampleClassObject.SubType1>()
+                .Field(x => x.One, IndexingType.Searchable)
+                .Field(x => x.Two, IndexingType.Queryable);
+
+            var exampleData = new ExampleClassObject
+            {
+                FirstName = "Test",
+                SubTypes = new List<ExampleClassObject.SubType1>
+                {
+                    new ExampleClassObject.SubType1 { One = "first", Two = 1 },
+                    new ExampleClassObject.SubType1 { One = "second", Two = 2 }
+                }
+            };
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            mockRestClient.Setup(c => c.HandleResponse<ContentV2ApiResponse>(response));
+            mockRestClient.Setup(c => c.SendAsync(It.IsAny<HttpRequestMessage>())).Callback<HttpRequestMessage>(req =>
+            {
+                var body = req.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                Assert.IsTrue(body.Contains(@"""SubTypes"":[{""One$$String___searchable"":""first"",""Two$$Int"":1},{""One$$String___searchable"":""second"",""Two$$Int"":2}]"), "Expected serialized collection with typed field names in content body.");
+                Assert.IsTrue(body.Contains(@"""FirstName$$String___searchable"":""Test"""), "Expected FirstName field in content body.");
+            }).ReturnsAsync(response);
+
+            // Act
+            await repository.SaveContentAsync(generateId: (x) => x.ToString(), "en", exampleData);
+
+            // Assert
+            mockRestClient.Verify(c => c.SendAsync(It.IsAny<HttpRequestMessage>()), Times.Once);
+            mockRestClient.Verify(c => c.HandleResponse<ContentV2ApiResponse>(response), Times.Once);
+            mockRestClient.VerifyAll();
+        }
+
+        [TestMethod]
         public async Task CreateContent_ShouldContainTwoNewLines()
         {
             // Arrange
